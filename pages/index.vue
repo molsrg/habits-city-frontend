@@ -1,6 +1,6 @@
 <template>
 	<div>
-		It s a index Vue
+		It s a index Vue. Test 2
 	</div>
 </template>
 
