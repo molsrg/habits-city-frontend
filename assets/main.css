@@ -1,0 +1,58 @@
+
+/* @import url("primevue/resources/themes/aura-dark-green/theme.css"); */
+
+:root {
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+}
+
+
+.p-inputotp {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.p-inputotp-input {
+  text-align: center;
+  width: 2.5rem;
+}
+
+.p-inputtext {
+  font-family: var(--font-family);
+  font-feature-settings: var(--font-feature-settings, normal);
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #afafb4;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+  appearance: none;
+  border-radius: 6px;
+  outline-color: transparent;
+
+}
+.p-inputtext:enabled:hover {
+  border-color: #52525b;
+}
+.p-inputtext:enabled:focus {
+  outline: 1px solid var(--p-focus-ring-color);
+  outline-offset: -1px;
+  box-shadow: none;
+  border-color: #52525b;
+}
+.p-inputtext.p-invalid.p-component {
+  border-color: #fca5a5;
+}
+.p-inputtext.p-variant-filled {
+  background-color: #27272a;
+}
+.p-inputtext.p-variant-filled:enabled:hover {
+  background-color: #27272a;
+}
+.p-inputtext.p-variant-filled:enabled:focus {
+  background-color: #27272a;
+}
+
+
+
+
+
