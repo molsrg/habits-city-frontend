@@ -7,7 +7,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "predeploy": "npm run generate",
+		"deploy": "gh-pages -d .output/public "
   },
   "dependencies": {
     "@nuxt/fonts": "^0.7.0",

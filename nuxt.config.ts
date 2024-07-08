@@ -11,7 +11,7 @@ export default defineNuxtConfig({
 	],
 	css: ['~/assets/main.css'],
 	app: {
-		baseURL: '/',
+		baseURL: '/habits-city-frontend/',
 		// pageTransition: { name: 'page', mode: 'out-in' },
 	},
 	primevue: {
