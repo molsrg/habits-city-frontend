@@ -49,6 +49,7 @@ const authStore = useAuthStore()
 const isAuthorizationUser = computed(() => authStore.getIsLogin)
 const userInfo = computed(() => userStore.getUserInfo)
 
+// Выход из системы
 const logoutUser = (): void => {
 	if (
 		apiStore.getIsValidUsername ||
@@ -70,6 +71,7 @@ const isDark = computed({
 		colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
 	},
 })
+
 
 interface Link {
 	label: string

@@ -2,10 +2,10 @@ import { defineStore } from 'pinia'
 import { useUserStore } from '@/store/user.store'
 
 export const useAuthStore = defineStore('authStore', {
-	// persist: {
-	// 	storage: persistedState.localStorage,
-	// },
 	state: () => ({
+
+
+
 		isLogin: false,
 		OTP_code: '',
 		phoneNumber: '',
@@ -24,6 +24,53 @@ export const useAuthStore = defineStore('authStore', {
 		},
 	},
 	actions: {
+		createUser(userData:object):void {
+			console.log(userData)
+		},
+
+		// async createUser(): Promise<any> {
+		// 	const randomUserName = () => {
+		// 		const randomNumber = Math.floor(100000 + Math.random() * 900000)
+		// 		return `User ${randomNumber}`
+		// 	}
+
+		// 	const userName = randomUserName()
+
+		// 	const user = {
+		// 		name: userName,
+		// 		username: userName,
+		// 		avatar: {
+		// 			src: 'https://avatars.githubusercontent.com/u/739984?v=4',
+		// 		},
+		// 		rating: 100,
+		// 		phoneNumber: this.phoneNumber,
+		// 	}
+
+		// 	const res = await fetch(
+		// 		'https://outside-projec-default-rtdb.firebaseio.com/users.json',
+		// 		{
+		// 			method: 'POST',
+		// 			headers: {
+		// 				'Content-Type': 'application/json',
+		// 			},
+		// 			body: JSON.stringify(user),
+		// 		}
+		// 	)
+		// 	const userStore = useUserStore()
+		// 	userStore.getUserInfoFromServer(user)
+
+		// 	this.isLogin = true
+		// 	localStorage.setItem('isLogin', 'true')
+		// 	localStorage.setItem('phone', this.phoneNumber)
+		// 	console.log('Create user by Firebase')
+		// },
+
+
+
+
+
+
+
 		reload(){
       this.OTP_code = ''
 		},
@@ -93,41 +140,6 @@ export const useAuthStore = defineStore('authStore', {
 			console.log('Get user from Firebase')
 		},
 
-		async createUser(): Promise<any> {
-			const randomUserName = () => {
-				const randomNumber = Math.floor(100000 + Math.random() * 900000)
-				return `User ${randomNumber}`
-			}
 
-			const userName = randomUserName()
-
-			const user = {
-				name: userName,
-				username: userName,
-				avatar: {
-					src: 'https://avatars.githubusercontent.com/u/739984?v=4',
-				},
-				rating: 100,
-				phoneNumber: this.phoneNumber,
-			}
-
-			const res = await fetch(
-				'https://outside-projec-default-rtdb.firebaseio.com/users.json',
-				{
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(user),
-				}
-			)
-			const userStore = useUserStore()
-			userStore.getUserInfoFromServer(user)
-
-			this.isLogin = true
-			localStorage.setItem('isLogin', 'true')
-			localStorage.setItem('phone', this.phoneNumber)
-			console.log('Create user by Firebase')
-		},
 	},
 })
