@@ -12,7 +12,6 @@
     "deploy": "gh-pages -d .output/public "
   },
   "dependencies": {
-    "@nuxt/fonts": "^0.7.0",
     "@nuxt/ui": "^2.16.0",
     "@nuxtjs/tailwindcss": "^6.12.0",
     "@pinia/nuxt": "^0.5.1",

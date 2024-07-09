@@ -88,12 +88,12 @@ const baseLinks: Link[][] = [
 	[],
 	[
 		{
-			label: 'Ответы на вопросы',
+			label: 'F.A.Q.',
 			icon: 'i-heroicons-question-mark-circle-20-solid',
 			to: '/faq',
 		},
 		{
-			label: 'Главная страница',
+			label: 'Home Page',
 			icon: 'i-heroicons-home-20-solid',
 			to: '/',
 		},
@@ -105,7 +105,7 @@ const links = computed<Link[][]>(() => {
 		icon: isDark.value
 			? 'i-heroicons-sun-20-solid'
 			: 'i-heroicons-moon-20-solid',
-		label: 'Сменить тему',
+		label: 'Change Theme',
 		click: changeTheme,
 	}
 
@@ -121,16 +121,16 @@ const links = computed<Link[][]>(() => {
 				// },
 				{
 					icon: 'i-heroicons-arrow-left-on-rectangle-20-solid',
-					label: 'Выход',
+					label: 'Log Out',
 					badge: '',
 					click: logoutUser,
 				},
 		  ]
 		: [
 				{
-					label: 'Авторизоваться',
+					label: 'Registration',
 					icon: 'i-heroicons-finger-print-20-solid',
-					to: '/auth',
+					to: '/registration',
 					time: 'last month',
 				},
 		  ]

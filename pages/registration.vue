@@ -1,6 +1,9 @@
 <template>
 	<div class="auth">
-		<div class="auth-form">
+		<div
+			class="auth-form"
+			:class="[appStore.errorRegText ? 'auth-form--error' : '']"
+		>
 			<UCard>
 				<template #header>
 					<div class="flex items-center justify-between">
@@ -13,7 +16,7 @@
 							color="primary"
 							variant="link"
 							label="Already have an account?"
-							@click='pushToLogInPage'
+							@click="pushToLogInPage"
 						/>
 					</div>
 					<span class="auth-form-subtitle"
@@ -21,41 +24,40 @@
 					>
 				</template>
 				<div class="auth-form-input">
-				<UInput
-					v-model="userData.username"
-					name="username"
-					placeholder="Enter your username"
-					icon="i-heroicons-user-circle-20-solid"
-				/>
-
-				<UInput
-					v-model="userData.password"
-					name="username"
-					placeholder="Enter your password"
-					icon="i-heroicons-lock-closed-solid"
-					type="password"
-				/>
-
-				<div class="auth-form-error">
-					<UBadge
-						color="red"
-						variant="subtle"
-						:label="appStore.errorRegText"
-						size="xs"
-						v-if="appStore.errorRegText"
+					<UInput
+						v-model="userData.username"
+						name="username"
+						placeholder="Enter your username"
+						icon="i-heroicons-user-circle-20-solid"
 					/>
+
+					<UInput
+						v-model="userData.password"
+						name="username"
+						placeholder="Enter your password"
+						icon="i-heroicons-lock-closed-solid"
+						type="password"
+					/>
+
+					<div class="auth-form-error">
+						<UBadge
+							color="red"
+							variant="subtle"
+							:label="appStore.errorRegText"
+							size="xs"
+							v-if="appStore.errorRegText"
+						/>
+					</div>
 				</div>
-			</div>
 
-			<UButton
-				class="auth-btn"
-				icon="i-heroicons-user-plus-20-solid"
-				color="black"
-				label="Register"
-				@click="registerUser"
-			/>
+				<UButton
+					class="auth-btn"
+					icon="i-heroicons-user-plus-20-solid"
+					color="black"
+					label="Register"
+					@click="registerUser"
+				/>
 			</UCard>
-
 		</div>
 	</div>
 </template>
@@ -63,7 +65,7 @@
 <script setup lang="ts">
 import { useAuthStore } from '../store/auth.store'
 import { useAppStore } from '../store/app.store'
-import { ref, watch, computed, reactive } from 'vue'
+import { reactive } from 'vue'
 
 const authStore = useAuthStore()
 const appStore = useAppStore()
@@ -77,7 +79,6 @@ const registerUser = () => {
 	authStore.createUser(userData)
 }
 
-
 const pushToLogInPage = () => {
 	const router = useRouter()
 	appStore.sendErrorRegText('')
@@ -87,42 +88,35 @@ const pushToLogInPage = () => {
 
 <style scoped>
 .auth {
-	margin-top: 20vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	row-gap: 15px;
+	margin-top: 17vh;
 }
 
 .auth-form {
 	padding: 20px;
 	border-radius: 10px;
 	border: 1px solid rgb(var(--color-primary-400));
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	row-gap: 8px;
+
+	transition: all 500ms linear;
+}
+
+.auth-form--error {
+	border: 1px solid rgb(248 113 113);
 }
 
 .auth-form-subtitle {
 	font-size: 12px;
-	margin-top: -12px;
 	color: rgb(var(--color-gray-400));
 }
 
 .auth-form-input {
 	display: flex;
 	flex-direction: column;
-
-	row-gap: 5px;
-	width: 100%;
+	row-gap: 8px;
 }
 
 .auth-btn {
 	display: flex;
-  margin: 0 auto;
+	margin: 0 auto;
 	margin-top: 6px;
 }
 

@@ -79,43 +79,36 @@ const logInUser = () => {
 const pushToRegPage = () => {
 	const router = useRouter()
 	appStore.sendErrorLogInText('')
-	router.push('/auth')
+	router.push('/registration')
 }
 </script>
 
 <style scoped>
 .auth {
-	margin-top: 20vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	row-gap: 15px;
+	margin-top: 17vh;
 }
 
 .auth-form {
 	padding: 20px;
 	border-radius: 10px;
 	border: 1px solid rgb(var(--color-primary-400));
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	row-gap: 8px;
+
+	transition: all 500ms linear;
+}
+
+.auth-form--error {
+	border: 1px solid rgb(248 113 113);
 }
 
 .auth-form-subtitle {
 	font-size: 12px;
-	margin-top: -12px;
 	color: rgb(var(--color-gray-400));
 }
 
 .auth-form-input {
 	display: flex;
 	flex-direction: column;
-
-	row-gap: 5px;
-	width: 100%;
+	row-gap: 8px;
 }
 
 .auth-btn {
