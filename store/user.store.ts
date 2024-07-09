@@ -17,6 +17,8 @@ export const useUserStore = defineStore('userStore', {
 		getUserInfoFromServer(userInfo: any) {
 			this.userInfo = userInfo
 		},
+
+
 		async changeUser() {
 			// PUT user info on server
 			const phoneNumber: string = this.userInfo.phoneNumber

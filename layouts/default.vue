@@ -111,14 +111,14 @@ const links = computed<Link[][]>(() => {
 
 	const authLinks = isAuthorizationUser.value
 		? [
-				{
-					label: userInfo.value.name,
-					avatar: {
-						src: userInfo.value.avatar.src,
-					},
-					badge: userInfo.value.rating,
-					to: '/profile',
-				},
+				// {
+				// 	label: userInfo.value.name,
+				// 	avatar: {
+				// 		src: userInfo.value.avatar.src,
+				// 	},
+				// 	badge: userInfo.value.rating,
+				// 	to: '/profile',
+				// },
 				{
 					icon: 'i-heroicons-arrow-left-on-rectangle-20-solid',
 					label: 'Выход',

@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
 import { useUserStore } from '@/store/user.store'
+import { useAppStore } from '@/store/app.store'
+import axios from 'axios'
 
 export const useAuthStore = defineStore('authStore', {
 	state: () => ({
-
-
-
 		isLogin: false,
+
 		OTP_code: '',
 		phoneNumber: '',
 	}),
@@ -24,8 +24,44 @@ export const useAuthStore = defineStore('authStore', {
 		},
 	},
 	actions: {
-		createUser(userData:object):void {
-			console.log(userData)
+		async createUser(userData: object): Promise<any> {
+			const appStore = useAppStore()
+			appStore.sendErrorRegText('')
+			try {
+				const response = await axios.post(
+					'http://localhost:5000/auth/registration',
+					userData,
+					{
+						headers: {
+							'Content-Type': 'application/json',
+						},
+					}
+				)
+
+				console.log(response)
+			} catch (error) {
+				if (error.response.data.errors.errors) {
+					
+					appStore.sendErrorRegText(error.response.data.errors.errors[0].msg)
+				}
+			}
+			// const router = useRouter()
+			// const appStore = useAppStore()
+			// const userStore = useUserStore()
+
+			// userStore.getUserInfoFromServer(response)
+
+			// router.push('/profile')
+
+			// if (!response.phone) {
+			// 	appStore.toggleIsVerificatedPhone()
+			// }
+
+			// // TODO
+			// this.isLogin = true
+			// localStorage.setItem('isLogin', 'true')
+			// // localStorage.setItem('phone', this.phoneNumber)
+			// console.log('Create user by Firebase')
 		},
 
 		// async createUser(): Promise<any> {
@@ -65,16 +101,9 @@ export const useAuthStore = defineStore('authStore', {
 		// 	console.log('Create user by Firebase')
 		// },
 
-
-
-
-
-
-
-		reload(){
-      this.OTP_code = ''
+		reload() {
+			this.OTP_code = ''
 		},
-
 
 		// middleware при первом заходе на сайт
 		checkLogin() {
@@ -82,7 +111,6 @@ export const useAuthStore = defineStore('authStore', {
 				const isLoginFromLS = localStorage.getItem('isLogin')
 
 				if (isLoginFromLS) {
-
 				}
 			}
 		},
@@ -139,7 +167,5 @@ export const useAuthStore = defineStore('authStore', {
 			localStorage.setItem('phone', this.phoneNumber)
 			console.log('Get user from Firebase')
 		},
-
-
 	},
 })
