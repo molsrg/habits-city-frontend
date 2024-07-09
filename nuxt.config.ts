@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	devtools: { enabled: false },
+	target: 'static',
 	modules: [
 		'@nuxt/ui',
 		'@nuxtjs/tailwindcss',
@@ -9,10 +10,13 @@ export default defineNuxtConfig({
 		'@pinia-plugin-persistedstate/nuxt',
 	],
 	css: ['~/assets/main.css'],
-	app: {
-		baseURL: '/habits-city-frontend/',
-		// pageTransition: { name: 'page', mode: 'out-in' },
-	},
+	// app: {
+	// 	baseURL: '/habits-city-frontend/',
+	// 	// pageTransition: { name: 'page', mode: 'out-in' },
+	// },
+	router: {
+    base: '/habits-city-frontend/'
+  },
 	primevue: {
 		components: {
 			include: '*',
