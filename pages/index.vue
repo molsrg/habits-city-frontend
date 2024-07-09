@@ -1,6 +1,6 @@
 <template>
 	<div class="home">
-		<div class="home-title">
+		<!-- <div class="home-title">
 			<div class="h-animate">
 				<span class="text sec-text" :data-color-scheme="colorTheme"
 					>Новая социальная сеть, созданная на Nuxt.js</span
@@ -10,9 +10,9 @@
 
 		<div class="info">
 			<UTabs :items="items" />
-		</div>
+		</div> -->
 
-		<!-- <div>
+		<div>
 			<UContainer class="quote">
 				<UBadge color="white" variant="solid" class="quote-author"
 					>@molsrg</UBadge
@@ -22,17 +22,11 @@
 					гений, но всегда покажет, где ты ошибся.
 				</div>
 			</UContainer>
-		</div> -->
+		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-const colorMode = useColorMode()
-
-const colorTheme = computed(() => colorMode.value)
-useSeoMeta({
-	title: 'Home Page',
-})
 const items = [
 	{
 		label: 'Простота',

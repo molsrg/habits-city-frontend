@@ -5,19 +5,40 @@
 			v-if="isDesktop"
 			class="border-b border-gray-200 dark:border-gray-800 px-2"
 		/>
-		<UVerticalNavigation v-else :links="links" class="px-2 pt-2" />
+
+		<UVerticalNavigation
+			v-else
+			:links="links"
+			:ui="{
+				label: 'hidden',
+			}"
+			class="px-2 pt-2"
+		>
+			<template #default="{ link }">
+				<div
+					class="flex-1 flex relative dark:text-white group-hover:text-primary"
+				>
+					<div class="flex items-center">
+						<div>{{ link.label }}</div>
+					</div>
+				</div>
+			</template>
+		</UVerticalNavigation>
 		<slot />
 	</div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
+
+// Проверка на ширину экрана
 import { useScreenSize } from '@/composables/useScreenSize'
 const { isDesktop } = useScreenSize()
 
 // Смена темы в приложении
 const colorMode = useColorMode()
 
+// Импорт сторов
 import { useAuthStore } from '@/store/auth.store'
 import { useUserStore } from '@/store/user.store'
 import { useApiStore } from '@/store/api.store'
@@ -37,7 +58,7 @@ const logoutUser = (): void => {
 	}
 	authStore.logout()
 }
-
+// Смена темы
 const changeTheme = (): void => {
 	isDark.value = !isDark.value
 }
@@ -76,12 +97,13 @@ const baseLinks: Link[][] = [
 		},
 	],
 ]
+
 const links = computed<Link[][]>(() => {
 	const themeIcon = {
 		icon: isDark.value
 			? 'i-heroicons-sun-20-solid'
 			: 'i-heroicons-moon-20-solid',
-		label: '',
+		label: 'Сменить тему',
 		click: changeTheme,
 	}
 
@@ -98,6 +120,7 @@ const links = computed<Link[][]>(() => {
 				{
 					icon: 'i-heroicons-arrow-left-on-rectangle-20-solid',
 					label: 'Выход',
+					badge: '',
 					click: logoutUser,
 				},
 		  ]

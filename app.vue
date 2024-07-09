@@ -19,20 +19,6 @@ onMounted(async () => {
 	await authStore.checkLogin()
 })
 
-const title = computed(() => {
-	return route.name.charAt(0).toUpperCase() + route.name.slice(1)
-})
-
-watch(
-	() => route.name,
-	() => {
-		useSeoMeta({
-			title: title.value,
-		})
-	}
-)
-
-
 
 // Отслеживание перезагрузки страницы
 if (import.meta.env.CLIENT) {
