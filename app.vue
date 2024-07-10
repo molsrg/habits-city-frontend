@@ -8,14 +8,7 @@
 </template>
 
 <script setup lang="ts">
-onMounted(() => {
-  const route = useRoute()
-  const router = useRouter()
-	
-  if (route.path === '/') {
-    router.push('/habits-city-frontend')
-  }
-})
+
 </script>
 
 <style>
