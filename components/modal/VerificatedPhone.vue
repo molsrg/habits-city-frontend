@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<UModal v-model="isOpen" class="confirm" prevent-close>
+		<UModal v-model="appStore.isVerificatedPhone" class="confirm" prevent-close>
 			<UCard
 				:ui="{
 					ring: '',
@@ -19,7 +19,7 @@
 							variant="ghost"
 							icon="i-heroicons-x-mark-20-solid"
 							class="-my-1"
-							@click="isOpen = false"
+							@click="appStore.toggleIsVerificatedPhone"
 						/>
 					</div>
 				</template>
@@ -123,7 +123,7 @@
 			</UCard>
 		</UModal>
 
-		<UButton @click="isOpen = !isOpen">Открыть</UButton>
+		<!-- <UButton @click="isOpen = !isOpen">Открыть</UButton> -->
 	</div>
 </template>
 
@@ -131,17 +131,18 @@
 
 
 import { ref, watch, computed } from 'vue'
-const isOpen = ref(false)
+const isOpenVerificatedPhone = ref(false)
 
 import { useAuthStore } from '@/store/auth.store'
 import { useApiStore } from '@/store/api.store'
+import { useAppStore } from '@/store/app.store'
 
 import AlertApp from '@/components/alerts/AlertApp'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const apiStore = useApiStore()
-
+const appStore = useAppStore()
 // Номер телефона пользователя
 const phoneNumber = ref<string>('')
 

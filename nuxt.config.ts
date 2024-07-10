@@ -5,16 +5,14 @@ export default defineNuxtConfig({
 		'@nuxt/ui',
 		'@nuxtjs/tailwindcss',
 		'@pinia/nuxt',
-		'@nuxt/fonts',
 		'nuxt-primevue',
 		'@pinia-plugin-persistedstate/nuxt',
 	],
 	css: ['~/assets/main.css'],
 	
 	app: {
-		baseURL: '/habits-city-frontend/',
-		// pageTransition: { name: 'page', mode: 'out-in' },
-	},
+    baseURL: `/habits-city-frontend/`,
+  },
 	primevue: {
 		components: {
 			include: '*',
