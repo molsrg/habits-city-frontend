@@ -10,8 +10,8 @@ export default defineNuxtConfig({
 	],
 	css: ['~/assets/main.css'],
 	app: {
-		baseURL: '/habbits-city-frontend/',
-	},
+    baseURL: `/habits-city-frontend`,
+  },
 	primevue: {
 		components: {
 			include: '*',
