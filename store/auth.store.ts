@@ -31,20 +31,18 @@ export const useAuthStore = defineStore('authStore', {
 						},
 					}
 				)
-
-				console.log(response)
 			} catch (error) {
+				console.log(error)
+
 				if (error?.response?.data?.errors?.errors) {
 					appStore.sendErrorRegText(error.response.data.errors.errors[0].msg)
 				}
 			}
-			// const router = useRouter()
+
 			// const appStore = useAppStore()
 			// const userStore = useUserStore()
 
 			// userStore.getUserInfoFromServer(response)
-
-			// router.push('/profile')
 
 			// if (!response.phone) {
 			// 	appStore.toggleIsVerificatedPhone()
@@ -52,7 +50,30 @@ export const useAuthStore = defineStore('authStore', {
 		},
 
 		async logInWithPassword(userData: object) {
-			console.log(userData)
+
+			const config = useRuntimeConfig()
+			const appStore = useAppStore()
+			appStore.sendErrorLogInText('')
+
+			try {
+				const response = await axios.post(
+					`${config.public.apiURL}/auth/login`,
+					userData
+				)
+
+				if (response.status === 200) {
+					document.cookie =
+						'TOKEN=' + response.data.token + ';max-age=' + 60 * 60 * 24 * 7
+					// + ';httpOnly'
+
+					const router = useRouter()
+					router.push('/profile')
+				}
+			} catch (error) {
+				if (error?.response?.data?.message) {
+					appStore.sendErrorLogInText(error?.response?.data?.message)
+				}
+			}
 		},
 
 		// Метод для запроса кода на сервере

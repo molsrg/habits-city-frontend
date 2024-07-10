@@ -3,9 +3,7 @@ import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('userStore', {
 	state: () => ({
-		userInfo: {
-
-		},
+		userInfo: {},
 	}),
 	getters: {
 		getUserInfo(state) {
@@ -13,7 +11,6 @@ export const useUserStore = defineStore('userStore', {
 		},
 	},
 	actions: {
-
-		
+		async fetchUserInfo() {},
 	},
 })

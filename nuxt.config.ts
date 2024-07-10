@@ -1,6 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	devtools: { enabled: false },
+	runtimeConfig: {
+    public: {
+      apiURL: process.env.API_URL
+    }
+  },
 	modules: [
 		'@nuxt/ui',
 		'@nuxtjs/tailwindcss',
@@ -9,9 +14,6 @@ export default defineNuxtConfig({
 		'@pinia-plugin-persistedstate/nuxt',
 	],
 	css: ['~/assets/main.css'],
-	app: {
-    baseURL: `/habits-city-frontend/`,
-  },
 	primevue: {
 		components: {
 			include: '*',
