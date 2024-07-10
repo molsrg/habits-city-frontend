@@ -128,10 +128,9 @@ const links = computed<Link[][]>(() => {
 		  ]
 		: [
 				{
-					label: 'Registration',
+					label: 'Login ',
 					icon: 'i-heroicons-finger-print-20-solid',
-					to: '/registration',
-					time: 'last month',
+					to: '/login',
 				},
 		  ]
 

@@ -1,5 +1,6 @@
 <template>
 	<div class="auth">
+		<LogInWithPhone/>
 		<div class="auth-form">
 			<UCard>
 				<template #header>
@@ -54,12 +55,26 @@
 					label="LogIn"
 					@click="logInUser"
 				/>
+
+				<UDivider label="OR" />
+
+				<UButton
+					class="auth-btn"
+					icon="i-heroicons-phone-20-solid"
+					variant="soft"
+					label="LogIn using your phone number"
+					@click="logInUserWithPhone"
+				/>
+
 			</UCard>
 		</div>
+
+
 	</div>
 </template>
 
 <script setup lang="ts">
+import LogInWithPhone from '../components/modal/LogInWithPhone.vue';
 import { useAuthStore } from '../store/auth.store'
 import { useAppStore } from '../store/app.store'
 import { ref, watch, computed, reactive } from 'vue'
@@ -74,6 +89,10 @@ const userData = reactive({
 
 const logInUser = () => {
 	console.log(userData)
+}
+
+const logInUserWithPhone = () => {
+	appStore.toggleIsLogInWithPhone()
 }
 
 const pushToRegPage = () => {
@@ -113,8 +132,7 @@ const pushToRegPage = () => {
 
 .auth-btn {
 	display: flex;
-	margin: 0 auto;
-	margin-top: 6px;
+	margin: 8px auto 10px;
 }
 
 .auth-form-error {

@@ -7,12 +7,12 @@ export const useAuthStore = defineStore('authStore', {
 	state: () => ({
 		isLogin: false,
 
-		OTP_code: '',
+		logInWithOTPCode: '',
 		phoneNumber: '',
 	}),
 	getters: {
-		getOTPcode(state): string {
-			return state.OTP_code
+		getOTPCodeLogin(state): string {
+			return state.logInWithOTPCode
 		},
 
 		getUserPhone(state): string {
@@ -101,8 +101,20 @@ export const useAuthStore = defineStore('authStore', {
 		// 	console.log('Create user by Firebase')
 		// },
 
-		reload() {
-			this.OTP_code = ''
+		
+
+		// Метод для запроса кода на сервере
+		async logInWithPhoneNumber(userPhone:string) {
+			// const appStore = useAppStore()
+			console.log(userPhone)
+
+			const response = '1234'
+			this.logInWithOTPCode = response
+		}, 
+
+
+		reloadOTP() {
+			this.logInWithOTPCode = ''
 		},
 
 		// middleware при первом заходе на сайт
@@ -134,7 +146,7 @@ export const useAuthStore = defineStore('authStore', {
 
 		logout() {
 			this.isLogin = false
-			this.OTP_code = ''
+			this.logInWithOTPCode = ''
 			localStorage.removeItem('isLogin')
 
 			const router = useRouter()
@@ -145,7 +157,7 @@ export const useAuthStore = defineStore('authStore', {
 		sendCode(phoneNumber: string): void {
 			this.phoneNumber = phoneNumber
 			// GET SEND CODE FROM SERVER
-			this.OTP_code = '1234'
+			this.logInWithOTPCode = '1234'
 		},
 
 		async getUser(): Promise<void> {

@@ -3,19 +3,22 @@ import { useAuthStore } from '@/store/auth.store'
 export const useAppStore = defineStore('appStore', {
 	state: () => ({
 		isOpenVerificatedPhone: false,
+		isOpenLogInWithPhone: false,
 
 		errorRegMessage: '',
-    errorLogInMessage: '',
-
+		errorLogInMessage: '',
 	}),
 	getters: {
 		isVerificatedPhone(state) {
 			return state.isOpenVerificatedPhone
 		},
+		isLogInWithPhone(state) {
+			return state.isOpenLogInWithPhone
+		},
 		errorRegText(state) {
 			return state.errorRegMessage
 		},
-    errorLogInText(state) {
+		errorLogInText(state) {
 			return state.errorLogInMessage
 		},
 	},
@@ -23,13 +26,20 @@ export const useAppStore = defineStore('appStore', {
 		toggleIsVerificatedPhone() {
 			this.isOpenVerificatedPhone = !this.isOpenVerificatedPhone
 		},
+		toggleIsLogInWithPhone() {
+			this.isOpenLogInWithPhone = !this.isOpenLogInWithPhone
+		},
 
 		sendErrorRegText(error: string) {
 			this.errorRegMessage = error
 		},
-    sendErrorLogInText(error: string) {
+		sendErrorLogInText(error: string) {
 			this.errorLogInMessage = error
 		},
+
+
+
+
 
 		reload() {
 			const authStore = useAuthStore()
