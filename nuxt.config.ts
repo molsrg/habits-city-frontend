@@ -9,10 +9,6 @@ export default defineNuxtConfig({
 		'@pinia-plugin-persistedstate/nuxt',
 	],
 	css: ['~/assets/main.css'],
-	
-	app: {
-    baseURL: `/habits-city-frontend/`,
-  },
 	primevue: {
 		components: {
 			include: '*',
