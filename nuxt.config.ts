@@ -1,7 +1,3 @@
-import * as dotenv from 'dotenv'
-dotenv.config()
-
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	devtools: { enabled: false },
@@ -14,8 +10,7 @@ export default defineNuxtConfig({
 	],
 	css: ['~/assets/main.css'],
 	app: {
-		baseURL: process.env.BASE_URL
-		// pageTransition: { name: 'page', mode: 'out-in' },
+		baseURL: '/habbits-city-frontend/',
 	},
 	primevue: {
 		components: {
