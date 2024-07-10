@@ -114,7 +114,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, watchEffect  } from 'vue'
 
 import { useAuthStore } from '@/store/auth.store'
 import { useApiStore } from '@/store/api.store'
@@ -146,20 +146,21 @@ let isInvalidCode = ref<boolean>(false)
 let countInvalidCode = ref<number>(0)
 
 // Отслеживание введённого ОТП кода
-watch(OTPcode, checkOtpCode)
+watchEffect(() => {
+  checkOtpCode()
+})
 
-function checkOtpCode(newValue: string) {
-	if (newValue.length !== 4) {
-		isInvalidCode.value = false
-		return
-	}
-	if (newValue === codeFromServer.value) {
-		handleValidOtpCode()
-	} else {
-		handleInvalidOtpCode()
-	}
+function checkOtpCode() {
+  if (OTPcode.value.length !== 4) {
+    isInvalidCode.value = false
+    return
+  }
+  if (OTPcode.value === codeFromServer.value) {
+    handleValidOtpCode()
+  } else {
+    handleInvalidOtpCode()
+  }
 }
-
 const handleValidOtpCode = async () => {
 	appStore.toggleIsLogInWithPhone()
 	authStore.reloadOTP()
@@ -182,6 +183,12 @@ const confirmNumber = ref<boolean>(false)
 // Повторный запрос кода
 const sendCodeSecondary = () => {
 	authStore.logInWithPhoneNumber(phoneNumber.value)
+	confirmNumber.value = false
+	showSecondSendCode.value = false
+}
+
+const resetAuthForm = () => {
+	authStore.reloadOTP()
 	confirmNumber.value = false
 	showSecondSendCode.value = false
 }

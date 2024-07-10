@@ -29,48 +29,20 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 // Проверка на ширину экрана
 import { useScreenSize } from '@/composables/useScreenSize'
 const { isDesktop } = useScreenSize()
 
-// Смена темы в приложении
-const colorMode = useColorMode()
 
-// Импорт сторов
-import { useAuthStore } from '@/store/auth.store'
-import { useUserStore } from '@/store/user.store'
-import { useApiStore } from '@/store/api.store'
-const apiStore = useApiStore()
-const userStore = useUserStore()
-const authStore = useAuthStore()
-
-const isAuthorizationUser = computed(() => authStore.getIsLogin)
-const userInfo = computed(() => userStore.getUserInfo)
 
 // Выход из системы
 const logoutUser = (): void => {
-	if (
-		apiStore.getIsValidUsername ||
-		userStore.getUserInfo.username.length == 0
-	) {
-		return
-	}
-	authStore.logout()
+	console.log('logout user')
 }
-// Смена темы
-const changeTheme = (): void => {
-	isDark.value = !isDark.value
-}
-const isDark = computed({
-	get() {
-		return colorMode.value === 'dark'
-	},
-	set() {
-		colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-	},
-})
+
+
 
 
 interface Link {
@@ -100,25 +72,11 @@ const baseLinks: Link[][] = [
 	],
 ]
 
-const links = computed<Link[][]>(() => {
-	const themeIcon = {
-		icon: isDark.value
-			? 'i-heroicons-sun-20-solid'
-			: 'i-heroicons-moon-20-solid',
-		label: 'Change Theme',
-		click: changeTheme,
-	}
+const isUserAuthorized = ref<boolean>(false)
 
-	const authLinks = isAuthorizationUser.value
+const authLinks = computed(() =>
+	isUserAuthorized.value
 		? [
-				// {
-				// 	label: userInfo.value.name,
-				// 	avatar: {
-				// 		src: userInfo.value.avatar.src,
-				// 	},
-				// 	badge: userInfo.value.rating,
-				// 	to: '/profile',
-				// },
 				{
 					icon: 'i-heroicons-arrow-left-on-rectangle-20-solid',
 					label: 'Log Out',
@@ -133,7 +91,9 @@ const links = computed<Link[][]>(() => {
 					to: '/login',
 				},
 		  ]
+)
 
-	return [[...authLinks], [themeIcon, ...baseLinks[1]]]
+const links = computed<Link[][]>(() => {
+	return [[...authLinks.value], [...baseLinks[1]]]
 })
 </script>

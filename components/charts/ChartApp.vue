@@ -73,7 +73,6 @@ const setChartData = () => {
 </script>
 
 <style>
-
 .p-chart {
 	width: 80vw;
 	height: 40vw;

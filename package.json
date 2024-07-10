@@ -24,8 +24,6 @@
     "vue": "^3.4.21"
   },
   "devDependencies": {
-    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
-    "dotenv": "^16.4.5",
     "nuxt-primevue": "^3.0.0"
   }
 }

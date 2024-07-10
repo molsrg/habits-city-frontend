@@ -74,10 +74,12 @@
 </template>
 
 <script setup lang="ts">
-import LogInWithPhone from '../components/modal/LogInWithPhone.vue';
 import { useAuthStore } from '../store/auth.store'
 import { useAppStore } from '../store/app.store'
-import { ref, watch, computed, reactive } from 'vue'
+
+import LogInWithPhone from '../components/modal/LogInWithPhone.vue';
+
+import { reactive } from 'vue'
 
 const authStore = useAuthStore()
 const appStore = useAppStore()
@@ -88,7 +90,7 @@ const userData = reactive({
 })
 
 const logInUser = () => {
-	console.log(userData)
+	authStore.logInWithPassword(userData)
 }
 
 const logInUserWithPhone = () => {

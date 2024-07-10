@@ -36,14 +36,5 @@ export const useAppStore = defineStore('appStore', {
 		sendErrorLogInText(error: string) {
 			this.errorLogInMessage = error
 		},
-
-
-
-
-
-		reload() {
-			const authStore = useAuthStore()
-			authStore.reload()
-		},
 	},
 })
