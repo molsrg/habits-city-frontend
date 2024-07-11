@@ -80,7 +80,7 @@ import { reactive } from 'vue'
 
 const authStore = useAuthStore()
 const appStore = useAppStore()
-
+appStore.$reset()
 const userData = reactive({
 	username: '',
 	password: '',
