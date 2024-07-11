@@ -1,21 +1,23 @@
 <template>
 	<div class="auth">
-		<LogInWithPhone/>
-		<div class="auth-form">
+		<div
+			class="auth-form"
+			:class="[appStore.errorRegText ? 'auth-form--error' : '']"
+		>
 			<UCard>
 				<template #header>
 					<div class="flex items-center justify-between">
-						<UButton
-							color="primary"
-							variant="link"
-							label="Don't have an account yet?"
-							@click="pushToRegPage"
-						/>
 						<h3
 							class="text-base font-semibold leading-6 text-gray-900 dark:text-white"
 						>
-							LogIn
+							Registry
 						</h3>
+						<UButton
+							color="primary"
+							variant="link"
+							label="Already have an account?"
+							@click="pushToLogInPage"
+						/>
 					</div>
 					<span class="auth-form-subtitle"
 						>Enter your credentials to access your account.</span
@@ -41,44 +43,30 @@
 						<UBadge
 							color="red"
 							variant="subtle"
-							:label="appStore.errorLogInText"
+							:label="appStore.errorRegText"
 							size="xs"
-							v-if="appStore.errorLogInText"
+							v-if="appStore.errorRegText"
 						/>
 					</div>
 				</div>
 
 				<UButton
 					class="auth-btn"
-					icon="i-heroicons-finger-print-20-solid"
+					icon="i-heroicons-user-plus-20-solid"
 					color="black"
-					label="LogIn"
-					@click="logInUser"
+					label="Register"
+					@click="registerUser"
+					:disabled="!userData.password.length || !userData.username.length"
+					:loading="appStore.isLoadingReg"
 				/>
-
-				<UDivider label="OR" />
-
-				<UButton
-					class="auth-btn"
-					icon="i-heroicons-phone-20-solid"
-					variant="soft"
-					label="LogIn using your phone number"
-					@click="logInUserWithPhone"
-				/>
-
 			</UCard>
 		</div>
-
-
 	</div>
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '../store/auth.store'
-import { useAppStore } from '../store/app.store'
-
-import LogInWithPhone from '../components/modal/LogInWithPhone.vue';
-
+import { useAuthStore } from '../../store/auth.store'
+import { useAppStore } from '../../store/app.store'
 import { reactive } from 'vue'
 
 const authStore = useAuthStore()
@@ -89,18 +77,17 @@ const userData = reactive({
 	password: '',
 })
 
-const logInUser = () => {
-	authStore.logInWithPassword(userData)
+const loadingData = ref(false)
+
+const registerUser = () => {
+	authStore.createUser(userData)
+	loadingData.value = true
 }
 
-const logInUserWithPhone = () => {
-	appStore.toggleIsLogInWithPhone()
-}
-
-const pushToRegPage = () => {
+const pushToLogInPage = () => {
 	const router = useRouter()
-	appStore.sendErrorLogInText('')
-	router.push('/registration')
+	appStore.sendErrorRegText('')
+	router.push('/auth/login')
 }
 </script>
 
@@ -134,7 +121,8 @@ const pushToRegPage = () => {
 
 .auth-btn {
 	display: flex;
-	margin: 8px auto 10px;
+	margin: 0 auto;
+	margin-top: 6px;
 }
 
 .auth-form-error {

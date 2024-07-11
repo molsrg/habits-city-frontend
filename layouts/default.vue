@@ -36,14 +36,40 @@ import { useScreenSize } from '@/composables/useScreenSize'
 const { isDesktop } = useScreenSize()
 
 
+import { useAuthStore } from '../store/auth.store'
+const authStore = useAuthStore()
 
 // Выход из системы
 const logoutUser = (): void => {
+	authStore.logout()
 	console.log('logout user')
 }
 
+const router = useRouter()
 
+const namePathRoute = computed(() => {
+	return router.currentRoute.value.name
+})
 
+const logInOrRegistration = computed(() => {
+	if (namePathRoute.value === 'auth-registration') {
+		return [
+			{
+				label: 'Registration ',
+				icon: 'i-heroicons-user-plus-20-solid',
+				to: '/auth/registration',
+			},
+		]
+	} else {
+		return [
+			{
+				label: 'LogIn',
+				icon: 'i-heroicons-finger-print-20-solid',
+				to: '/auth/login',
+			},
+		]
+	}
+})
 
 interface Link {
 	label: string
@@ -84,13 +110,7 @@ const authLinks = computed(() =>
 					click: logoutUser,
 				},
 		  ]
-		: [
-				{
-					label: 'Login ',
-					icon: 'i-heroicons-finger-print-20-solid',
-					to: '/login',
-				},
-		  ]
+		: [...logInOrRegistration.value]
 )
 
 const links = computed<Link[][]>(() => {

@@ -7,6 +7,9 @@ export const useAppStore = defineStore('appStore', {
 
 		errorRegMessage: '',
 		errorLogInMessage: '',
+
+		loadingReg: false,
+		loadingLogIn: false
 	}),
 	getters: {
 		isVerificatedPhone(state) {
@@ -21,6 +24,13 @@ export const useAppStore = defineStore('appStore', {
 		errorLogInText(state) {
 			return state.errorLogInMessage
 		},
+
+		isLoadingReg(state){
+			return state.loadingReg
+		}, 
+		isLoadingLogIn(state){
+			return state.loadingLogIn
+		}
 	},
 	actions: {
 		toggleIsVerificatedPhone() {
@@ -36,5 +46,12 @@ export const useAppStore = defineStore('appStore', {
 		sendErrorLogInText(error: string) {
 			this.errorLogInMessage = error
 		},
+
+		toggleLoadingReg(){
+      this.loadingReg = !this.loadingReg
+    }, 
+		toggleLoadingLogIn(){
+      this.loadingLogIn = !this.loadingLogIn
+    }
 	},
 })
