@@ -1,17 +1,5 @@
 <template>
 	<div class="home">
-		<!-- <div class="home-title">
-			<div class="h-animate">
-				<span class="text sec-text" :data-color-scheme="colorTheme"
-					>Новая социальная сеть, созданная на Nuxt.js</span
-				>
-			</div>
-		</div>
-
-		<div class="info">
-			<UTabs :items="items" />
-		</div> -->
-
 		<div>
 			<UContainer class="quote">
 				<UBadge color="white" variant="solid" class="quote-author"
@@ -23,34 +11,62 @@
 				</div>
 			</UContainer>
 		</div>
+		<div id="threejs-container"></div>
 	</div>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
 	layout: 'default',
-	title: 'Some Page'
+	title: 'Some Page',
 })
-const items = [
-	{
-		label: 'Простота',
-		content:
-			'Новая социальная сеть на Nuxt.js предоставляет интуитивно понятный и дружелюбный интерфейс, который позволяет пользователям без усилий общаться, делиться и взаимодействовать друг с другом.',
-	},
-	{
-		label: 'Безопасность',
-		content:
-			'Мы понимаем, что безопасность ваших данных является критически важной. Наша социальная сеть построена с использованием самых последних стандартов безопасности, гарантируя, что ваша личная информация и контент останутся защищенными. Вы можете пользоваться нашей платформой с полным миром и уверенностью в своей безопасности.',
-	},
-	{
-		label: 'Удобство',
-		content:
-			'С нашей социальной сетью на Nuxt.js вы получаете выдающееся пользовательское опытие, оптимизированное для всех устройств. Благодаря серверному рендерингу и быстрой загрузке страниц, вы сможете без проблем общаться, делиться контентом и оставаться на связи со своими друзьями и семьей. Наслаждайтесь всеми преимуществами современной социальной сети, созданной с использованием передовых технологий.',
-	},
-]
+
+import * as THREE from 'three'
+import { onMounted } from 'vue'
+onMounted(() => {
+	const scene = new THREE.Scene()
+	const camera = new THREE.PerspectiveCamera(
+		75,
+		window.innerWidth / window.innerHeight,
+		0.1,
+		1000
+	)
+
+	const renderer = new THREE.WebGLRenderer()
+
+	const container = document.getElementById('threejs-container')
+	renderer.setSize(window.innerWidth * 0.7, window.innerHeight * 0.7)
+
+	renderer.setAnimationLoop(animate)
+	container.appendChild(renderer.domElement)
+
+	const geometry = new THREE.BoxGeometry(1, 1, 1)
+	const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+	const cube = new THREE.Mesh(geometry, material)
+	scene.add(cube)
+
+	camera.position.z = 5
+
+	function animate() {
+		cube.rotation.x += 0.01
+		cube.rotation.y += 0.01
+
+		renderer.render(scene, camera)
+	}
+})
 </script>
 
 <style scoped>
+.home {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+	padding: 10px;
+	background: #000;
+	align-items: center;
+	justify-content: center;
+}
+
 .h-animate {
 	overflow: hidden;
 }
@@ -81,14 +97,6 @@ const items = [
 	100% {
 		left: 0%;
 	}
-}
-
-.home {
-	display: flex;
-	flex-direction: column;
-	row-gap: 10px;
-	padding: 10px;
-	/* background: #000; */
 }
 
 .quote {
