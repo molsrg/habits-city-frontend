@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
-// import { useAuthStore } from '@/store/auth.store'
 
 export const useUserStore = defineStore('userStore', {
+	persist: true,
 	state: () => ({
 		userInfo: {},
 	}),
+
 	getters: {
 		getUserInfo(state) {
 			return state.userInfo

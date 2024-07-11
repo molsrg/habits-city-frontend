@@ -65,6 +65,11 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: [
+    'guest',
+  ],
+});
 import { useAuthStore } from '../../store/auth.store'
 import { useAppStore } from '../../store/app.store'
 import { reactive } from 'vue'

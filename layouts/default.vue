@@ -35,14 +35,15 @@ import { computed, ref } from 'vue'
 import { useScreenSize } from '@/composables/useScreenSize'
 const { isDesktop } = useScreenSize()
 
-
 import { useAuthStore } from '../store/auth.store'
 const authStore = useAuthStore()
+import { useTokenStore } from '../store/token.store'
+const tokenStore = useTokenStore()
 
 // Выход из системы
 const logoutUser = (): void => {
-	authStore.logout()
-	console.log('logout user')
+	tokenStore.removeToken()
+	console.log('Logout user')
 }
 
 const router = useRouter()
@@ -88,7 +89,7 @@ const baseLinks: Link[][] = [
 		{
 			label: 'F.A.Q.',
 			icon: 'i-heroicons-question-mark-circle-20-solid',
-			to: '/faq',
+			to: '/questions',
 		},
 		{
 			label: 'Home Page',
@@ -98,16 +99,20 @@ const baseLinks: Link[][] = [
 	],
 ]
 
-const isUserAuthorized = ref<boolean>(false)
-
 const authLinks = computed(() =>
-	isUserAuthorized.value
+	tokenStore.getStatus
 		? [
 				{
 					icon: 'i-heroicons-arrow-left-on-rectangle-20-solid',
 					label: 'Log Out',
 					badge: '',
 					click: logoutUser,
+				},
+				{
+					icon: 'i-heroicons-user',
+					label: 'Profile',
+					badge: '100',
+					to: '/profile',
 				},
 		  ]
 		: [...logInOrRegistration.value]

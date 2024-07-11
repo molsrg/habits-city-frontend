@@ -1,9 +1,12 @@
 import { defineStore } from 'pinia'
 import { useUserStore } from '@/store/user.store'
+import { useTokenStore } from '@/store/token.store'
+
 import { useAppStore } from '@/store/app.store'
 import axios from 'axios'
 
 export const useAuthStore = defineStore('authStore', {
+	persist: true,
 	state: () => ({
 		logInWithOTPCode: '',
 		phoneNumber: '',
@@ -68,6 +71,8 @@ export const useAuthStore = defineStore('authStore', {
 
 				if (response.status === 200) {
 					sessionStorage.setItem('jwt_token', response.data.token)
+					const tokenStore = useTokenStore()
+					tokenStore.setToken(response.data.token)
 					const router = useRouter()
 					router.push('/profile')
 				}

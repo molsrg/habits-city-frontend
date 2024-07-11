@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { useAuthStore } from '@/store/auth.store'
 export const useAppStore = defineStore('appStore', {
+	persist: true,
 	state: () => ({
 		isOpenVerificatedPhone: false,
 		isOpenLogInWithPhone: false,
@@ -11,6 +11,7 @@ export const useAppStore = defineStore('appStore', {
 		loadingReg: false,
 		loadingLogIn: false
 	}),
+	
 	getters: {
 		isVerificatedPhone(state) {
 			return state.isOpenVerificatedPhone
