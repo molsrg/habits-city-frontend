@@ -27,6 +27,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+	layout: 'default',
+	title: 'Some Page'
+})
 const items = [
 	{
 		label: 'Простота',

@@ -7,6 +7,11 @@
 <script setup lang="ts">
 definePageMeta({
 	layout: 'default',
+	title: 'Some Page'
+})
+
+useHead({
+  title: 'HS | Questions'
 })
 
 const items = [

@@ -12,6 +12,10 @@ definePageMeta({
     'auth',
   ],
 });
+
+useHead({
+  title: 'HS | Profile'
+})
 </script>
 
 <style lang="scss" scoped>

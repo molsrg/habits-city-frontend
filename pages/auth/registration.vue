@@ -70,6 +70,10 @@ definePageMeta({
     'guest',
   ],
 });
+
+useHead({
+  title: 'HS | Auth'
+})
 import { useAuthStore } from '../../store/auth.store'
 import { useAppStore } from '../../store/app.store'
 import { reactive } from 'vue'

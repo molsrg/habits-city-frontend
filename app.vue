@@ -8,7 +8,12 @@
 </template>
 
 <script setup lang="ts">
-
+// useSeoMeta({
+//   title: 'Habits City',
+//   ogTitle: 'Habits City',
+//   description: 'Website for building habits',
+//   ogDescription: 'Website for building habits',
+// })
 </script>
 
 <style>
