@@ -21,30 +21,33 @@ export const useAuthStore = defineStore('authStore', {
 		async createUser(userData: object): Promise<any> {
 			const appStore = useAppStore()
 			appStore.sendErrorRegText('')
+			appStore.toggleLoadingReg()
 			try {
+				const config = useRuntimeConfig()
 				const response = await axios.post(
-					'http://localhost:5000/auth/registration',
-					userData,
-					{
-						headers: {
-							'Content-Type': 'application/json',
-						},
-					}
+					`${config.public.apiURL}/auth/registration`,
+					userData
 				)
 
-				console.log(response)
-			} catch (error) {
-				if (error?.response?.data?.errors?.errors) {
-					appStore.sendErrorRegText(error.response.data.errors.errors[0].msg)
+				if (response.status === 200) {
+					// sessionStorage.setItem('jwt_token', response.data.token)
+					const router = useRouter()
+					router.push('/profile')
 				}
+			} catch (error) {
+				console.dir(error)
+
+				if (error?.response?.data?.message) {
+					appStore.sendErrorRegText(error?.response?.data?.message)
+				}
+			} finally {
+				appStore.toggleLoadingReg()
 			}
-			// const router = useRouter()
+
 			// const appStore = useAppStore()
 			// const userStore = useUserStore()
 
 			// userStore.getUserInfoFromServer(response)
-
-			// router.push('/profile')
 
 			// if (!response.phone) {
 			// 	appStore.toggleIsVerificatedPhone()
@@ -52,15 +55,50 @@ export const useAuthStore = defineStore('authStore', {
 		},
 
 		async logInWithPassword(userData: object) {
-			console.log(userData)
+			const config = useRuntimeConfig()
+			const appStore = useAppStore()
+			appStore.sendErrorLogInText('')
+			appStore.toggleLoadingLogIn()
+
+			try {
+				const response = await axios.post(
+					`${config.public.apiURL}/auth/login`,
+					userData
+				)
+
+				if (response.status === 200) {
+					sessionStorage.setItem('jwt_token', response.data.token)
+					const router = useRouter()
+					router.push('/profile')
+				}
+			} catch (error) {
+				if (error?.response?.data?.message) {
+					appStore.sendErrorLogInText(error?.response?.data?.message)
+				}
+			} finally {
+				appStore.toggleLoadingLogIn()
+			}
 		},
 
 		// Метод для запроса кода на сервере
 		async logInWithPhoneNumber(userPhone: string) {
-			console.log(userPhone)
-
+			const userData = { phone: userPhone }
 			const response = '1234'
 			this.logInWithOTPCode = response
+
+			const config = useRuntimeConfig()
+
+			try {
+				const response = await axios.post(
+					`${config.public.apiURL}/auth/login`,
+					userData
+				)
+
+
+				console.log(response)
+			} catch (error) {
+				console.log(error)
+			}
 		},
 
 		// Сброс OTP code

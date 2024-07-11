@@ -1,23 +1,21 @@
 <template>
 	<div class="auth">
-		<div
-			class="auth-form"
-			:class="[appStore.errorRegText ? 'auth-form--error' : '']"
-		>
+		<LogInWithPhone />
+		<div class="auth-form">
 			<UCard>
 				<template #header>
 					<div class="flex items-center justify-between">
-						<h3
-							class="text-base font-semibold leading-6 text-gray-900 dark:text-white"
-						>
-							Registry
-						</h3>
 						<UButton
 							color="primary"
 							variant="link"
-							label="Already have an account?"
-							@click="pushToLogInPage"
+							label="Don't have an account yet?"
+							@click="pushToRegPage"
 						/>
+						<h3
+							class="text-base font-semibold leading-6 text-gray-900 dark:text-white"
+						>
+							LogIn
+						</h3>
 					</div>
 					<span class="auth-form-subtitle"
 						>Enter your credentials to access your account.</span
@@ -43,19 +41,31 @@
 						<UBadge
 							color="red"
 							variant="subtle"
-							:label="appStore.errorRegText"
+							:label="appStore.errorLogInText"
 							size="xs"
-							v-if="appStore.errorRegText"
+							v-if="appStore.errorLogInText"
 						/>
 					</div>
 				</div>
 
 				<UButton
 					class="auth-btn"
-					icon="i-heroicons-user-plus-20-solid"
+					icon="i-heroicons-finger-print-20-solid"
 					color="black"
-					label="Register"
-					@click="registerUser"
+					label="LogIn"
+					@click="logInUser"
+					:disabled="!userData.password.length || !userData.username.length"
+					:loading="appStore.isLoadingLogIn"
+				/>
+
+				<UDivider label="OR" />
+
+				<UButton
+					class="auth-btn"
+					icon="i-heroicons-phone-20-solid"
+					variant="soft"
+					label="LogIn using your phone number"
+					@click="logInUserWithPhone"
 				/>
 			</UCard>
 		</div>
@@ -63,8 +73,11 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '../store/auth.store'
-import { useAppStore } from '../store/app.store'
+import { useAuthStore } from '../../store/auth.store'
+import { useAppStore } from '../../store/app.store'
+
+import LogInWithPhone from '../components/modal/LogInWithPhone.vue'
+
 import { reactive } from 'vue'
 
 const authStore = useAuthStore()
@@ -75,14 +88,18 @@ const userData = reactive({
 	password: '',
 })
 
-const registerUser = () => {
-	authStore.createUser(userData)
+const logInUser = () => {
+	authStore.logInWithPassword(userData)
 }
 
-const pushToLogInPage = () => {
+const logInUserWithPhone = () => {
+	appStore.toggleIsLogInWithPhone()
+}
+
+const pushToRegPage = () => {
 	const router = useRouter()
-	appStore.sendErrorRegText('')
-	router.push('/login')
+	appStore.sendErrorLogInText('')
+	router.push('/auth/registration')
 }
 </script>
 
@@ -116,8 +133,7 @@ const pushToLogInPage = () => {
 
 .auth-btn {
 	display: flex;
-	margin: 0 auto;
-	margin-top: 6px;
+	margin: 8px auto 10px;
 }
 
 .auth-form-error {
