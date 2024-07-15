@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { useUserStore } from '@/store/user.store'
 import { useTokenStore } from '@/store/token.store'
-
 import { useAppStore } from '@/store/app.store'
 import axios from 'axios'
 
@@ -31,30 +30,23 @@ export const useAuthStore = defineStore('authStore', {
 					`${config.public.apiURL}/auth/registration`,
 					userData
 				)
-
 				if (response.status === 200) {
-					// sessionStorage.setItem('jwt_token', response.data.token)
+					const tokenStore = useTokenStore()
 					const router = useRouter()
+
+					sessionStorage.setItem('RefreshToken', response.data.RefreshToken)
+					sessionStorage.setItem('AccessToken', response.data.AccessToken)
+
+					tokenStore.setToken(response.data.AccessToken)
 					router.push('/profile')
 				}
 			} catch (error) {
-				console.dir(error)
-
 				if (error?.response?.data?.message) {
 					appStore.sendErrorRegText(error?.response?.data?.message)
 				}
 			} finally {
 				appStore.toggleLoadingReg()
 			}
-
-			// const appStore = useAppStore()
-			// const userStore = useUserStore()
-
-			// userStore.getUserInfoFromServer(response)
-
-			// if (!response.phone) {
-			// 	appStore.toggleIsVerificatedPhone()
-			// }
 		},
 
 		async logInWithPassword(userData: object) {
@@ -70,10 +62,13 @@ export const useAuthStore = defineStore('authStore', {
 				)
 
 				if (response.status === 200) {
-					sessionStorage.setItem('jwt_token', response.data.token)
 					const tokenStore = useTokenStore()
-					tokenStore.setToken(response.data.token)
 					const router = useRouter()
+
+					sessionStorage.setItem('RefreshToken', response.data.RefreshToken)
+					sessionStorage.setItem('AccessToken', response.data.AccessToken)
+
+					tokenStore.setToken(response.data.AccessToken)
 					router.push('/profile')
 				}
 			} catch (error) {
@@ -99,7 +94,6 @@ export const useAuthStore = defineStore('authStore', {
 					userData
 				)
 
-
 				console.log(response)
 			} catch (error) {
 				console.log(error)
@@ -111,12 +105,5 @@ export const useAuthStore = defineStore('authStore', {
 			this.logInWithOTPCode = ''
 		},
 
-		// Выход из системы
-		logout() {
-			this.logInWithOTPCode = ''
-
-			const router = useRouter()
-			router.push('/')
-		},
 	},
 })

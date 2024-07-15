@@ -31,7 +31,7 @@ export const useTokenStore = defineStore('tokenStore', {
 			app.$reset()
 			user.$reset()
 			this.$reset()
-			return navigateTo('auth/login')
+			return navigateTo('/')
 		},
 	},
 })
