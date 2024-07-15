@@ -49,7 +49,7 @@
 				</div>
 
 				<UButton
-					class="auth-btn"
+					class="auth-btn--login"
 					icon="i-heroicons-finger-print-20-solid"
 					color="black"
 					label="LogIn"
@@ -59,20 +59,38 @@
 				/>
 
 				<UDivider label="OR" />
-
-				<UButton
-					class="auth-btn"
-					icon="i-heroicons-phone-20-solid"
-					variant="soft"
-					label="LogIn using your phone number"
-					@click="logInUserWithPhone"
-				/>
+				<div class="auth-btn">
+					<UButton
+						block
+						icon="i-heroicons-phone-20-solid"
+						variant="soft"
+						label="LogIn using your phone number"
+						@click="logInUserWithPhone"
+					/>
+					<div class="auth-btn--flex">
+						<UButton
+							icon="i-heroicons-globe-alt"
+							variant="solid"
+							color="white"
+							label="GitHub"
+							@click="logInUserWithGitHub"
+						/>
+						<UButton
+							icon="i-heroicons-lock-closed"
+							variant="solid"
+							color="white"
+							label="Google"
+							@click="logInUserWithGoogle"
+						/>
+					</div>
+				</div>
 			</UCard>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
+const toast = useToast()
 definePageMeta({
 	middleware: ['guest'],
 })
@@ -101,6 +119,23 @@ const logInUser = () => {
 
 const logInUserWithPhone = () => {
 	appStore.toggleIsLogInWithPhone()
+}
+
+const logInUserWithGitHub = () => {
+	console.log('Log In With GitHub')
+	toast.add({
+		color: 'orange',
+		title: 'Log In With GitHub',
+		timeout: 2000,
+	})
+}
+
+const logInUserWithGoogle = () => {
+	console.log('Log In With Google')
+	toast.add({
+		title: 'Log In With Google',
+		timeout: 2000,
+	})
 }
 
 const pushToRegPage = () => {
@@ -140,7 +175,21 @@ const pushToRegPage = () => {
 
 .auth-btn {
 	display: flex;
+	flex-direction: column;
 	margin: 8px auto 10px;
+	gap: 8px;
+}
+
+.auth-btn--login {
+	display: flex;
+	margin: 8px auto 10px;
+}
+
+.auth-btn--flex {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 10px;
 }
 
 .auth-form-error {
