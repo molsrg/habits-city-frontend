@@ -51,7 +51,7 @@
 				</div>
 
 				<UButton
-					class="auth-btn"
+					class="auth-btn--reg"
 					icon="i-heroicons-user-plus-20-solid"
 					color="black"
 					label="Register"
@@ -59,12 +59,34 @@
 					:disabled="!userData.password.length || !userData.username.length"
 					:loading="appStore.isLoadingReg"
 				/>
+
+
+				<UDivider label="OR" />
+				<div class="auth-btn">
+					<div class="auth-btn--flex">
+						<UButton
+							icon="i-heroicons-globe-alt"
+							variant="solid"
+							color="white"
+							label="GitHub"
+							@click="RegUserWithGitHub"
+						/>
+						<UButton
+							icon="i-heroicons-lock-closed"
+							variant="solid"
+							color="white"
+							label="Google"
+							@click="RegUserWithGoogle"
+						/>
+					</div>
+				</div>
 			</UCard>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
+const toast = useToast()
 definePageMeta({
   middleware: [
     'guest',
@@ -91,6 +113,23 @@ const loadingData = ref(false)
 const registerUser = () => {
 	authStore.createUser(userData)
 	loadingData.value = true
+}
+
+const RegUserWithGitHub = () => {
+	console.log('Reg With GitHub')
+	toast.add({
+		color: 'orange',
+		title: 'Reg With GitHub',
+		timeout: 2000,
+	})
+}
+
+const RegUserWithGoogle = () => {
+	console.log('Reg With Google')
+	toast.add({
+		title: 'Reg With Google',
+		timeout: 2000,
+	})
 }
 
 const pushToLogInPage = () => {
@@ -128,10 +167,24 @@ const pushToLogInPage = () => {
 	row-gap: 8px;
 }
 
+
 .auth-btn {
 	display: flex;
-	margin: 0 auto;
-	margin-top: 6px;
+	flex-direction: column;
+	margin: 8px auto 10px;
+	gap: 8px;
+}
+
+.auth-btn--reg {
+	display: flex;
+	margin: 8px auto 10px;
+}
+
+.auth-btn--flex {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 10px;
 }
 
 .auth-form-error {
