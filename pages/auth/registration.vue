@@ -68,8 +68,8 @@
 							icon="i-heroicons-globe-alt"
 							variant="solid"
 							color="white"
-							label="GitHub"
-							@click="RegUserWithGitHub"
+							label="Yandex"
+							@click="RegUserWithYandex"
 						/>
 						<UButton
 							icon="i-heroicons-lock-closed"
@@ -99,7 +99,7 @@ useHead({
 import { useAuthStore } from '../../store/auth.store'
 import { useAppStore } from '../../store/app.store'
 import { reactive } from 'vue'
-
+import getGoogleURL from '../../utils/getGoogleURL'
 const authStore = useAuthStore()
 const appStore = useAppStore()
 appStore.$reset()
@@ -115,21 +115,14 @@ const registerUser = () => {
 	loadingData.value = true
 }
 
-const RegUserWithGitHub = () => {
-	console.log('Reg With GitHub')
-	toast.add({
-		color: 'orange',
-		title: 'Reg With GitHub',
-		timeout: 2000,
-	})
+const RegUserWithYandex = () => {
+	console.log('Reg With Yandex')
+	window.location.href=('https://oauth.yandex.ru/authorize?response_type=token&client_id=2ce29395f3ff4cbeb2cfc3779c3e184d');
 }
 
 const RegUserWithGoogle = () => {
-	console.log('Reg With Google')
-	toast.add({
-		title: 'Reg With Google',
-		timeout: 2000,
-	})
+	console.log(getGoogleURL())
+	window.location.href=getGoogleURL();
 }
 
 const pushToLogInPage = () => {
