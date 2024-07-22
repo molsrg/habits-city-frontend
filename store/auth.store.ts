@@ -62,7 +62,6 @@ export const useAuthStore = defineStore('authStore', {
 			const appStore = useAppStore()
 			appStore.sendErrorLogInText('')
 			appStore.toggleLoadingLogIn()
-
 			try {
 				const response = await axios.post(
 					`${config.public.apiURL}/auth/login`,
