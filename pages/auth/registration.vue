@@ -60,24 +60,29 @@
 					:loading="appStore.isLoadingReg"
 				/>
 
-
 				<UDivider label="OR" />
 				<div class="auth-btn">
 					<div class="auth-btn--flex">
 						<UButton
-							icon="i-heroicons-globe-alt"
 							variant="solid"
 							color="white"
 							label="Yandex"
 							@click="RegUserWithYandex"
-						/>
+						>
+							<template #leading>
+								<Icon name="brandico:yandex-rect" />
+							</template>
+						</UButton>
 						<UButton
-							icon="i-heroicons-lock-closed"
 							variant="solid"
 							color="white"
 							label="Google"
 							@click="RegUserWithGoogle"
-						/>
+						>
+							<template #leading>
+								<Icon name="tabler:brand-google-filled" />
+							</template>
+						</UButton>
 					</div>
 				</div>
 			</UCard>
@@ -88,13 +93,11 @@
 <script setup lang="ts">
 const toast = useToast()
 definePageMeta({
-  middleware: [
-    'guest',
-  ],
-});
+	middleware: ['guest'],
+})
 
 useHead({
-  title: 'HS | Auth'
+	title: 'HS | Auth',
 })
 import { useAuthStore } from '../../store/auth.store'
 import { useAppStore } from '../../store/app.store'
@@ -117,13 +120,11 @@ const registerUser = () => {
 
 const RegUserWithYandex = () => {
 	const config = useRuntimeConfig()
-	window.location.href=(`https://oauth.yandex.ru/authorize?response_type=token&client_id=${config.public.clientIdYandex}`);
+	window.location.href = `https://oauth.yandex.ru/authorize?response_type=token&client_id=${config.public.clientIdYandex}`
 }
 
 const RegUserWithGoogle = () => {
-	window.location.href=getGoogleURL();
-
-	
+	window.location.href = getGoogleURL()
 }
 const pushToLogInPage = () => {
 	const router = useRouter()
@@ -159,7 +160,6 @@ const pushToLogInPage = () => {
 	flex-direction: column;
 	row-gap: 8px;
 }
-
 
 .auth-btn {
 	display: flex;

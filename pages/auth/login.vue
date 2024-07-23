@@ -69,19 +69,25 @@
 					/>
 					<div class="auth-btn--flex">
 						<UButton
-							icon="i-heroicons-globe-alt"
 							variant="solid"
 							color="white"
-							label="GitHub"
-							@click="logInUserWithGitHub"
-						/>
+							label="Yandex"
+							@click="logInUserWithYandex"
+						>
+							<template #leading>
+								<Icon name="brandico:yandex-rect" />
+							</template>
+						</UButton>
 						<UButton
-							icon="i-heroicons-lock-closed"
 							variant="solid"
 							color="white"
 							label="Google"
 							@click="logInUserWithGoogle"
-						/>
+						>
+							<template #leading>
+								<Icon name="tabler:brand-google-filled" />
+							</template>
+						</UButton>
 					</div>
 				</div>
 			</UCard>
@@ -121,17 +127,15 @@ const logInUserWithPhone = () => {
 	appStore.toggleIsLogInWithPhone()
 }
 
-const logInUserWithGitHub = () => {
-	console.log('Log In With GitHub')
+const logInUserWithYandex = () => {
 	toast.add({
 		color: 'orange',
-		title: 'Log In With GitHub',
+		title: 'Log In With Yandex',
 		timeout: 2000,
 	})
 }
 
 const logInUserWithGoogle = () => {
-	console.log('Log In With Google')
 	toast.add({
 		title: 'Log In With Google',
 		timeout: 2000,
