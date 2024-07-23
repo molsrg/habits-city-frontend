@@ -11,10 +11,13 @@ export default defineNuxtConfig({
 			link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
 		},
 	},
-	devtools: { enabled: true },
+	devtools: { enabled: false },
 	runtimeConfig: {
 		public: {
-			apiURL: process.env.NUXT_API_URL_BACKEND,
+			apiURL: process.env.API_URL_BACKEND,
+			clientIdYandex: process.env.CLIENT_ID_YANDEX,
+			clientIdGoogle: process.env.CLIENT_ID_GOOGLE,
+
 		},
 	},
 	modules: [

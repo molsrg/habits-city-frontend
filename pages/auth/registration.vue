@@ -116,15 +116,15 @@ const registerUser = () => {
 }
 
 const RegUserWithYandex = () => {
-	console.log('Reg With Yandex')
-	window.location.href=('https://oauth.yandex.ru/authorize?response_type=token&client_id=2ce29395f3ff4cbeb2cfc3779c3e184d');
+	const config = useRuntimeConfig()
+	window.location.href=(`https://oauth.yandex.ru/authorize?response_type=token&client_id=${config.public.clientIdYandex}`);
 }
 
 const RegUserWithGoogle = () => {
-	console.log(getGoogleURL())
 	window.location.href=getGoogleURL();
-}
 
+	
+}
 const pushToLogInPage = () => {
 	const router = useRouter()
 	appStore.sendErrorRegText('')

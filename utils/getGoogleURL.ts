@@ -1,10 +1,12 @@
 function getGoogleOAuthURL() {
-    //Хорошим тоном будет перенести client_id в конфиг или что-то такое, но не критично
+    const config = useRuntimeConfig()
+
     const rootURL = 'https://accounts.google.com/o/oauth2/v2/auth'
 
+    console.log(`${config.public.clientIdGoogle}.apps.googleusercontent.com`)
     const options = {
         redirect_uri: 'http://localhost:5000/auth/google/',
-        client_id: '781213909960-8j9l2oeqm6oj2tif476knk8r1net1kol.apps.googleusercontent.com',
+        client_id: `${config.public.clientIdGoogle}.apps.googleusercontent.com`,
         access_type: 'offline',
         response_type: 'code',
         prompt: 'consent',
