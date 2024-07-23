@@ -5,7 +5,7 @@ function getGoogleOAuthURL() {
 
     console.log(`${config.public.clientIdGoogle}.apps.googleusercontent.com`)
     const options = {
-        redirect_uri: 'http://localhost:5000/auth/google/',
+        redirect_uri: 'http://localhost:3000/auth/pending/',
         client_id: `${config.public.clientIdGoogle}.apps.googleusercontent.com`,
         access_type: 'offline',
         response_type: 'code',
