@@ -37,7 +37,7 @@ if (accessTokenYandex) {
   accessToken = accessTokenYandex;
 }
 
-if (accessToken.length > 5) {
+if (process.client && accessToken.length > 5) {
   sessionStorage.setItem('AccessToken', accessToken);
   tokenStore.setToken(accessToken);
   router.push('/profile');
