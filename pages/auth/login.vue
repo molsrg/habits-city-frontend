@@ -8,31 +8,31 @@
 						<UButton
 							color="primary"
 							variant="link"
-							label="Don't have an account yet?"
+							:label="$t('page--login.no-account')"
 							@click="pushToRegPage"
 						/>
 						<h3
 							class="text-base font-semibold leading-6 text-gray-900 dark:text-white"
 						>
-							LogIn
+							{{ $t('page--login.title') }}
 						</h3>
 					</div>
-					<span class="auth-form-subtitle"
-						>Enter your credentials to access your account.</span
+					<span class="auth-form-subtitle">
+						{{ $t('page--login.subtitle') }}</span
 					>
 				</template>
 				<div class="auth-form-input">
 					<UInput
 						v-model="userData.username"
 						name="username"
-						placeholder="Enter your username"
+						:placeholder="$t('page--login.enter-username')"
 						icon="i-heroicons-user-circle-20-solid"
 					/>
 
 					<UInput
 						v-model="userData.password"
 						name="username"
-						placeholder="Enter your password"
+						:placeholder="$t('page--login.enter-password')"
 						icon="i-heroicons-lock-closed-solid"
 						type="password"
 					/>
@@ -52,7 +52,7 @@
 					class="auth-btn--login"
 					icon="i-heroicons-finger-print-20-solid"
 					color="black"
-					label="LogIn"
+					:label="$t('page--login.title')"
 					@click="logInUser"
 					:disabled="!userData.password.length || !userData.username.length"
 					:loading="appStore.isLoadingLogIn"

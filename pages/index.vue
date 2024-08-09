@@ -18,15 +18,23 @@
 					>@molsrg</UBadge
 				>
 				<div>
-					Компилятор - лучший друг программиста: он никогда не скажет, что ты
-					гений, но всегда покажет, где ты ошибся.
+					{{ $t('page--index.badge') }}
 				</div>
 			</UContainer>
 		</div>
+
+		<div>
+    <div>
+      <UButton @click="setLocale('en')">English</UButton>
+      <UButton @click="setLocale('ru')">Russian</UButton>
+			{{locale}}
+    </div>
+  </div>
 	</div>
 </template>
 
 <script setup lang="ts">
+const { locale, setLocale } = useI18n()
 definePageMeta({
 	layout: 'default',
 	title: 'Some Page'
