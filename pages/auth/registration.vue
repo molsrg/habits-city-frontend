@@ -10,31 +10,31 @@
 						<h3
 							class="text-base font-semibold leading-6 text-gray-900 dark:text-white"
 						>
-							Registry
+						{{ $t('page--registration.title') }}
 						</h3>
 						<UButton
 							color="primary"
 							variant="link"
-							label="Already have an account?"
+							:label="$t('page--registration.have-account')"
 							@click="pushToLogInPage"
 						/>
 					</div>
 					<span class="auth-form-subtitle"
-						>Enter your credentials to access your account.</span
+						>	{{ $t('page--registration.subtitle') }}</span
 					>
 				</template>
 				<div class="auth-form-input">
 					<UInput
 						v-model="userData.username"
 						name="username"
-						placeholder="Enter your username"
+					:placeholder="$t('page--registration.enter-username')"
 						icon="i-heroicons-user-circle-20-solid"
 					/>
 
 					<UInput
 						v-model="userData.password"
 						name="username"
-						placeholder="Enter your password"
+					:placeholder="$t('page--registration.enter-password')"
 						icon="i-heroicons-lock-closed-solid"
 						type="password"
 					/>
@@ -54,7 +54,7 @@
 					class="auth-btn--reg"
 					icon="i-heroicons-user-plus-20-solid"
 					color="black"
-					label="Register"
+					:label="$t('page--registration.button')"
 					@click="registerUser"
 					:disabled="!userData.password.length || !userData.username.length"
 					:loading="appStore.isLoadingReg"

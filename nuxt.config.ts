@@ -21,13 +21,16 @@ export default defineNuxtConfig({
 		},
 	},
 	modules: [
-        '@nuxt/ui',
-        '@nuxtjs/tailwindcss',
-        '@pinia/nuxt',
-        'nuxt-primevue',
-        '@pinia-plugin-persistedstate/nuxt',
-        "@nuxt/icon"
-    ],
+		'@nuxt/ui',
+		'@nuxtjs/tailwindcss',
+		'@pinia/nuxt',
+		'nuxt-primevue',
+		'@pinia-plugin-persistedstate/nuxt',
+		'@nuxtjs/i18n',
+	],
+	i18n: {
+		vueI18n: './i18n.config.ts',
+	},
 	css: ['~/assets/main.css'],
 	primevue: {
 		components: {

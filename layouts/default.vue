@@ -56,7 +56,7 @@ const logInOrRegistration = computed(() => {
 	if (namePathRoute.value === 'auth-registration') {
 		return [
 			{
-				label: 'Registration ',
+				label: 'Registration',
 				icon: 'i-heroicons-user-plus-20-solid',
 				to: '/auth/registration',
 			},
