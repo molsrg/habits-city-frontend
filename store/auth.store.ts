@@ -20,6 +20,30 @@ export const useAuthStore = defineStore('authStore', {
 		},
 	},
 	actions: {
+		async oAuthUser(userToken: object) {
+			console.log(userToken)
+
+			const config = useRuntimeConfig()
+			try {
+				const tokenResponse = await axios.get(
+					`${config.public.apiURL}/auth/${userToken.provider}`,
+					{
+						params: {
+							code: userToken.code,
+						},
+					}
+				)
+
+				console.log(tokenResponse.data)
+			} catch (error) {
+				console.error('Error fetching token:', error)
+			}
+
+			// sessionStorage.setItem('AccessToken', accessToken)
+			// tokenStore.setToken(accessToken)
+			// router.push('/profile')
+		},
+
 		async createUser(userData: object): Promise<any> {
 			const appStore = useAppStore()
 			appStore.sendErrorRegText('')
@@ -104,6 +128,5 @@ export const useAuthStore = defineStore('authStore', {
 		reloadOTP() {
 			this.logInWithOTPCode = ''
 		},
-
 	},
 })

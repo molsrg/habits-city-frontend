@@ -99,9 +99,9 @@ definePageMeta({
 useHead({
 	title: 'HS | Auth',
 })
-import { useAuthStore } from '../../store/auth.store'
-import { useAppStore } from '../../store/app.store'
 import { reactive } from 'vue'
+import { useAppStore } from '../../store/app.store'
+import { useAuthStore } from '../../store/auth.store'
 import getGoogleURL from '../../utils/getGoogleURL'
 const authStore = useAuthStore()
 const appStore = useAppStore()

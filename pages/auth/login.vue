@@ -108,12 +108,15 @@ import { useAuthStore } from '../../store/auth.store'
 import { useAppStore } from '../../store/app.store'
 
 import LogInWithPhone from '../components/modal/LogInWithPhone.vue'
-
+import getGoogleURL from '../../utils/getGoogleURL'
 import { reactive } from 'vue'
 
+
+const config = useRuntimeConfig()
 const authStore = useAuthStore()
 const appStore = useAppStore()
 appStore.$reset()
+
 const userData = reactive({
 	username: '',
 	password: '',
@@ -128,25 +131,20 @@ const logInUserWithPhone = () => {
 }
 
 const logInUserWithYandex = () => {
-	toast.add({
-		color: 'orange',
-		title: 'Log In With Yandex',
-		timeout: 2000,
-	})
+	window.location.href = `https://oauth.yandex.ru/authorize?response_type=token&client_id=${config.public.clientIdYandex}`
 }
 
 const logInUserWithGoogle = () => {
-	toast.add({
-		title: 'Log In With Google',
-		timeout: 2000,
-	})
+	window.location.href = getGoogleURL()
 }
+
 
 const pushToRegPage = () => {
 	const router = useRouter()
 	appStore.sendErrorLogInText('')
 	router.push('/auth/registration')
 }
+
 </script>
 
 <style scoped>
