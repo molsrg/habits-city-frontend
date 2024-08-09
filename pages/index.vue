@@ -22,22 +22,13 @@
 				</div>
 			</UContainer>
 		</div>
-
-		<div>
-    <div>
-      <UButton @click="setLocale('en')">English</UButton>
-      <UButton @click="setLocale('ru')">Russian</UButton>
-			{{locale}}
-    </div>
-  </div>
 	</div>
 </template>
 
 <script setup lang="ts">
-const { locale, setLocale } = useI18n()
 definePageMeta({
 	layout: 'default',
-	title: 'Some Page'
+	title: 'Some Page',
 })
 const items = [
 	{

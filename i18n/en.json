@@ -2,6 +2,12 @@
   "page--index": {
 		"badge": "The compiler is a programmer's best friend: it will never say that you are a genius, but it will always show you where you went wrong."
 	}, 
+	"page--profile": {
+		"title": "Welcome to profile!", 
+		"subtitle": "Your account is already ready, but you can customize it for yourself", 
+		"settings" : "Settings",
+		"language": "Choose language"
+	}, 
 	"page--login": {
 		"title": "LogIn", 
 		"subtitle": "Enter your credentials to access your account.",
