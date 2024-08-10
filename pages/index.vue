@@ -22,6 +22,7 @@
 				</div>
 			</UContainer>
 		</div>
+
 	</div>
 </template>
 
@@ -30,6 +31,7 @@ definePageMeta({
 	layout: 'default',
 	title: 'Some Page',
 })
+
 const items = [
 	{
 		label: 'Простота',

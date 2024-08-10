@@ -13,5 +13,11 @@ export const useUserStore = defineStore('userStore', {
 	},
 	actions: {
 		async fetchUserInfo() {},
+
+
+		async changeUserInfo(userInfo: object): Promise<void> {
+			console.log('changeUserInfo', userInfo)
+		},
 	},
+	
 })

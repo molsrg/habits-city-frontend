@@ -11,46 +11,33 @@
 			<UIcon name="i-heroicons-cog-6-tooth-20-solid" />
 			<h2>{{ $t('page--profile.settings') }}</h2>
 		</div>
+		<ProfileSetting :user-info="userInfo" @save-data="saveUserData" />
 
-		<div class="profile-setting">
-			<h3>{{ $t('page--profile.language') }}</h3>
-			<USelect
-				icon="i-heroicons-language"
-				color="white"
-				size="sm"
-				:options="['Русский', 'English']"
-				placeholder="Search..."
-				v-model="languageUser"
-			/>
-		</div>
-		<VerificatedPhone />
+		<!-- <VerificatedPhone /> -->
 	</div>
 </template>
 
 <script setup lang="ts">
-const { locale, setLocale } = useI18n()
-import { watch } from 'vue'
-import VerificatedPhone from '../components/modal/VerificatedPhone.vue'
+import { useUserStore } from '@/store/user.store'
+
+// import ProfileSetting from '../components/profile/ProfileSetting.vue'
+// import VerificatedPhone from '../components/modal/VerificatedPhone.vue'
 definePageMeta({
 	middleware: ['auth'],
 })
 useHead({
 	title: 'HS | Profile',
 })
-
-const languageUser = ref('English')
-
-const languageMap = {
-	'English': 'en',
-	'Русский': 'ru'
-}
-
-watch(languageUser, (newValue, oldValue) => {
-	if (oldValue !== newValue) {
-		const newLocale = languageMap[newValue]
-		setLocale(newLocale)
-	}
+const userStore = useUserStore()
+const userInfo = reactive({
+	username: 'john_doe',
+	email: 'doe@example.com',
+	password: 'passwosdsadrd123',
 })
+
+const saveUserData = () => {
+	userStore.changeUserInfo(userInfo)
+}
 </script>
 
 <style scoped>
@@ -81,14 +68,5 @@ watch(languageUser, (newValue, oldValue) => {
 	column-gap: 8px;
 
 	font-size: 20px;
-}
-
-.profile-setting {
-	display: flex;
-	align-self: flex-start;
-	column-gap: 20px;
-
-	font-size: 18px;
-	padding: 15px;
 }
 </style>
