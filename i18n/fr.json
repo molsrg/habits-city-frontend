@@ -1,0 +1,41 @@
+
+{
+  "page--index": {
+    "badge": "Le compilateur est le meilleur ami du programmeur : il ne dira jamais que vous êtes un génie, mais il vous montrera toujours où vous avez fait une erreur."
+  },
+  "page--profile": {
+    "title": "Bienvenue sur le profil !",
+    "subtitle": "Votre compte est déjà prêt, mais vous pouvez le personnaliser.",
+    "settings": "Paramètres",
+    "language": "Choisir la langue",
+    "settings-option": {
+      "username": "Nom d'utilisateur",
+      "email": "Email",
+      "password": "Mot de passe"
+    },
+    "save-data": "Enregistrer les données"
+  },
+  "page--login": {
+    "title": "Connexion",
+    "subtitle": "Entrez vos identifiants pour accéder à votre compte.",
+    "no-account": "Vous n'avez pas encore de compte ?",
+    "enter-password": "Entrez votre mot de passe",
+    "enter-username": "Entrez votre nom d'utilisateur"
+  },
+  "page--registration": {
+    "title": "Inscription",
+    "subtitle": "Entrez vos identifiants pour accéder à votre compte.",
+    "have-account": "Vous avez déjà un compte ?",
+    "enter-password": "Entrez votre mot de passe",
+    "enter-username": "Entrez votre nom d'utilisateur",
+    "button": "S'inscrire"
+  },
+  "layout--default": {
+    "label": {
+      "registration": "Inscription",
+      "login": "Connexion",
+      "faq": "F.A.Q.",
+      "home": "Page d'accueil"
+    }
+  }
+}

@@ -3,7 +3,7 @@
 		<div class="profile-settings-container">
 			<div class="profile-settings-detail">
 				<div class="profile-settings-detail--change">
-					<span>Username</span>
+					<span>{{ $t('page--profile.settings-option.username') }}</span>
 					<UButton
 						@click="toggleDisabled('username')"
 						variant="ghost"
@@ -30,7 +30,7 @@
 
 			<div class="profile-settings-detail">
 				<div class="profile-settings-detail--change">
-					<span>Email</span>
+					<span>{{ $t('page--profile.settings-option.email') }}</span>
 					<UButton
 						@click="toggleDisabled('email')"
 						variant="ghost"
@@ -52,7 +52,7 @@
 
 			<div class="profile-settings-detail">
 				<div class="profile-settings-detail--change">
-					<span>Password</span>
+					<span>{{ $t('page--profile.settings-option.password') }}</span>
 					<UButton
 						@click="toggleDisabled('password')"
 						variant="ghost"
@@ -72,20 +72,10 @@
 				/>
 			</div>
 
-			<!-- <div class="profile-setting">
-				<h3>{{ $t('page--profile.language') }}</h3>
-				<USelect
-					icon="i-heroicons-language"
-					color="white"
-					size="sm"
-					:options="['Русский', 'English']"
-					placeholder="Search..."
-					v-model="languageUser"
-				/>
-			</div> -->
+
 		</div>
 		<UButton
-			label="Save data"
+			:label="$t('page--profile.save-data')"
 			@click="saveDataUser"
 			v-if="!isInvalidUsernameLength && !isInvalidUsername"
 		/>
@@ -93,12 +83,14 @@
 </template>
 
 <script setup lang="ts">
-const router = useRouter()
-import { useApiStore } from '@/store/api.store'
+
 import AlertApp from '@/components/alerts/AlertApp'
+import { useApiStore } from '@/store/api.store'
 import { debounce } from 'lodash'
+
 const apiStore = useApiStore()
-const { locale, setLocale } = useI18n()
+const router = useRouter()
+
 const props = defineProps({
 	userInfo: {
 		type: Object,
@@ -153,22 +145,6 @@ const saveDataUser = () => {
 	isDisabled.password = true
 }
 
-
-// Настройки языка
-const languageUser = ref('English')
-const languageMap = {
-	English: 'en',
-	Русский: 'ru',
-}
-watch(languageUser, (newValue, oldValue) => {
-	if (oldValue !== newValue) {
-		const newLocale = languageMap[newValue]
-		setLocale(newLocale)
-	}
-})
-
-
-
 // Запретить переход если есть ошибка
 router.beforeEach((to, from, next) => {
 	if (!isInvalidUsername.value && !isInvalidUsernameLength.value) {
@@ -177,7 +153,6 @@ router.beforeEach((to, from, next) => {
 		next(false)
 	}
 })
-
 </script>
 
 <style scoped>

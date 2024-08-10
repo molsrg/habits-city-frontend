@@ -6,7 +6,13 @@
 		"title": "Welcome to profile!", 
 		"subtitle": "Your account is already ready, but you can customize it for yourself", 
 		"settings" : "Settings",
-		"language": "Choose language"
+		"language": "Choose language", 
+		"settings-option": {
+			"username": "Username",
+			"email": "Email",
+      "password": "Password"
+		},
+		"save-data": "Save data"
 	}, 
 	"page--login": {
 		"title": "LogIn", 

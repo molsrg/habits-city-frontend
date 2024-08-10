@@ -44,6 +44,7 @@ export default defineNuxtConfig({
 				'FileUpload',
 				'Chart',
 				'Fieldset',
+				'RadioButton'
 			],
 		},
 		composables: {
