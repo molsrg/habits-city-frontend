@@ -8,6 +8,7 @@
 </template>
 
 <script setup lang="ts">
+const toast = useToast()
 // useSeoMeta({
 //   title: 'Habits City',
 //   ogTitle: 'Habits City',

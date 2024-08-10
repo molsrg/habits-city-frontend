@@ -18,6 +18,10 @@ export const useUserStore = defineStore('userStore', {
 		async changeUserInfo(userInfo: object): Promise<void> {
 			console.log('changeUserInfo', userInfo)
 		},
+
+		async deleteAccount(userInfo: string): Promise<void> {
+			console.log('deleteAccount', userInfo)
+		}
 	},
 	
 })

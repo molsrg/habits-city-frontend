@@ -4,6 +4,7 @@ export const useAppStore = defineStore('appStore', {
 	state: () => ({
 		isOpenVerificatedPhone: false,
 		isOpenLogInWithPhone: false,
+		isOpenDeleteAccount: false,
 
 		errorRegMessage: '',
 		errorLogInMessage: '',
@@ -19,6 +20,12 @@ export const useAppStore = defineStore('appStore', {
 		isLogInWithPhone(state) {
 			return state.isOpenLogInWithPhone
 		},
+
+		isDeleteAccount(state) {
+			return state.isOpenDeleteAccount
+		},
+
+
 		errorRegText(state) {
 			return state.errorRegMessage
 		},
@@ -39,6 +46,9 @@ export const useAppStore = defineStore('appStore', {
 		},
 		toggleIsLogInWithPhone() {
 			this.isOpenLogInWithPhone = !this.isOpenLogInWithPhone
+		},
+		toggleIsDeleteAccount() {
+			this.isOpenDeleteAccount = !this.isOpenDeleteAccount
 		},
 
 		sendErrorRegText(error: string) {

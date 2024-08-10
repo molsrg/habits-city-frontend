@@ -27,7 +27,6 @@
 					v-if="isInvalidUsernameLength"
 				/>
 			</div>
-
 			<div class="profile-settings-detail">
 				<div class="profile-settings-detail--change">
 					<span>{{ $t('page--profile.settings-option.email') }}</span>
@@ -71,8 +70,6 @@
 					v-model="userInfo.password"
 				/>
 			</div>
-
-
 		</div>
 		<UButton
 			:label="$t('page--profile.save-data')"
@@ -83,7 +80,6 @@
 </template>
 
 <script setup lang="ts">
-
 import AlertApp from '@/components/alerts/AlertApp'
 import { useApiStore } from '@/store/api.store'
 import { debounce } from 'lodash'
@@ -98,7 +94,6 @@ const props = defineProps({
 	},
 })
 const emit = defineEmits(['saveData'])
-
 
 // Смена возможности изменения полей
 const isDisabled = reactive({
@@ -135,12 +130,10 @@ watch(
 	}
 )
 
-
-
-// Сейвим новые значения 
+// Сейвим новые значения
 const saveDataUser = () => {
 	emit('saveData')
-	isDisabled.userName = true
+	isDisabled.username = true
 	isDisabled.email = true
 	isDisabled.password = true
 }

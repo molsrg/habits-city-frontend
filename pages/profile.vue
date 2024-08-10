@@ -33,14 +33,29 @@
 				<label :for="option.inputId" class="ml-2">{{ option.label }}</label>
 			</div>
 		</div>
+		<UButton
+				class="delete-button"
+				@click="appStore.toggleIsDeleteAccount"
+				icon="i-heroicons-trash"
+				color="red"
+				variant="outline"
+				label="Удалить аккаунт"
+			/>
 		<!-- <VerificatedPhone /> -->
+		<DeleteAccount :username="userInfo.username" />
+
 	</div>
 </template>
 
 <script setup lang="ts">
 import { useUserStore } from '@/store/user.store'
+import { useAppStore } from '@/store/app.store'
+import DeleteAccount from '@/components/modal/DeleteAccount.vue'
+
 const { locale, setLocale } = useI18n()
+const appStore = useAppStore()
 const userStore = useUserStore()
+const toast = useToast()
 // import ProfileSetting from '../components/profile/ProfileSetting.vue'
 // import VerificatedPhone from '../components/modal/VerificatedPhone.vue'
 definePageMeta({
@@ -64,6 +79,11 @@ const userInfo = reactive({
 })
 const saveUserData = () => {
 	userStore.changeUserInfo(userInfo)
+	toast.add({
+		color: 'green',
+		title: 'Save data access',
+		timeout: 2000,
+	})
 }
 
 // Настройки языка
@@ -104,7 +124,10 @@ watch(selectedLanguage, (newValue, oldValue) => {
 	font-size: 20px;
 }
 
-
+.delete-button {
+	margin: 20px;
+	/* align-self: flex-end; */
+}
 
 
 </style>
