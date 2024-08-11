@@ -1,12 +1,12 @@
 <template>
 	<div>
-		<div class="pending" v-if="accessToken">
+		<div class="pending" v-if="!appStore.errorOAuthText">
 			<h3 class="text-xl">Wait for the authorization!</h3>
 
 			<span class="loader"></span>
 		</div>
 		<div class="pending-error" v-else>
-			<h3 class="text-xl">Sorry...your oAuth is invalid!</h3>
+			<h3 class="text-xl">{{ appStore.errorOAuthText }}</h3>
 			<UButton @click="handleError" color="white" variant="solid"
 				>Go back login
 			</UButton>
@@ -16,10 +16,13 @@
 <script setup lang="ts">
 import { useTokenStore } from '@/store/token.store'
 import { useAuthStore } from '@/store/auth.store'
+import { useAppStore } from '@/store/app.store'
 const tokenStore = useTokenStore()
 const authStore = useAuthStore()
+const appStore = useAppStore()
 const route = useRoute()
 const router = useRouter()
+
 let accessToken = {
 	code: '',
 	provider: '',
@@ -53,8 +56,6 @@ const props = defineProps({
 	error: Object as () => NuxtError,
 })
 const handleError = () => clearError({ redirect: '/auth/login' })
-
-
 </script>
 <style scoped>
 .pending {

@@ -21,9 +21,10 @@ export const useAuthStore = defineStore('authStore', {
 	},
 	actions: {
 		async oAuthUser(userToken: object) {
-			console.log(userToken)
-
 			const config = useRuntimeConfig()
+			const tokenStore = useTokenStore()
+			const appStore = useAppStore()
+			const router = useRouter()
 			try {
 				const tokenResponse = await axios.get(
 					`${config.public.apiURL}/auth/${userToken.provider}`,
@@ -33,15 +34,16 @@ export const useAuthStore = defineStore('authStore', {
 						},
 					}
 				)
+	
+				sessionStorage.setItem('AccessToken', tokenResponse.data.AccessToken)
+				tokenStore.setToken(tokenResponse.data.AccessToken)
+				router.push('/profile')
 
-				console.log(tokenResponse.data)
+
 			} catch (error) {
 				console.error('Error fetching token:', error)
+				appStore.sendErrorOAuthText(error?.data?.message)
 			}
-
-			// sessionStorage.setItem('AccessToken', accessToken)
-			// tokenStore.setToken(accessToken)
-			// router.push('/profile')
 		},
 
 		async createUser(userData: object): Promise<any> {

@@ -8,6 +8,7 @@ export const useAppStore = defineStore('appStore', {
 
 		errorRegMessage: '',
 		errorLogInMessage: '',
+		errorOAuthMessage: '',
 
 		loadingReg: false,
 		loadingLogIn: false
@@ -31,6 +32,9 @@ export const useAppStore = defineStore('appStore', {
 		},
 		errorLogInText(state) {
 			return state.errorLogInMessage
+		},
+		errorOAuthText(state) {
+			return state.errorOAuthMessage
 		},
 
 		isLoadingReg(state){
@@ -56,6 +60,9 @@ export const useAppStore = defineStore('appStore', {
 		},
 		sendErrorLogInText(error: string) {
 			this.errorLogInMessage = error
+		},
+		sendErrorOAuthText(error: string) {
+			this.errorOAuthMessage = error
 		},
 
 		toggleLoadingReg(){

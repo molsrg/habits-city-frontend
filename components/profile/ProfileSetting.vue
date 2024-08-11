@@ -21,11 +21,16 @@
 					:disabled="isDisabled.username"
 					v-model="userInfo.username"
 				/>
-				<AlertApp :label="'username уже занят !'" v-if="isInvalidUsername" />
-				<AlertApp
-					:label="'username не может быть пустым !'"
-					v-if="isInvalidUsernameLength"
-				/>
+
+				<Transition>
+					<AlertApp :label="'username уже занят !'" v-if="isInvalidUsername" />
+				</Transition>
+				<Transition>
+					<AlertApp
+						:label="'username не может быть пустым !'"
+						v-if="isInvalidUsernameLength"
+					/>
+				</Transition>
 			</div>
 			<div class="profile-settings-detail">
 				<div class="profile-settings-detail--change">
@@ -72,9 +77,9 @@
 			</div>
 		</div>
 		<UButton
+			:class="buttonHidden"
 			:label="$t('page--profile.save-data')"
 			@click="saveDataUser"
-			v-if="!isInvalidUsernameLength && !isInvalidUsername"
 		/>
 	</div>
 </template>
@@ -94,6 +99,26 @@ const props = defineProps({
 	},
 })
 const emit = defineEmits(['saveData'])
+
+// Исходные данные пользователя
+const originalUserInfo = ref({ ...props.userInfo })
+
+// Вычисляемое свойство для отслеживания изменений данных пользователя
+const hasChanges = computed(() => {
+	return (
+		JSON.stringify(props.userInfo) !== JSON.stringify(originalUserInfo.value)
+	)
+})
+
+const buttonHidden = computed(() => {
+	return {
+		'save-button': true,
+		'save-button--visible':
+			!isInvalidUsernameLength.value &&
+			!isInvalidUsername.value &&
+			hasChanges.value,
+	}
+})
 
 // Смена возможности изменения полей
 const isDisabled = reactive({
@@ -136,6 +161,8 @@ const saveDataUser = () => {
 	isDisabled.username = true
 	isDisabled.email = true
 	isDisabled.password = true
+
+	originalUserInfo.value = { ...props.userInfo }
 }
 
 // Запретить переход если есть ошибка
@@ -180,5 +207,26 @@ router.beforeEach((to, from, next) => {
 	display: flex;
 	align-items: center;
 	column-gap: 10px;
+}
+
+.save-button {
+	opacity: 0;
+	transition: all 0.5s ease-in-out; /* Плавная анимация для opacity */
+}
+
+.save-button--visible {
+	opacity: 1;
+	transform: translateY(-10px);
+}
+
+/* we will explain what these classes do next! */
+.v-enter-active,
+.v-leave-active {
+	transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+	opacity: 0;
 }
 </style>
