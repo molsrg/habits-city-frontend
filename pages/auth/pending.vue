@@ -56,6 +56,15 @@ const props = defineProps({
 	error: Object as () => NuxtError,
 })
 const handleError = () => clearError({ redirect: '/auth/login' })
+
+
+// Переопределение метода console.warn
+const originalWarn = console.warn;
+console.warn = (message, ...args) => {
+  if (!message.includes('The selector')) {
+    originalWarn(message, ...args);
+  }
+};
 </script>
 <style scoped>
 .pending {

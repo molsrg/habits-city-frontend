@@ -27,6 +27,12 @@
 				@update:selectValue="handleSelectValue"
 			/>
 		</div>
+		<div class="profile-options">
+			<UIcon name="i-heroicons-chart-pie" />
+			<h2>Statistic</h2>
+		</div>
+
+		<ChartApp />
 
 		<UButton
 			class="delete-button"
@@ -45,8 +51,9 @@
 <script setup lang="ts">
 import { useUserStore } from '@/store/user.store'
 import { useAppStore } from '@/store/app.store'
-import DeleteAccount from '@/components/modal/DeleteAccount.vue'
 
+import ChartApp from '@/components/charts/ChartApp.vue'
+import DeleteAccount from '@/components/modal/DeleteAccount.vue'
 const { locale, setLocale } = useI18n()
 const appStore = useAppStore()
 const userStore = useUserStore()

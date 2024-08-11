@@ -34,12 +34,10 @@ export const useAuthStore = defineStore('authStore', {
 						},
 					}
 				)
-	
+
 				sessionStorage.setItem('AccessToken', tokenResponse.data.AccessToken)
 				tokenStore.setToken(tokenResponse.data.AccessToken)
 				router.push('/profile')
-
-
 			} catch (error) {
 				console.error('Error fetching token:', error)
 				appStore.sendErrorOAuthText(error?.data?.message)
@@ -60,6 +58,8 @@ export const useAuthStore = defineStore('authStore', {
 					const tokenStore = useTokenStore()
 					const router = useRouter()
 
+					console.log(response.data)
+
 					sessionStorage.setItem('RefreshToken', response.data.RefreshToken)
 					sessionStorage.setItem('AccessToken', response.data.AccessToken)
 
@@ -75,31 +75,32 @@ export const useAuthStore = defineStore('authStore', {
 			}
 		},
 
-		async logInWithPassword(userData: object) {
+		async logInWithPassword(userData: object): Promise<any> {
 			const config = useRuntimeConfig()
 			const appStore = useAppStore()
+			const tokenStore = useTokenStore()
+			const router = useRouter()
+
 			appStore.sendErrorLogInText('')
 			appStore.toggleLoadingLogIn()
 
 			try {
-				const response = await axios.post(
-					`${config.public.apiURL}/auth/login`,
-					userData
-				)
+				const response = await $fetch(`${config.public.apiURL}/auth/login`, {
+					method: 'POST',
+					body: userData,
+				})
 
-				if (response.status === 200) {
-					const tokenStore = useTokenStore()
-					const router = useRouter()
+				if (response) {
+					// sessionStorage.setItem('RefreshToken', response.RefreshToken);
+					sessionStorage.setItem('AccessToken', response.AccessToken)
 
-					sessionStorage.setItem('RefreshToken', response.data.RefreshToken)
-					sessionStorage.setItem('AccessToken', response.data.AccessToken)
-
-					tokenStore.setToken(response.data.AccessToken)
+					tokenStore.setToken(response.AccessToken)
 					router.push('/profile')
 				}
 			} catch (error) {
-				if (error?.response?.data?.message) {
-					appStore.sendErrorLogInText(error?.response?.data?.message)
+				if (error.response) {
+					const errorData = error.response._data
+					appStore.sendErrorLogInText(errorData.message)
 				}
 			} finally {
 				appStore.toggleLoadingLogIn()

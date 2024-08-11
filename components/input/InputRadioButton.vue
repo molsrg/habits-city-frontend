@@ -1,14 +1,16 @@
 <template>
-	<label class="radio">
+	<div>
 		<input
+			class="custom-radio"
 			name="radio"
 			type="radio"
 			:value="selectOptions.value"
+			:id="selectOptions.inputId"
 			v-model="selectValue"
 			@change="handleChange"
 		/>
-		<span>{{ selectOptions.label }}</span>
-	</label>
+		<label :for="selectOptions.inputId">{{ selectOptions.label }}</label>
+	</div>
 </template>
 
 <script setup lang="ts">
@@ -18,9 +20,9 @@ const props = defineProps({
 		required: true,
 	},
 	selectValue: {
-    type: String,
-    required: false,
-  },
+		type: String,
+		required: false,
+	},
 })
 
 const selectValue = ref(props.selectValue)
@@ -31,59 +33,61 @@ const handleChange = (event: Event) => {
 	const target = event.target as HTMLInputElement
 	emit('update:selectValue', target.value)
 }
-
 </script>
 
 <style scoped>
-.radio {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	text-align: left;
+
+/* для элемента input c type="radio" */
+.custom-radio {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+/* для элемента label связанного с .custom-radio */
+.custom-radio+label {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+/* создание в label псевдоэлемента  before со следующими стилями */
+.custom-radio+label::before {
+  content: '';
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border: 1px solid #adb5bd;
+  border-radius: 50%;
+  margin-right: 0.5em;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50% 50%;
+  transition: all 0.2s ease-in-out; /* Добавляем переход для анимации */
+}
+/* стили при наведении курсора на радио */
+.custom-radio:not(:disabled):not(:checked)+label:hover::before {
+  border-color: #b3d7ff;
+}
+/* стили для активной радиокнопки (при нажатии на неё) */
+.custom-radio:not(:disabled):active+label::before {
+  background-color: #b3d7ff;
+  border-color: #b3d7ff;
+}
+/* стили для радиокнопки, находящейся в фокусе */
+.custom-radio:focus+label::before {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-.radio input {
-	display: none;
+/* стили для радиокнопки, находящейся в фокусе и не находящейся в состоянии checked */
+.custom-radio:focus:not(:checked)+label::before {
+  border-color: #80bdff;
 }
 
-.radio input + span {
-	display: inline-block;
-	position: relative;
-	padding-left: 25px;
-	line-height: 20px;
-}
-
-.radio input + span::before {
-	content: '';
-	display: block;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	border-radius: 50%;
-	width: 18px;
-	height: 18px;
-	border: 1px solid rgb(74, 222, 128);
-	background: rgb(18, 18, 18);
-}
-
-.radio input + span::after {
-	content: '';
-	display: block;
-	width: 10px;
-	height: 10px;
-	background: rgb(74, 222, 128);
-	position: absolute;
-	border-radius: 50%;
-	top: 4px;
-	left: 4.4px;
-	opacity: 0;
-	transform: scale(0, 0);
-	transition: all 0.2s cubic-bezier(0.64, 0.57, 0.67, 1.53);
-}
-
-.radio input:checked + span::after {
-	opacity: 1;
-	transform: scale(1, 1);
+/* стили для радиокнопки, находящейся в состоянии checked */
+.custom-radio:checked+label::before {
+  border-color: rgb(74, 222, 128);
+  background-color: rgb(74, 222, 128);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
 }
 </style>

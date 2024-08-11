@@ -183,7 +183,7 @@ router.beforeEach((to, from, next) => {
 	align-items: center;
 	gap: 20px;
 	font-size: 18px;
-	padding: 15px;
+
 }
 .profile-settings-container {
 	display: flex;
