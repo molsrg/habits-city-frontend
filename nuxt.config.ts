@@ -17,7 +17,6 @@ export default defineNuxtConfig({
 			apiURL: process.env.API_URL_BACKEND,
 			clientIdYandex: process.env.CLIENT_ID_YANDEX,
 			clientIdGoogle: process.env.CLIENT_ID_GOOGLE,
-
 		},
 	},
 	modules: [
@@ -44,7 +43,7 @@ export default defineNuxtConfig({
 				'FileUpload',
 				'Chart',
 				'Fieldset',
-				'RadioButton'
+				'RadioButton',
 			],
 		},
 		composables: {

@@ -1,6 +1,6 @@
 <template>
 	<div>
-	<UHorizontalNavigation
+		<UHorizontalNavigation
 			:links="links"
 			v-if="isDesktop"
 			class="border-b border-gray-200 dark:border-gray-800 px-2"
@@ -29,24 +29,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-
 // Проверка на ширину экрана
 import { useScreenSize } from '@/composables/useScreenSize'
 const { isDesktop } = useScreenSize()
 
 import { useAuthStore } from '../store/auth.store'
-const authStore = useAuthStore()
 import { useTokenStore } from '../store/token.store'
 const tokenStore = useTokenStore()
+const authStore = useAuthStore()
+const router = useRouter()
 
 // Выход из системы
 const logoutUser = (): void => {
 	tokenStore.removeToken()
 	console.log('Logout user')
 }
-
-const router = useRouter()
 
 const namePathRoute = computed(() => {
 	return router.currentRoute.value.name

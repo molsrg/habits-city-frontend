@@ -4,7 +4,6 @@ export const useApiStore = defineStore('apiStore', {
 	state: () => ({
 		isValidUserName: false,
 		isExistUserPhone: false,
-		currentUsername: '',
 	}),
 	getters: {
 		getIsValidUsername(state): boolean {

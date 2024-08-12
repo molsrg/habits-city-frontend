@@ -96,7 +96,6 @@
 </template>
 
 <script setup lang="ts">
-const toast = useToast()
 definePageMeta({
 	middleware: ['guest'],
 })
@@ -104,17 +103,17 @@ definePageMeta({
 useHead({
 	title: 'HS | Auth',
 })
+
 import { useAuthStore } from '../../store/auth.store'
 import { useAppStore } from '../../store/app.store'
 
 import LogInWithPhone from '../components/modal/LogInWithPhone.vue'
 import getGoogleURL from '../../utils/getGoogleURL'
-import { reactive } from 'vue'
-
 
 const config = useRuntimeConfig()
 const authStore = useAuthStore()
 const appStore = useAppStore()
+const toast = useToast()
 appStore.$reset()
 
 const userData = reactive({

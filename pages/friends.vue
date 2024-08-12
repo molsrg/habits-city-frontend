@@ -40,6 +40,7 @@ definePageMeta({
 useHead({
 	title: 'HS | Friends',
 })
+
 const searchFriend = ref('')
 
 // TODO request in server

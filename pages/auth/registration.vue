@@ -91,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-const toast = useToast()
+
 definePageMeta({
 	middleware: ['guest'],
 })
@@ -105,6 +105,8 @@ import { useAuthStore } from '../../store/auth.store'
 import getGoogleURL from '../../utils/getGoogleURL'
 const authStore = useAuthStore()
 const appStore = useAppStore()
+const toast = useToast()
+
 appStore.$reset()
 const userData = reactive({
 	username: '',
