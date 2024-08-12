@@ -89,10 +89,7 @@ const helloArray = [
 	[0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0],
+
 ]
 onMounted(() => {
 	chartData.value = setChartData()
@@ -185,9 +182,11 @@ const setChartData = () => {
 
 .months {
 	grid-area: months;
+	font-size: 1vw;
 }
 .days {
 	grid-area: days;
+	font-size: 1vw;
 }
 .squares {
 	grid-area: squares;
@@ -217,7 +216,7 @@ const setChartData = () => {
 		calc(var(--week-width) * 4) /* Sep */
 		calc(var(--week-width) * 5) /* Oct */
 		calc(var(--week-width) * 4) /* Nov */
-		calc(var(--week-width) * 5) /* Dec */;
+		calc(var(--week-width) * 1) /* Dec */;
 }
 
 .days,

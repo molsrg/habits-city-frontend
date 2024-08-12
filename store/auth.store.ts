@@ -88,6 +88,7 @@ export const useAuthStore = defineStore('authStore', {
 				const response = await $fetch(`${config.public.apiURL}/auth/login`, {
 					method: 'POST',
 					body: userData,
+					credentials: 'include', 
 				})
 
 				if (response) {

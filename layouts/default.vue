@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<UHorizontalNavigation
+	<UHorizontalNavigation
 			:links="links"
 			v-if="isDesktop"
 			class="border-b border-gray-200 dark:border-gray-800 px-2"
@@ -113,6 +113,17 @@ const authLinks = computed(() =>
 					label: 'Profile',
 					badge: '100',
 					to: '/profile',
+				},
+				{
+					icon: 'i-heroicons-user-group',
+					label: 'Friends',
+					badge: '0',
+					to: '/friends',
+				},
+				{
+					icon: 'i-heroicons-circle-stack',
+					label: 'Tasks',
+					to: '/tasks',
 				},
 		  ]
 		: [...logInOrRegistration.value]
