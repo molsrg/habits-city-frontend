@@ -11,7 +11,7 @@ export default defineNuxtConfig({
 			link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
 		},
 	},
-	devtools: { enabled: false },
+	devtools: { enabled: true },
 	runtimeConfig: {
 		public: {
 			apiURL: process.env.API_URL_BACKEND,
@@ -20,13 +20,14 @@ export default defineNuxtConfig({
 		},
 	},
 	modules: [
-		'@nuxt/ui',
-		'@nuxtjs/tailwindcss',
-		'@pinia/nuxt',
-		'nuxt-primevue',
-		'@pinia-plugin-persistedstate/nuxt',
-		'@nuxtjs/i18n',
-	],
+        '@nuxt/ui',
+        '@nuxtjs/tailwindcss',
+        '@pinia/nuxt',
+        'nuxt-primevue',
+        '@pinia-plugin-persistedstate/nuxt',
+        '@nuxtjs/i18n',
+        "@nuxt/eslint"
+    ],
 	i18n: {
 		vueI18n: './i18n.config.ts',
 	},
