@@ -1,42 +1,59 @@
 {
   "page--index": {
-		"badge": "The compiler is a programmer's best friend: it will never say that you are a genius, but it will always show you where you went wrong."
-	}, 
-	"page--profile": {
-		"title": "Welcome to profile!", 
-		"subtitle": "Your account is already ready, but you can customize it for yourself", 
-		"settings" : "Settings",
-		"language": "Choose language", 
-		"settings-option": {
-			"username": "Username",
-			"email": "Email",
+    "badge": "The compiler is a programmer's best friend: it will never say that you are a genius, but it will always show you where you went wrong."
+  },
+  "page--profile": {
+    "title": "Welcome to profile!",
+    "subtitle": "Your account is already ready, but you can customize it for yourself",
+    "settings": "Settings",
+    "language": "Choose language",
+    "settings-option": {
+      "username": "Username",
+      "email": "Email",
       "password": "Password"
-		},
-		"save-data": "Save data"
-	}, 
-	"page--login": {
-		"title": "LogIn", 
-		"subtitle": "Enter your credentials to access your account.",
-		"no-account": "Don't have an account yet?", 
-		"enter-password": "Enter your password", 
-		"enter-username": "Enter your username"
-	},
-	"page--registration": {
-		"title": "Registry", 
-		"subtitle": "Enter your credentials to access your account.",
-		"have-account": "Already have an account?", 
-		"enter-password": "Enter your password", 
-		"enter-username": "Enter your username", 
-		"button": "Register"
-	},
-
-	"layout--default": {
+    },
+    "save-data": "Save data"
+  },
+  "page--login": {
+    "title": "LogIn",
+    "subtitle": "Enter your credentials to access your account.",
+    "no-account": "Don't have an account yet?",
+    "enter-password": "Enter your password",
+    "enter-username": "Enter your username"
+  },
+  "page--registration": {
+    "title": "Registry",
+    "subtitle": "Enter your credentials to access your account.",
+    "have-account": "Already have an account?",
+    "enter-password": "Enter your password",
+    "enter-username": "Enter your username",
+    "button": "Register"
+  },
+  "layout--default": {
     "label": {
-			"registration": "Registration", 
-			"login": "Login", 
-			"faq": "F.A.Q.",
-			"home:": "Home Page"
-		}
+      "registration": "Registration",
+      "login": "Login",
+      "faq": "F.A.Q.",
+      "home:": "Home Page"
+    }
+  },
+  "notifications": {
+    "save-access": "Save data access",
+    "save-error": "Save data error"
+  },
+  "alerts": {
+    "errors": {
+      "username": {
+        "empty": "username cannot be empty!",
+        "taken": "username is already taken!"
+      },
+      "email": {
+        "empty": "email cannot be empty!"
+      },
+      "password": {
+        "empty": "password cannot be empty!"
+      }
+    }
   }
 }
 

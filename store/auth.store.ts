@@ -69,32 +69,26 @@ export const useAuthStore = defineStore('authStore', {
         appStore.toggleLoadingLogIn();
       }
     },
+    async oAuthUser(userToken: { provider: string; code: string }): Promise<void> {
+      const tokenStore = useTokenStore();
+      const appStore = useAppStore();
+      const router = useRouter();
+
+      try {
+        const { data } = await authService.get(`/auth/${userToken.provider}`, {
+          code: userToken.code,
+        });
+
+        sessionStorage.setItem('AccessToken', data.AccessToken);
+        tokenStore.setToken(data.AccessToken);
+        router.push('/profile');
+      } catch (error) {
+        console.error('Error fetching token:', error);
+        appStore.sendErrorOAuthText(error?.response?.data?.message || 'Unknown error');
+      }
+    },
 
 
-    // async oAuthUser(userToken: object) {
-    //   const config = useRuntimeConfig();
-    //   const tokenStore = useTokenStore();
-    //   const appStore = useAppStore();
-    //   const router = useRouter();
-    //   try {
-    //     const tokenResponse = await axios.get(
-    //       `${config.public.apiURL}/auth/${userToken.provider}`,
-    //       {
-    //         params: {
-    //           code: userToken.code,
-    //         },
-    //       },
-    //     );
-    //
-    //     sessionStorage.setItem('AccessToken', tokenResponse.data.AccessToken);
-    //     tokenStore.setToken(tokenResponse.data.AccessToken);
-    //     router.push('/profile');
-    //   } catch (error) {
-    //     console.error('Error fetching token:', error);
-    //     appStore.sendErrorOAuthText(error?.data?.message);
-    //   }
-    // },
-    //
     // Метод для запроса кода на сервере
     // async logInWithPhoneNumber(userPhone: string) {
     //   const userData = { phone: userPhone };

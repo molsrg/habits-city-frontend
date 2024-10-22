@@ -31,13 +31,15 @@
 import { useScreenSize } from '@/composables/useScreenSize';
 import { useAuthStore } from '../store/auth.store';
 import { useTokenStore } from '../store/token.store';
+import { useUserStore } from '../store/user.store';
 
 const { isDesktop } = useScreenSize();
 
 const tokenStore = useTokenStore();
 const authStore = useAuthStore();
+const userStore = useUserStore();
 const router = useRouter();
-
+const user = computed(() => userStore.getUserInfo);
 // Выход из системы
 const logoutUser = (): void => {
   tokenStore.removeToken();
@@ -106,7 +108,7 @@ const authLinks = computed(() =>
       },
       {
         icon: 'i-heroicons-user',
-        label: 'Profile',
+        label: user.value.username || 'User',
         badge: '100',
         to: '/profile',
       },
