@@ -17,6 +17,7 @@ useSeoMeta({
 })
 </script>
 
+
 <style>
 .container {
   margin: auto;
