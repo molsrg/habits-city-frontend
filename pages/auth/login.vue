@@ -1,3 +1,53 @@
+<script lang="ts" setup>
+import { useAppStore } from '@/store/app.store';
+import { useAuthStore } from '@/store/auth.store';
+
+import getGoogleURL from '../../utils/getGoogleURL';
+import LogInWithPhone from '../components/modal/LogInWithPhone.vue';
+
+definePageMeta({
+  middleware: ['guest'],
+});
+
+useHead({
+  title: 'HS | Auth',
+});
+
+const config = useRuntimeConfig();
+const authStore = useAuthStore();
+const appStore = useAppStore();
+const toast = useToast();
+appStore.$reset();
+
+const userData = reactive({
+  username: '',
+  password: '',
+});
+
+const logInUser = () => {
+  authStore.logInWithPassword(userData);
+};
+
+const logInUserWithPhone = () => {
+  appStore.toggleIsLogInWithPhone();
+};
+
+const logInUserWithYandex = () => {
+  window.location.href = `https://oauth.yandex.ru/authorize?response_type=token&client_id=${config.public.clientIdYandex}`;
+};
+
+const logInUserWithGoogle = () => {
+  window.location.href = getGoogleURL();
+};
+
+const pushToRegPage = () => {
+  const router = useRouter();
+  appStore.sendErrorLogInText('');
+  router.push('/auth/registration');
+};
+</script>
+
+
 <template>
   <div class="auth">
     <LogInWithPhone />
@@ -81,56 +131,8 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { useAuthStore } from '../../store/auth.store';
-import { useAppStore } from '../../store/app.store';
 
-import LogInWithPhone from '../components/modal/LogInWithPhone.vue';
-import getGoogleURL from '../../utils/getGoogleURL';
-
-definePageMeta({
-  middleware: ['guest'],
-});
-
-useHead({
-  title: 'HS | Auth',
-});
-
-const config = useRuntimeConfig();
-const authStore = useAuthStore();
-const appStore = useAppStore();
-const toast = useToast();
-appStore.$reset();
-
-const userData = reactive({
-  username: '',
-  password: '',
-});
-
-const logInUser = () => {
-  authStore.logInWithPassword(userData);
-};
-
-const logInUserWithPhone = () => {
-  appStore.toggleIsLogInWithPhone();
-};
-
-const logInUserWithYandex = () => {
-  window.location.href = `https://oauth.yandex.ru/authorize?response_type=token&client_id=${config.public.clientIdYandex}`;
-};
-
-const logInUserWithGoogle = () => {
-  window.location.href = getGoogleURL();
-};
-
-const pushToRegPage = () => {
-  const router = useRouter();
-  appStore.sendErrorLogInText('');
-  router.push('/auth/registration');
-};
-</script>
-
-<style scoped>
+<style lang="scss" scoped>
 .auth {
   margin-top: 17vh;
 }

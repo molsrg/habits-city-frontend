@@ -31,10 +31,10 @@
 
 			<div class="delete-form">
 				<InputText
+					v-model="deleteUsernameInput"
 					type="text"
 					class="phone-number"
 					placeholder="Input your username"
-					v-model="deleteUsernameInput"
 				/>
 				<UButton
 					label="Delete Account"

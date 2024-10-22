@@ -1,11 +1,11 @@
 <template>
 	<div class="error-page">
-		<!-- <h1>Error {{ error.statusCode }}</h1> -->
+<!--		 <h1>Error {{ error.statusCode }}</h1>-->
 		<span>
 			{{ error.message }}
 		</span>
-		<img :src="`https://http.cat/${error.statusCode}.jpg`" alt="Error" />
-		<UButton @click="handleError" color="white" variant="solid"
+		<img :src="`https://http.cat/${error.statusCode}.jpg`" alt="Error" >
+		<UButton color="white" variant="solid" @click="handleError"
 			>Go back home
 		</UButton>
 	</div>

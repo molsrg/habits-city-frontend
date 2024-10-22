@@ -25,14 +25,14 @@
 				</template>
 
 				<div class="h-21">
-					<div class="confirm-step" v-if="!codeFromServer">
+					<div v-if="!codeFromServer" class="confirm-step">
 						<div class="confirm-phone">
 							<InputMask
-								class="phone-number"
+								id="otp"
 								v-model="phoneNumber"
+								class="phone-number"
 								mask="8-999-999-99-99"
 								placeholder="8-999-999-99-99"
-								id="otp"
 							/>
 						</div>
 
@@ -47,10 +47,10 @@
 						/>
 					</div>
 
-					<div class="confirm-step" v-if="codeFromServer">
+					<div v-if="codeFromServer" class="confirm-step">
 						<div class="confirm-phone">
 							<label for="OTP-code">Введи код с телефона</label>
-							<InputOtp v-model="OTPcode" integerOnly />
+							<InputOtp v-model="OTPcode" integer-only />
 							<AlertApp v-if="isInvalidCode" :label="'неверный код !'" />
 
 							<UButton
@@ -68,24 +68,24 @@
 						<UModal v-model="showSecondSendCode">
 							<div class="p-2">
 								<Stepper linear>
-									<StepperPanel header="Шаг 1" key="step1">
+									<StepperPanel key="step1" header="Шаг 1">
 										<template #content="{ nextCallback }">
 											<div class="auth-modal">
 												<h3 class="auth-modal-title">
 													Давай проверим твой номер телефона
 												</h3>
 												<InputMask
+													v-model="phoneNumber"
 													disabled
 													class="phone-number"
-													v-model="phoneNumber"
 													mask="8-999-999-99-99"
 													placeholder="8-999-999-99-99"
 												/>
 												<div class="auth-modal__container-bt">
 													<UButton
 														label="Нет, вернусь исправлю"
-														@click="resetAuthForm"
 														color="gray"
+														@click="resetAuthForm"
 													/>
 													<UButton
 														label="Да, это мой номер"
@@ -96,7 +96,7 @@
 										</template>
 									</StepperPanel>
 
-									<StepperPanel header="Шаг 2" key="step2">
+									<StepperPanel key="step2" header="Шаг 2">
 										<template #content="{}">
 											<div class="auth-modal">
 												<h3 class="auth-modal-title" style="text-align: center">
@@ -130,14 +130,13 @@
 <script setup lang="ts">
 
 
-import { ref, watch, computed } from 'vue'
-const isOpenVerificatedPhone = ref(false)
-
-import { useAuthStore } from '@/store/auth.store'
-import { useApiStore } from '@/store/api.store'
-import { useAppStore } from '@/store/app.store'
+import { computed,ref, watch } from 'vue'
 
 import AlertApp from '@/components/alerts/AlertApp'
+import { useApiStore } from '@/store/api.store'
+import { useAppStore } from '@/store/app.store'
+import { useAuthStore } from '@/store/auth.store'
+const isOpenVerificatedPhone = ref(false)
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -162,8 +161,8 @@ const codeFromServer = computed(() => {
 
 // Проверка введенного кода и подсчет ошибок
 const OTPcode = ref<string>('')
-let isInvalidCode = ref<boolean>(false)
-let countInvalidCode = ref<number>(0)
+const isInvalidCode = ref<boolean>(false)
+const countInvalidCode = ref<number>(0)
 
 // Отслеживание введённого ОТП кода
 watch(OTPcode, checkOtpCode)
@@ -207,7 +206,7 @@ const handleInvalidOtpCode = () => {
 }
 
 // Не пришёл код?
-let showSecondSendCode = ref<boolean>(false)
+const showSecondSendCode = ref<boolean>(false)
 
 // Открытие модалки "Не пришёл код?"
 const errorSendCode = () => {

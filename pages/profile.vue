@@ -48,13 +48,14 @@
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from '@/store/user.store';
-import { useAppStore } from '@/store/app.store';
 import DeleteAccount from '@/components/modal/DeleteAccount.vue';
+import { useAppStore } from '@/store/app.store';
+import { useUserStore } from '@/store/user.store';
 
 const { locale, setLocale } = useI18n();
 const appStore = useAppStore();
 const userStore = useUserStore();
+userStore.fetchUserInfo();
 const toast = useToast();
 
 definePageMeta({
@@ -63,6 +64,7 @@ definePageMeta({
 useHead({
   title: 'HS | Profile',
 });
+
 
 const currentLanguage = ref('en');
 const optionsLang = [
@@ -76,9 +78,9 @@ const handleSelectValue = (value: string) => {
 };
 
 const userInfo = reactive({
-  username: 'john_doe',
-  email: 'doe@example.com',
-  password: 'passwosdsadrd123',
+  username: userStore.getUserInfo.username,
+  email: userStore.getUserInfo.email,
+  password: userStore.getUserInfo.password,
 });
 const saveUserData = () => {
   userStore.changeUserInfo(userInfo);

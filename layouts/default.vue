@@ -98,35 +98,31 @@ const baseLinks: Link[][] = [
 const authLinks = computed(() =>
   tokenStore.getStatus
     ? [
-        {
-          icon: 'i-heroicons-arrow-left-on-rectangle-20-solid',
-          label: 'Log Out',
-          badge: '',
-          click: logoutUser,
-        },
-        {
-          icon: 'i-heroicons-user',
-          label: 'Profile',
-          badge: '100',
-          to: '/profile',
-        },
-        {
-          icon: 'i-heroicons-user-group',
-          label: 'Friends',
-          badge: '0',
-          to: '/friends',
-        },
-        {
-          icon: 'i-heroicons-circle-stack',
-          label: 'Tasks',
-          to: '/tasks',
-        },
-        {
-          icon: 'i-heroicons-calendar-days',
-          label: 'Calendar',
-          to: '/calendar',
-        },
-      ]
+      {
+        icon: 'i-heroicons-arrow-left-on-rectangle-20-solid',
+        label: 'Log Out',
+        badge: '',
+        click: logoutUser,
+      },
+      {
+        icon: 'i-heroicons-user',
+        label: 'Profile',
+        badge: '100',
+        to: '/profile',
+      },
+      {
+        icon: 'i-heroicons-user-group',
+        label: 'Friends',
+        badge: '0',
+        to: '/friends',
+      },
+      {
+        icon: 'i-heroicons-circle-stack',
+        label: 'Tasks',
+        to: '/tasks',
+      },
+
+    ]
     : [...logInOrRegistration.value],
 );
 

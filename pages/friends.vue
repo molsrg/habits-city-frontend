@@ -1,9 +1,9 @@
 <template>
 	<div class="friends">
 		<UInput
+			v-model="searchFriend"
 			class="friends-search"
 			size="xl"
-			v-model="searchFriend"
 			name="search-friend"
 			placeholder="Enter your friend's username..."
 			icon="i-heroicons-magnifying-glass-20-solid"
@@ -33,6 +33,7 @@
 </template>
 
 <script setup lang="ts">
+import { useFriendStore } from '@/store/friend.store'
 definePageMeta({
 	middleware: ['auth'],
 })
@@ -40,7 +41,6 @@ definePageMeta({
 useHead({
 	title: 'HS | Friends',
 })
-import { useFriendStore } from '@/store/friend.store'
 const friendStore = useFriendStore()
 
 

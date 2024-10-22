@@ -6,7 +6,6 @@ export default defineNuxtConfig({
 			meta: [
 				{ charset: 'utf-8' },
 				{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
-				{ hid: 'description', name: 'description', content: '' },
 			],
 			link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
 		},
@@ -26,7 +25,7 @@ export default defineNuxtConfig({
         'nuxt-primevue',
         '@pinia-plugin-persistedstate/nuxt',
         '@nuxtjs/i18n',
-        "@nuxt/eslint"
+        '@nuxt/eslint'
     ],
 	i18n: {
 		vueI18n: './i18n.config.ts',

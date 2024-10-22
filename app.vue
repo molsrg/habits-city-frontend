@@ -9,12 +9,12 @@
 
 <script setup lang="ts">
 const toast = useToast()
-// useSeoMeta({
-//   title: 'Habits City',
-//   ogTitle: 'Habits City',
-//   description: 'Website for building habits',
-//   ogDescription: 'Website for building habits',
-// })
+useSeoMeta({
+  title: 'Habits City',
+  ogTitle: 'Habits City',
+  description: 'Website for building habits',
+  ogDescription: 'Website for building habits',
+})
 </script>
 
 <style>

@@ -1,14 +1,14 @@
 <template>
 	<div>
 		<input
+			:id="selectOptions.inputId"
+			v-model="selectValue"
 			class="custom-radio"
 			name="radio"
 			type="radio"
 			:value="selectOptions.value"
-			:id="selectOptions.inputId"
-			v-model="selectValue"
 			@change="handleChange"
-		/>
+		>
 		<label :for="selectOptions.inputId">{{ selectOptions.label }}</label>
 	</div>
 </template>

@@ -1,22 +1,23 @@
 <template>
 	<div>
-		<div class="pending" v-if="!appStore.errorOAuthText">
+		<div v-if="!appStore.errorOAuthText" class="pending">
 			<h3 class="text-xl">Wait for the authorization!</h3>
 
-			<span class="loader"></span>
+			<span class="loader"/>
 		</div>
-		<div class="pending-error" v-else>
+		<div v-else class="pending-error">
 			<h3 class="text-xl">{{ appStore.errorOAuthText }}</h3>
-			<UButton @click="handleError" color="white" variant="solid"
+			<UButton color="white" variant="solid" @click="handleError"
 				>Go back login
 			</UButton>
 		</div>
 	</div>
 </template>
 <script setup lang="ts">
-import { useTokenStore } from '@/store/token.store'
-import { useAuthStore } from '@/store/auth.store'
 import { useAppStore } from '@/store/app.store'
+import { useAuthStore } from '@/store/auth.store'
+import { useTokenStore } from '@/store/token.store'
+import type { NuxtError } from '#app'
 
 const tokenStore = useTokenStore()
 const authStore = useAuthStore()
@@ -48,11 +49,9 @@ if (accessTokenYandex) {
 	}
 }
 
-if (process.client && accessToken) {
+if (import.meta.client && accessToken) {
 	authStore.oAuthUser(accessToken)
 }
-
-import type { NuxtError } from '#app'
 const props = defineProps({
 	error: Object as () => NuxtError,
 })

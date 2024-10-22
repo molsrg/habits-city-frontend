@@ -5,7 +5,6 @@
 				<div class="profile-settings-detail--change">
 					<span>{{ $t('page--profile.settings-option.username') }}</span>
 					<UButton
-						@click="toggleDisabled('username')"
 						variant="ghost"
 						:icon="
 							isDisabled.username
@@ -13,22 +12,23 @@
 								: 'i-heroicons-lock-open'
 						"
 						size="2xs"
+						@click="toggleDisabled('username')"
 					/>
 				</div>
 				<InputText
+					v-model="userInfo.username"
 					type="text"
 					class="phone-number"
 					:disabled="isDisabled.username"
-					v-model="userInfo.username"
 				/>
 
 				<Transition>
-					<AlertApp :label="'username уже занят !'" v-if="isInvalidUsername" />
+					<AlertApp v-if="isInvalidUsername" :label="'username уже занят !'" />
 				</Transition>
 				<Transition>
 					<AlertApp
-						:label="'username не может быть пустым !'"
 						v-if="isInvalidUsernameLength"
+						:label="'username не может быть пустым !'"
 					/>
 				</Transition>
 			</div>
@@ -36,7 +36,6 @@
 				<div class="profile-settings-detail--change">
 					<span>{{ $t('page--profile.settings-option.email') }}</span>
 					<UButton
-						@click="toggleDisabled('email')"
 						variant="ghost"
 						:icon="
 							isDisabled.email
@@ -44,13 +43,14 @@
 								: 'i-heroicons-lock-open'
 						"
 						size="2xs"
+						@click="toggleDisabled('email')"
 					/>
 				</div>
 				<InputText
+					v-model="userInfo.email"
 					type="email"
 					class="phone-number"
 					:disabled="isDisabled.email"
-					v-model="userInfo.email"
 				/>
 			</div>
 
@@ -58,7 +58,6 @@
 				<div class="profile-settings-detail--change">
 					<span>{{ $t('page--profile.settings-option.password') }}</span>
 					<UButton
-						@click="toggleDisabled('password')"
 						variant="ghost"
 						:icon="
 							isDisabled.password
@@ -66,13 +65,14 @@
 								: 'i-heroicons-lock-open'
 						"
 						size="2xs"
+						@click="toggleDisabled('password')"
 					/>
 				</div>
 				<InputText
+					v-model="userInfo.password"
 					:type="isDisabled.password ? 'password' : 'text'"
 					class="phone-number"
 					:disabled="isDisabled.password"
-					v-model="userInfo.password"
 				/>
 			</div>
 		</div>
@@ -85,9 +85,10 @@
 </template>
 
 <script setup lang="ts">
+import { debounce } from 'lodash'
+
 import AlertApp from '@/components/alerts/AlertApp'
 import { useApiStore } from '@/store/api.store'
-import { debounce } from 'lodash'
 
 const apiStore = useApiStore()
 const router = useRouter()

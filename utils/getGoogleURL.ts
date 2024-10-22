@@ -11,10 +11,10 @@ function getGoogleOAuthURL() {
         response_type: 'code',
         prompt: 'consent',
         scope: [
-            "https://www.googleapis.com/auth/userinfo.email",
-            "https://www.googleapis.com/auth/userinfo.profile",
-            "openid"
-        ].join(" ")
+            'https://www.googleapis.com/auth/userinfo.email',
+            'https://www.googleapis.com/auth/userinfo.profile',
+            'openid'
+        ].join(' ')
     }
     const qs = new URLSearchParams(options)
 
