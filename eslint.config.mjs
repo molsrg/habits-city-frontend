@@ -1,19 +1,13 @@
 import eslintPluginPrettier from 'eslint-plugin-prettier';
 import eslintPluginSimpleImportSort from 'eslint-plugin-simple-import-sort';
+
 import withNuxt from './.nuxt/eslint.config.mjs';
 
 export default withNuxt().append({
   plugins: {
     prettier: eslintPluginPrettier,
     'simple-import-sort': eslintPluginSimpleImportSort,
-    import: 'eslint-plugin-import', // добавляем плагин import
   },
-  extends: [
-    'prettier',
-    'eslint:recommended',
-    'plugin:vue/recommended',
-  ],
-  parser: 'vue-eslint-parser',
   rules: {
     'vue/no-v-html': 'off',
     'vue/no-multiple-template-root': 'off',
@@ -62,5 +56,27 @@ export default withNuxt().append({
         },
       },
     ],
+    'vue/attributes-order': [
+      'error',
+      {
+        'order': [
+          'DEFINITION',
+          'LIST_RENDERING',
+          'CONDITIONALS',
+          'RENDER_MODIFIERS',
+          'GLOBAL',
+          'UNIQUE',
+          'TWO_WAY_BINDING',
+          'OTHER_DIRECTIVES',
+          'OTHER_ATTR',
+          'EVENTS',
+          'CONTENT',
+        ],
+        'alphabetical': false,
+      },
+    ],
+  },
+  settings: {
+    'import/standalone': false,
   },
 });

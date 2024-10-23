@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+
 import { authService, userService } from '@/api/ApiService';
 import { endpoints } from '@/api/endpoints';
 

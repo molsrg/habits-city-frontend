@@ -15,22 +15,20 @@
       :type="inputType"
       class="phone-number"
     />
-    <Transition>
-      <div>
-        <AlertApp
-          v-for="(error, index) in errors"
-          :key="index"
-          :isVisible="!!error"
-          :label="error"
-          type="error"
-        />
-      </div>
-    </Transition>
+
+    <AlertApp
+      v-for="(error, index) in errors"
+      :key="index"
+      :is-visible="!!error"
+      :label="error"
+      type="error"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
+
 import AlertApp from '@/components/alerts/AlertApp';
 
 const props = defineProps({

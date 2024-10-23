@@ -1,116 +1,116 @@
 <template>
-	<div>
-		<UModal v-model="appStore.isLogInWithPhone">
-			<UCard
-				:ui="{
-					ring: '',
-					divide: 'divide-y divide-gray-100 dark:divide-gray-800',
-				}"
-			>
-				<template #header>
-					<div class="flex items-center justify-between">
-						<h3
-							class="text-base font-semibold leading-3 text-gray-900 dark:text-white"
-						>
-							LogIn using one-time password
-						</h3>
+  <div>
+    <UModal v-model="appStore.isLogInWithPhone">
+      <UCard
+        :ui="{
+          ring: '',
+          divide: 'divide-y divide-gray-100 dark:divide-gray-800',
+        }"
+      >
+        <template #header>
+          <div class="flex items-center justify-between">
+            <h3
+              class="text-base font-semibold leading-3 text-gray-900 dark:text-white"
+            >
+              LogIn using one-time password
+            </h3>
 
-						<UButton
-							color="gray"
-							variant="ghost"
-							icon="i-heroicons-x-mark-20-solid"
-							class="-my-1"
-							@click="appStore.toggleIsLogInWithPhone"
-						/>
-					</div>
-					<span class="login-subtitle">
-						...you must have a verified phone number in your account...</span
-					>
-				</template>
+            <UButton
+              color="gray"
+              variant="ghost"
+              icon="i-heroicons-x-mark-20-solid"
+              class="-my-1"
+              @click="appStore.toggleIsLogInWithPhone"
+            />
+          </div>
+          <span class="login-subtitle">
+            ...you must have a verified phone number in your account...</span
+          >
+        </template>
 
-				<div v-if="!codeFromServer" class="confirm-step">
-					<div class="confirm-phone">
-						<InputMask
-							id="otp"
-							v-model="phoneNumber"
-							class="phone-number"
-							mask="8-999-999-99-99"
-							placeholder="8-999-999-99-99"
-						/>
-					</div>
+        <div v-if="!codeFromServer" class="confirm-step">
+          <div class="confirm-phone">
+            <InputMask
+              id="otp"
+              v-model="phoneNumber"
+              class="phone-number"
+              mask="8-999-999-99-99"
+              placeholder="8-999-999-99-99"
+            />
+          </div>
 
-					<UButton
-						:disabled="!phoneNumber.length"
-						icon="i-heroicons-finger-print-20-solid"
-						size="sm"
-						color="primary"
-						variant="soft"
-						label="Отправить СМС"
-						@click="sendCode"
-					/>
-				</div>
+          <UButton
+            :disabled="!phoneNumber.length"
+            icon="i-heroicons-finger-print-20-solid"
+            size="sm"
+            color="primary"
+            variant="soft"
+            label="Отправить СМС"
+            @click="sendCode"
+          />
+        </div>
 
-				<div v-if="codeFromServer" class="confirm-step">
-					<div class="confirm-phone">
-						<label for="OTP-code">Enter the code from your phone</label>
-						<InputOtp v-model="OTPcode" integer-only />
-						<AlertApp v-if="isInvalidCode" :label="'incorrect code!'" />
+        <div v-if="codeFromServer" class="confirm-step">
+          <div class="confirm-phone">
+            <label for="OTP-code">Enter the code from your phone</label>
+            <InputOtp v-model="OTPcode" integer-only />
+            <AlertApp v-if="isInvalidCode" :label="'incorrect code!'" />
 
-						<UButton
-							class="confirm-phone--recive"
-							color="primary"
-							size="xs"
-							variant="link"
-							@click="showSecondSendCode = !showSecondSendCode"
-							>Didn't receive the code?</UButton
-						>
-					</div>
-				</div>
+            <UButton
+              class="confirm-phone--recive"
+              color="primary"
+              size="xs"
+              variant="link"
+              @click="showSecondSendCode = !showSecondSendCode"
+            >Didn't receive the code?</UButton
+            >
+          </div>
+        </div>
 
-				<div class="modal-no-recive-code">
-					<UModal v-model="showSecondSendCode">
-						<div v-if="!confirmNumber" class="auth-modal p-4">
-							<h3 class="auth-modal-title">Let's check your phone number</h3>
-							<InputMask
-								v-model="phoneNumber"
-								disabled
-								class="phone-number"
-								mask="8-999-999-99-99"
-								placeholder="8-999-999-99-99"
-							/>
-							<div class="auth-modal__container-bt">
-								<UButton
-									label="I'll come back and fix it"
-									color="gray"
-									@click="resetAuthForm"
-								/>
-								<UButton
-									label="That's my number"
-									@click="confirmNumber = !confirmNumber"
-								/>
-							</div>
-						</div>
+        <div class="modal-no-recive-code">
+          <UModal v-model="showSecondSendCode">
+            <div v-if="!confirmNumber" class="auth-modal p-4">
+              <h3 class="auth-modal-title">Let's check your phone number</h3>
+              <InputMask
+                v-model="phoneNumber"
+                disabled
+                class="phone-number"
+                mask="8-999-999-99-99"
+                placeholder="8-999-999-99-99"
+              />
+              <div class="auth-modal__container-bt">
+                <UButton
+                  label="I'll come back and fix it"
+                  color="gray"
+                  @click="resetAuthForm"
+                />
+                <UButton
+                  label="That's my number"
+                  @click="confirmNumber = !confirmNumber"
+                />
+              </div>
+            </div>
 
-						<div v-else class="auth-modal p-4">
-							<h3 class="auth-modal-title" style="text-align: center">
-								Sorry, there's probably something wrong with our servers so...
-								Let's try sending the code again!
-							</h3>
-							<UButton
-								class="mt-2"
-								icon="i-heroicons-finger-print-20-solid"
-								size="sm"
-								color="primary"
-								variant="soft"
-								label="Send SMS"
-								@click="sendCodeSecondary"
-							/>
-						</div>
-					</UModal>
-				</div>
-			</UCard>
-		</UModal>
-	</div>
+            <div v-else class="auth-modal p-4">
+              <h3 class="auth-modal-title" style="text-align: center">
+                Sorry, there's probably something wrong with our servers so...
+                Let's try sending the code again!
+              </h3>
+              <UButton
+                class="mt-2"
+                icon="i-heroicons-finger-print-20-solid"
+                size="sm"
+                color="primary"
+                variant="soft"
+                label="Send SMS"
+                @click="sendCodeSecondary"
+              />
+            </div>
+          </UModal>
+        </div>
+      </UCard>
+    </UModal>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -131,12 +131,12 @@ const phoneNumber = ref<string>('')
 
 // Запрос кода на сервере
 const sendCode = () => {
-	authStore.logInWithPhoneNumber(phoneNumber.value)
+  authStore.logInWithPhoneNumber(phoneNumber.value)
 }
 
 // Отправлен ли код?
 const codeFromServer = computed(() => {
-	return authStore.getOTPCodeLogin
+  return authStore.getOTPCodeLogin
 })
 
 // Проверка введенного кода и подсчет ошибок
@@ -161,18 +161,18 @@ function checkOtpCode() {
   }
 }
 const handleValidOtpCode = async () => {
-	appStore.toggleIsLogInWithPhone()
-	authStore.reloadOTP()
-	router.push('/profile')
+  appStore.toggleIsLogInWithPhone()
+  authStore.reloadOTP()
+  router.push('/profile')
 }
 
 const handleInvalidOtpCode = () => {
-	if (countInvalidCode.value === 4) {
-		console.log('Попытки закончились, код протух')
-		return
-	}
-	isInvalidCode.value = true
-	countInvalidCode.value++
+  if (countInvalidCode.value === 4) {
+    console.log('Попытки закончились, код протух')
+    return
+  }
+  isInvalidCode.value = true
+  countInvalidCode.value++
 }
 
 // Не пришёл код?
@@ -181,15 +181,15 @@ const confirmNumber = ref<boolean>(false)
 
 // Повторный запрос кода
 const sendCodeSecondary = () => {
-	authStore.logInWithPhoneNumber(phoneNumber.value)
-	confirmNumber.value = false
-	showSecondSendCode.value = false
+  authStore.logInWithPhoneNumber(phoneNumber.value)
+  confirmNumber.value = false
+  showSecondSendCode.value = false
 }
 
 const resetAuthForm = () => {
-	authStore.reloadOTP()
-	confirmNumber.value = false
-	showSecondSendCode.value = false
+  authStore.reloadOTP()
+  confirmNumber.value = false
+  showSecondSendCode.value = false
 }
 </script>
 

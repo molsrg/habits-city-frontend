@@ -1,9 +1,8 @@
 <script lang="ts" setup>
+import LogInWithPhone from '@/components/modal/LogInWithPhone.vue';
 import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';
-
-import getGoogleURL from '../../utils/getGoogleURL';
-import LogInWithPhone from '../components/modal/LogInWithPhone.vue';
+import getGoogleURL from '@/utils/getGoogleURL';
 
 definePageMeta({
   middleware: ['guest'],

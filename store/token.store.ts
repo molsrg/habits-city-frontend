@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
-import { useAuthStore } from '@/store/auth.store'
+
 import { useAppStore } from '@/store/app.store'
+import { useAuthStore } from '@/store/auth.store'
 import { useUserStore } from '@/store/user.store'
 
 export const useTokenStore = defineStore('tokenStore', {

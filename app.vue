@@ -7,14 +7,14 @@
   </div>
 </template>
 
-<script setup lang="ts">
-const toast = useToast()
+<script lang="ts" setup>
+const toast = useToast();
 useSeoMeta({
   title: 'Habits City',
   ogTitle: 'Habits City',
   description: 'Website for building habits',
   ogDescription: 'Website for building habits',
-})
+});
 </script>
 
 

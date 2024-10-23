@@ -13,21 +13,7 @@
       <h2>{{ $t('page--profile.settings') }}</h2>
     </div>
     <ProfileSetting :user-info="userInfo" @save:data="saveUserData" />
-    <div class="profile__options">
-      <UIcon name="i-heroicons-language" />
-      <h2>{{ $t('page--profile.language') }}</h2>
-    </div>
-
-    <div class="profile__radio-buttons">
-      <InputRadioButton
-        v-for="options in optionsLang"
-        :key="options.value"
-        :select-options="options"
-        :select-value="currentLanguage"
-        @update:select-value="handleSelectValue"
-      />
-    </div>
-
+    
     <!--		<div class="profile-options">-->
     <!--			<UIcon name="i-heroicons-chart-pie" />-->
     <!--			<h2>Statistic</h2>-->
@@ -53,12 +39,11 @@ import { useAppStore } from '@/store/app.store';
 import { useUserStore } from '@/store/user.store';
 import { optionsLang } from '@/values/language';
 
-const { locale, setLocale, t } = useI18n();
+const { setLocale, t } = useI18n();
 const appStore = useAppStore();
 const userStore = useUserStore();
-onMounted(() => {
-  userStore.fetchUserInfo();
-});
+userStore.fetchUserInfo();
+
 const toast = useToast();
 
 definePageMeta({

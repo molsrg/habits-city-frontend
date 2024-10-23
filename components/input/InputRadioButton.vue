@@ -1,28 +1,28 @@
 <template>
-	<div>
-		<input
-			:id="selectOptions.inputId"
-			v-model="selectValue"
-			class="custom-radio"
-			name="radio"
-			type="radio"
-			:value="selectOptions.value"
-			@change="handleChange"
-		>
-		<label :for="selectOptions.inputId">{{ selectOptions.label }}</label>
-	</div>
+  <div>
+    <input
+      :id="selectOptions.inputId"
+      v-model="selectValue"
+      class="custom-radio"
+      name="radio"
+      type="radio"
+      :value="selectOptions.value"
+      @change="handleChange"
+    >
+    <label :for="selectOptions.inputId">{{ selectOptions.label }}</label>
+  </div>
 </template>
 
 <script setup lang="ts">
 const props = defineProps({
-	selectOptions: {
-		type: Object,
-		required: true,
-	},
-	selectValue: {
-		type: String,
-		required: false,
-	},
+  selectOptions: {
+    type: Object,
+    required: true,
+  },
+  selectValue: {
+    type: String,
+    required: false,
+  },
 })
 
 const selectValue = ref(props.selectValue)
@@ -30,8 +30,8 @@ const selectValue = ref(props.selectValue)
 const emit = defineEmits(['update:selectValue'])
 
 const handleChange = (event: Event) => {
-	const target = event.target as HTMLInputElement
-	emit('update:selectValue', target.value)
+  const target = event.target as HTMLInputElement
+  emit('update:selectValue', target.value)
 }
 </script>
 

@@ -2,14 +2,15 @@
   <div class="profile-setting">
     <div class="profile-setting-container">
       <ProfileSettingItem
-        v-for="(field) in fields" :key="field.name"
+        v-for="(field) in fields"
+        :key="field.name"
         v-model="userInfo[field.name]"
         :errors="field.errors"
-        :inputType="field.inputType"
-        :isDisabled="field.disabled"
+        :input-type="field.inputType"
+        :is-disabled="field.disabled"
         :label="field.label"
         class="profile-setting__detail"
-        @update:isDisabled="(value) => field.disabled = value"
+        @update:is-disabled="(value) => field.disabled = value"
       />
     </div>
     <UButton
@@ -23,10 +24,11 @@
 
 <script lang="ts" setup>
 import { debounce, isEqual } from 'lodash';
-import { useApiStore } from '@/store/api.store';
 import { useRouter } from 'vue-router';
 
-const { t } = useI18n();
+import { useApiStore } from '@/store/api.store';
+
+const { locale, t } = useI18n();
 const apiStore = useApiStore();
 const router = useRouter();
 
@@ -36,7 +38,6 @@ const props = defineProps({
     required: true,
   },
 });
-
 const emit = defineEmits(['save:data']);
 
 const originalUserInfo = ref({ ...props.userInfo });
@@ -64,17 +65,17 @@ const fields = reactive([
     label: t('page--profile.settings-option.email'),
     inputType: 'email',
   },
-  {
-    disabled: true,
-    name: 'password',
-    errors: computed(() => {
-      const errors = [];
-      if (props.userInfo.password.length === 0) errors.push(t('alerts.errors.password.empty'));
-      return errors;
-    }),
-    label: t('page--profile.settings-option.password'),
-    inputType: 'password',
-  },
+  // {
+  //   disabled: true,
+  //   name: 'password',
+  //   errors: computed(() => {
+  //     const errors = [];
+  //     if (props.userInfo.password.length === 0) errors.push(t('alerts.errors.password.empty'));
+  //     return errors;
+  //   }),
+  //   label: t('page--profile.settings-option.password'),
+  //   inputType: 'password',
+  // },
 ]);
 
 const hasChanges = computed(() => {
