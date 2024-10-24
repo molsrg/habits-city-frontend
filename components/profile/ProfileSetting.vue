@@ -13,6 +13,12 @@
         @update:is-disabled="(value) => field.disabled = value"
       />
     </div>
+    
+    <InputFileUpload
+      :label="$t('page--profile.settings-option.upload-avatar')"
+      file-type="img"
+      icon="i-heroicons-user-circle"
+      @upload:file="onFileChange" />
     <UButton
       :class="['profile-setting__save-button', { 'profile-setting__save-button--visible': hasChanges && !hasErrors }]"
       :disabled="!hasChanges || hasErrors"
@@ -38,7 +44,7 @@ const props = defineProps({
     required: true,
   },
 });
-const emit = defineEmits(['save:data']);
+const emit = defineEmits(['save:data', 'new:avatar']);
 
 const originalUserInfo = ref({ ...props.userInfo });
 const fields = reactive([
@@ -77,6 +83,10 @@ const fields = reactive([
   //   inputType: 'password',
   // },
 ]);
+
+const onFileChange = (file) => {
+  emit('new:avatar', file);
+};
 
 const hasChanges = computed(() => {
   return !isEqual(props.userInfo, originalUserInfo.value);

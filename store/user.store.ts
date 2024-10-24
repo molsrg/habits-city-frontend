@@ -1,5 +1,8 @@
 import { defineStore } from 'pinia';
 
+import { userService } from '@/api/ApiService';
+import { endpoints } from '@/api/endpoints';
+
 export const useUserStore = defineStore('userStore', {
   persist: true,
   state: () => ({
@@ -7,6 +10,9 @@ export const useUserStore = defineStore('userStore', {
       username: '',
       email: '',
       password: '',
+      avatar: '',
+      isOauth: null,
+      roles: [],
     },
   }),
 
@@ -18,13 +24,8 @@ export const useUserStore = defineStore('userStore', {
   actions: {
     async fetchUserInfo(): Promise<void> {
       try {
-        // const { data } = await userService.get(endpoints.user.fetchInfo);
-        // if (data) this.userInfo = data;
-        this.userInfo = {
-          username: 'qwd',
-          email: 'qd',
-          password: 'qwd',
-        };
+        const { data } = await userService.get(endpoints.user.fetchInfo);
+        if (data) this.userInfo = data;
       } catch (error) {
         console.log(error.response?.data || error);
       }
@@ -35,6 +36,23 @@ export const useUserStore = defineStore('userStore', {
       this.userInfo = userInfo;
       return false;
     },
+
+    async uploadNewAvatar(payload: File): Promise<void> {
+      try {
+        const formData = new FormData();
+        formData.append('avatar', payload);
+
+        const { data } = await userService.postFormData('/user/changeAvatar', formData);
+        this.userInfo.avatar = data.url;
+        return true;
+
+      } catch (e) {
+        console.log(e);
+        return false;
+      }
+    },
+
+
     async deleteAccount(userInfo: string): Promise<void> {
       console.log('deleteAccount', userInfo);
     },

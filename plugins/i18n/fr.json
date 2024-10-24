@@ -1,4 +1,3 @@
-
 {
   "page--index": {
     "badge": "Le compilateur est le meilleur ami du programmeur : il ne dira jamais que vous êtes un génie, mais il vous montrera toujours où vous avez fait une erreur."
@@ -18,7 +17,7 @@
   "page--login": {
     "title": "Connexion",
     "subtitle": "Entrez vos identifiants pour accéder à votre compte.",
-    "no-account": "Vous n'avez pas encore de compte ?",
+    "no-account": "Pas de compte ?",
     "enter-password": "Entrez votre mot de passe",
     "enter-username": "Entrez votre nom d'utilisateur"
   },

@@ -140,9 +140,14 @@ const authLinks = computed(() =>
         click: logoutUser,
       },
       {
-        icon: 'i-heroicons-user',
         label: user.value.username || 'User',
         badge: '100',
+        avatar: user.value.avatar
+          ? { src: user.value.avatar }
+          : undefined,
+        icon: user.value.avatar
+          ? undefined
+          : 'i-heroicons-user',
         to: '/profile',
       },
       {

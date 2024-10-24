@@ -4,6 +4,6 @@ export const endpoints = {
     registration: '/auth/registration',
   },
   user: {
-    fetchInfo: '/user',
+    fetchInfo: 'user/getInfo',
   },
 };

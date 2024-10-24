@@ -12,8 +12,8 @@
       <UIcon name="i-heroicons-cog-6-tooth-20-solid" />
       <h2>{{ $t('page--profile.settings') }}</h2>
     </div>
-    <ProfileSetting :user-info="userInfo" @save:data="saveUserData" />
-    
+    <ProfileSetting :user-info="userInfo" @save:data="saveUserData" @new:avatar="uploadNewAvatar" />
+
     <!--		<div class="profile-options">-->
     <!--			<UIcon name="i-heroicons-chart-pie" />-->
     <!--			<h2>Statistic</h2>-->
@@ -37,13 +37,11 @@
 import DeleteAccount from '@/components/modal/DeleteAccount.vue';
 import { useAppStore } from '@/store/app.store';
 import { useUserStore } from '@/store/user.store';
-import { optionsLang } from '@/values/language';
+
 
 const { setLocale, t } = useI18n();
 const appStore = useAppStore();
 const userStore = useUserStore();
-userStore.fetchUserInfo();
-
 const toast = useToast();
 
 definePageMeta({
@@ -53,11 +51,6 @@ useHead({
   title: 'HS | Profile',
 });
 
-const currentLanguage = ref('en');
-const handleSelectValue = (value: string) => {
-  currentLanguage.value = value;
-  setLocale(value);
-};
 
 const userInfo = reactive({
   username: userStore.getUserInfo.username,
@@ -73,6 +66,17 @@ const saveUserData = async (): Promise<void> => {
 
   toast.add({ ...notification, timeout: 2000 });
 };
+
+const uploadNewAvatar = async (payload): Promise<void> => {
+  const res = await userStore.uploadNewAvatar(payload);
+  const notification = res
+    ? { color: 'green', title: t('notifications.save-access') }
+    : { color: 'red', title: t('notifications.save-error') };
+
+  toast.add({ ...notification, timeout: 2000 });
+};
+
+
 </script>
 
 <style lang="scss" scoped>

@@ -34,7 +34,6 @@ export const useAuthStore = defineStore('authStore', {
         if (data?.AccessToken) {
           sessionStorage.setItem('RefreshToken', data.RefreshToken);
           sessionStorage.setItem('AccessToken', data.AccessToken);
-
           tokenStore.setToken(data.AccessToken);
           router.push('/profile');
         } else {

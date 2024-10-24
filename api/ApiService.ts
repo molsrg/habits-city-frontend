@@ -37,6 +37,11 @@ class ApiService {
     return this.client.post<T>(url, data, config);
   }
 
+  async postFormData<T>(url: string, data: Record<string, any> = {}, headers: Record<string, string> = {}): Promise<AxiosResponse<T>> {
+    headers['Content-Type'] = 'multipart/form-data';
+    return this.client.post<T>(url, data, { headers });
+  }
+
   async put<T>(url: string, data: Record<string, any> = {}): Promise<AxiosResponse<T>> {
     return this.client.put<T>(url, data);
   }

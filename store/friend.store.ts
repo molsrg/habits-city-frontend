@@ -143,11 +143,11 @@ export const useFriendStore = defineStore('friendStore', {
     async addNewFriend(username) {
       console.log(username);
     },
-    fetchSuggestedFriends(payload) {
-      console.log(payload);
-      // const { data } = await userService.get(`/recommended-friends`, {
-      //   username: payload
-      // });
+    async fetchSuggestedFriends(payload) {
+      const { data } = await userService.get('user/searchUsers', {
+        username: payload,
+      });
+      this.suggestedFriends = data;
     },
 
   },

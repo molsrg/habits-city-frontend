@@ -10,7 +10,8 @@
     "settings-option": {
       "username": "Username",
       "email": "Email",
-      "password": "Password"
+      "password": "Password",
+      "upload-avatar": "Upload avatar"
     },
     "save-data": "Save data"
   },

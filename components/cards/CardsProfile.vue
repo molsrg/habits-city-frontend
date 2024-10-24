@@ -2,7 +2,7 @@
   <UCard>
     <div class="people-card">
       <UAvatar
-        :src="peopleInfo.hasAvatar || ''"
+        :src="peopleInfo.avatar || ''"
         alt="Avatar"
         chip-position="bottom-right"
         size="lg"
@@ -38,6 +38,7 @@
           />
         </div>
         <USkeleton class="people-card__skeleton" />
+        <span>  rating -- {{ peopleInfo.rating }}</span>
       </div>
     </div>
   </UCard>
@@ -48,8 +49,8 @@ import { computed, ref } from 'vue';
 
 interface PeopleInfo {
   username: string;
-  hasAvatar?: string;
-  inFriends: boolean;
+  avatar?: string;
+  rating: number;
 }
 
 const props = defineProps({
