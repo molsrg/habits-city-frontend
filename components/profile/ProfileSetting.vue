@@ -1,24 +1,30 @@
 <template>
   <div class="profile-setting">
-    <div class="profile-setting-container">
-      <ProfileSettingItem
-        v-for="(field) in fields"
-        :key="field.name"
-        v-model="userInfo[field.name]"
-        :errors="field.errors"
-        :input-type="field.inputType"
-        :is-disabled="field.disabled"
-        :label="field.label"
-        class="profile-setting__detail"
-        @update:is-disabled="(value) => field.disabled = value"
+    <div class="profile-setting__photo">
+      <UAvatar
+        :alt="userInfo.username || '' "
+        :src="userInfo.avatar || ''"
+        chip-position="bottom-right"
+        size="3xl"
       />
+      <InputFileUpload
+        :label="$t('page--profile.settings-option.upload-avatar')"
+        file-type="img"
+        icon="i-heroicons-user-circle"
+        @upload:file="onFileChange" />
     </div>
-    
-    <InputFileUpload
-      :label="$t('page--profile.settings-option.upload-avatar')"
-      file-type="img"
-      icon="i-heroicons-user-circle"
-      @upload:file="onFileChange" />
+
+    <ProfileInputItem
+      v-for="(field) in fields"
+      :key="field.name"
+      v-model="modifiedUserInfo[field.name]"
+      :description="field.description"
+      :errors="field.errors"
+      :input-type="field.inputType"
+      :is-disabled="field.disabled"
+      :label="field.label"
+    />
+
     <UButton
       :class="['profile-setting__save-button', { 'profile-setting__save-button--visible': hasChanges && !hasErrors }]"
       :disabled="!hasChanges || hasErrors"
@@ -46,42 +52,33 @@ const props = defineProps({
 });
 const emit = defineEmits(['save:data', 'new:avatar']);
 
-const originalUserInfo = ref({ ...props.userInfo });
+const modifiedUserInfo = ref({ ...props.userInfo });
 const fields = reactive([
   {
-    disabled: true,
     name: 'username',
+    disabled: false,
     errors: computed(() => {
       const errors = [];
       if (apiStore.getIsValidUsername) errors.push(t('alerts.errors.username.taken'));
-      if (props.userInfo.username.length === 0) errors.push(t('alerts.errors.username.empty'));
+      if (modifiedUserInfo.value.username?.length === 0) errors.push(t('alerts.errors.username.empty'));
       return errors;
     }),
     label: t('page--profile.settings-option.username'),
     inputType: 'text',
+    description: 'Your username is visible to all users',
   },
   {
-    disabled: true,
     name: 'email',
+    disabled: true,
     errors: computed(() => {
       const errors = [];
-      if (props.userInfo.email.length === 0) errors.push(t('alerts.errors.email.empty'));
+      if (modifiedUserInfo.value.email?.length === 0) errors.push(t('alerts.errors.email.empty'));
       return errors;
     }),
     label: t('page--profile.settings-option.email'),
     inputType: 'email',
+    description: 'You can @mention other users and organizations to link to them.',
   },
-  // {
-  //   disabled: true,
-  //   name: 'password',
-  //   errors: computed(() => {
-  //     const errors = [];
-  //     if (props.userInfo.password.length === 0) errors.push(t('alerts.errors.password.empty'));
-  //     return errors;
-  //   }),
-  //   label: t('page--profile.settings-option.password'),
-  //   inputType: 'password',
-  // },
 ]);
 
 const onFileChange = (file) => {
@@ -89,7 +86,9 @@ const onFileChange = (file) => {
 };
 
 const hasChanges = computed(() => {
-  return !isEqual(props.userInfo, originalUserInfo.value);
+  const { avatar, ...otherFields } = props.userInfo;
+  const { avatar: originalAvatar, ...originalOtherFields } = modifiedUserInfo.value;
+  return !isEqual(otherFields, originalOtherFields);
 });
 
 const hasErrors = computed(() => {
@@ -101,18 +100,14 @@ const checkUsername = debounce(async (newUsername) => {
 }, 300);
 
 watchEffect(() => {
-  if (props.userInfo.username !== originalUserInfo.value.username) {
-    checkUsername(props.userInfo.username);
+  if (props.userInfo.username !== modifiedUserInfo.value.username) {
+    checkUsername(modifiedUserInfo.value.username);
   }
 });
 
 const saveDataUser = () => {
-  emit('save:data');
+  emit('save:data', modifiedUserInfo.value);
 
-  originalUserInfo.value = { ...props.userInfo };
-  fields.forEach(field => {
-    field.disabled = true;
-  });
 };
 
 router.beforeEach((to, from, next) => {
@@ -130,11 +125,20 @@ router.beforeEach((to, from, next) => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
   font-size: 18px;
+
+  &__photo {
+    padding: 10px 20px;
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
 
   &-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: start;
     row-gap: 10px;
@@ -154,11 +158,11 @@ router.beforeEach((to, from, next) => {
   &__save-button {
     opacity: 0;
     transition: all 0.5s ease-in-out;
-    pointer-events: none; /* Блокируем события мыши */
+    pointer-events: none;
 
     &--visible {
       opacity: 1;
-      pointer-events: auto; /* Включаем события мыши, когда кнопка видима */
+      pointer-events: auto;
       transform: translateY(-10px);
     }
   }

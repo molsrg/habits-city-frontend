@@ -5,7 +5,11 @@
   "page--profile": {
     "title": "Welcome to profile!",
     "subtitle": "Your account is already ready, but you can customize it for yourself",
-    "settings": "Settings",
+    "nav": {
+      "settings": "Settings",
+      "public-info": "Public info",
+      "stats": "Stats"
+    },
     "language": "Choose language",
     "settings-option": {
       "username": "Username",
@@ -13,7 +17,8 @@
       "password": "Password",
       "upload-avatar": "Upload avatar"
     },
-    "save-data": "Save data"
+    "save-data": "Save data",
+    "delete-account": "Delete account"
   },
   "page--login": {
     "title": "LogIn",

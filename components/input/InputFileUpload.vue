@@ -13,6 +13,7 @@ const props = defineProps<{
   fileType: keyof typeof validTypes;
   label?: string;
   icon?: string;
+  variant?: 'filled' | 'outline';
 }>();
 
 const emit = defineEmits<{
@@ -39,7 +40,10 @@ const handleFileChange = (event: Event) => {
 
 <template>
   <div class="file-upload">
-    <label class="file-upload__label" @click="fileInput?.click()">
+    <label
+      :class="['file-upload__label', props.variant || 'filled']"
+      @click="fileInput?.click()"
+    >
       <UIcon v-if="icon" :name="icon" />
       {{ label || 'Загрузить файл' }}
     </label>
@@ -60,18 +64,31 @@ const handleFileChange = (event: Event) => {
   display: inline-block;
 
   &__label {
-    @apply bg-green-900 text-white px-4 py-2 rounded cursor-pointer transition duration-300;
+    @apply px-4 py-2 rounded cursor-pointer transition duration-300;
     display: flex;
     align-items: center;
     gap: 5px;
+    font-size: 16px;
 
     & span {
-      width: 25px;
-      height: 25px;
+      width: 20px;
+      height: 20px;
     }
 
-    &:hover {
-      @apply bg-green-700;
+    &.filled {
+      @apply bg-green-800 text-white;
+
+      &:hover {
+        @apply bg-green-600;
+      }
+    }
+
+    &.outline {
+      @apply border-0 bg-transparent;
+
+      &:hover {
+        @apply bg-green-900;
+      }
     }
   }
 
@@ -79,4 +96,5 @@ const handleFileChange = (event: Event) => {
     display: none;
   }
 }
+
 </style>

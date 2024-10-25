@@ -10,9 +10,14 @@
 
       <div class="people-card__info">
         <div class="people-card__details">
-          <UBadge class="people-card__username" color="white" variant="solid">
-            @ {{ isValidPeopleLength }}
-          </UBadge>
+          <div class="people-card__header">
+            <UBadge class="people-card__username" color="white" variant="solid">
+              @ {{ isValidPeopleLength }}
+            </UBadge>
+            <UBadge color="primary" variant="soft">{{ peopleInfo.rating }}</UBadge>
+
+
+          </div>
 
           <UButton
             v-if="showAddFriendButton"
@@ -38,7 +43,6 @@
           />
         </div>
         <USkeleton class="people-card__skeleton" />
-        <span>  rating -- {{ peopleInfo.rating }}</span>
       </div>
     </div>
   </UCard>
@@ -81,6 +85,13 @@ const addFriend = () => {
   gap: 1rem;
   width: 250px;
 
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+
   &__info {
     display: flex;
     flex-direction: column;
@@ -92,16 +103,6 @@ const addFriend = () => {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  &__username {
-    margin-bottom: 0.5rem;
-  }
-
-  &__button {
-  }
-
-  &__button--disabled {
   }
 
   &__skeleton {
