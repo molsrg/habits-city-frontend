@@ -33,9 +33,14 @@ export const useUserStore = defineStore('userStore', {
 
     async changeUserInfo(userInfo: object): Promise<void> {
       console.log('updateUserInfo', userInfo);
-      this.userInfo = userInfo;
       return false;
     },
+
+    async changeUserPassword(userInfo: object): Promise<void> {
+      console.log('updateUserInfo', userInfo);
+      return true;
+    },
+
 
     async uploadNewAvatar(payload: File): Promise<void> {
       try {

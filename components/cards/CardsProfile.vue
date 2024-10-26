@@ -2,9 +2,8 @@
   <UCard>
     <div class="people-card">
       <UAvatar
+        :alt="peopleInfo.username || 'User'"
         :src="peopleInfo.avatar || ''"
-        alt="Avatar"
-        chip-position="bottom-right"
         size="lg"
       />
 

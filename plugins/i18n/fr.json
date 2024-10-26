@@ -1,29 +1,64 @@
 {
   "page--index": {
-    "badge": "Le compilateur est le meilleur ami du programmeur : il ne dira jamais que vous êtes un génie, mais il vous montrera toujours où vous avez fait une erreur."
+    "badge": "Le compilateur est le meilleur ami d'un programmeur : il ne dira jamais que vous êtes un génie, mais il vous montrera toujours où vous vous êtes trompé"
   },
   "page--profile": {
-    "title": "Bienvenue sur le profil !",
-    "subtitle": "Votre compte est déjà prêt, mais vous pouvez le personnaliser.",
-    "settings": "Paramètres",
-    "language": "Choisir la langue",
-    "settings-option": {
-      "username": "Nom d'utilisateur",
-      "email": "Email",
-      "password": "Mot de passe"
+    "title": "Bienvenue dans le profil !",
+    "subtitle": "Votre compte est déjà prêt, mais vous pouvez le personnaliser pour vous",
+    "nav": {
+      "settings": "Paramètres",
+      "public-info": "Informations publiques",
+      "stats": "Statistiques"
     },
-    "save-data": "Enregistrer les données"
+    "language": "Choisissez la langue",
+    "settings-option": {
+      "nav": {
+        "account": {
+          "label": "Compte",
+          "description": "Apportez des modifications à votre compte ici. Cliquez sur enregistrer lorsque vous avez terminé."
+        },
+        "password": {
+          "label": "Mot de passe",
+          "description": "Changez votre mot de passe ici. Après avoir enregistré, vous serez déconnecté."
+        }
+      },
+      "name": {
+        "label": "Nom",
+        "description": "Votre nom ne sera visible que par les administrateurs",
+        "placeholder": "Entrez votre nom"
+      },
+      "username": {
+        "label": "Nom d'utilisateur",
+        "description": "Votre nom d'utilisateur est visible lors de la création ou de l'achèvement de tâches",
+        "placeholder": "Entrez votre nom d'utilisateur"
+      },
+      "email": "E-mail",
+      "password": {
+        "label": "Mot de passe",
+        "placeholder": "Entrez votre mot de passe"
+      },
+      "new-password": {
+        "label": "Nouveau mot de passe",
+        "description": "Entrez un mot de passe fort",
+        "placeholder": "Entrez un nouveau mot de passe"
+      },
+      "upload-avatar": "Télécharger un avatar"
+    },
+    "nav-item": {},
+    "save-account": "Enregistrer le compte",
+    "save-password": "Enregistrer le mot de passe",
+    "delete-account": "Supprimer le compte"
   },
   "page--login": {
     "title": "Connexion",
-    "subtitle": "Entrez vos identifiants pour accéder à votre compte.",
-    "no-account": "Pas de compte ?",
+    "subtitle": "Entrez vos identifiants pour accéder à votre compte",
+    "no-account": "Vous n'avez pas encore de compte ?",
     "enter-password": "Entrez votre mot de passe",
     "enter-username": "Entrez votre nom d'utilisateur"
   },
   "page--registration": {
     "title": "Inscription",
-    "subtitle": "Entrez vos identifiants pour accéder à votre compte.",
+    "subtitle": "Entrez vos identifiants pour accéder à votre compte",
     "have-account": "Vous avez déjà un compte ?",
     "enter-password": "Entrez votre mot de passe",
     "enter-username": "Entrez votre nom d'utilisateur",
@@ -33,8 +68,32 @@
     "label": {
       "registration": "Inscription",
       "login": "Connexion",
-      "faq": "F.A.Q.",
+      "faq": "FAQ",
       "home": "Page d'accueil"
+    }
+  },
+  "notifications": {
+    "save-access": "Enregistrer l'accès aux données",
+    "save-error": "Erreur de sauvegarde des données"
+  },
+  "alerts": {
+    "errors": {
+      "name": {
+        "empty": "Le nom ne peut pas être vide !"
+      },
+      "username": {
+        "empty": "Le nom d'utilisateur ne peut pas être vide !",
+        "taken": "Le nom d'utilisateur est déjà pris !"
+      },
+      "email": {
+        "empty": "L'e-mail ne peut pas être vide !"
+      },
+      "password": {
+        "empty": "Le mot de passe ne peut pas être vide !",
+        "length": "Le mot de passe doit contenir au moins 8 caractères !",
+        "uppercase": "Le mot de passe doit contenir au moins une lettre majuscule !",
+        "digit": "Le mot de passe doit contenir au moins un chiffre !"
+      }
     }
   }
 }

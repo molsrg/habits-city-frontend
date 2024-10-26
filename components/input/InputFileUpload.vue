@@ -45,7 +45,7 @@ const handleFileChange = (event: Event) => {
       @click="fileInput?.click()"
     >
       <UIcon v-if="icon" :name="icon" />
-      {{ label || 'Загрузить файл' }}
+      {{ label || '' }}
     </label>
     <input
       ref="fileInput"
@@ -64,7 +64,7 @@ const handleFileChange = (event: Event) => {
   display: inline-block;
 
   &__label {
-    @apply px-4 py-2 rounded cursor-pointer transition duration-300;
+    @apply px-3 py-2 rounded cursor-pointer transition duration-300;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -76,7 +76,7 @@ const handleFileChange = (event: Event) => {
     }
 
     &.filled {
-      @apply bg-green-800 text-white;
+      @apply bg-green-900 text-white;
 
       &:hover {
         @apply bg-green-600;

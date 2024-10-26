@@ -5,7 +5,7 @@ import { endpoints } from '@/api/endpoints';
 
 
 export const useFriendStore = defineStore('friendStore', {
-  persist: true,
+  // persist: true,
   state: () => ({
     isOpenVerificatedPhone: false,
     suggestedFriends: [],

@@ -1,6 +1,6 @@
 {
   "page--index": {
-    "badge": "The compiler is a programmer's best friend: it will never say that you are a genius, but it will always show you where you went wrong."
+    "badge": "The compiler is a programmer's best friend: it will never say that you are a genius, but it will always show you where you went wrong"
   },
   "page--profile": {
     "title": "Welcome to profile!",
@@ -12,24 +12,54 @@
     },
     "language": "Choose language",
     "settings-option": {
-      "username": "Username",
+      "nav": {
+        "account": {
+          "label": "Account",
+          "description": "Make changes to your account here. Click save when you're done."
+        },
+        "password": {
+          "label": "Password",
+          "description": "Change your password here. After saving, you'll be logged out."
+        }
+      },
+      "name": {
+        "label": "Name",
+        "description": "Your name will only be visible to admins",
+        "placeholder": "Enter your name"
+      },
+      "username": {
+        "label": "Username",
+        "description": "Your username is visible when creating or completing tasks",
+        "placeholder": "Enter your username"
+      },
       "email": "Email",
-      "password": "Password",
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password"
+      },
+      "new-password": {
+        "label": "New password",
+        "description": "Enter a strong password",
+        "placeholder": "Enter a new password"
+      },
       "upload-avatar": "Upload avatar"
     },
-    "save-data": "Save data",
+    "nav-item": {
+    },
+    "save-account": "Save account",
+    "save-password": "Save password",
     "delete-account": "Delete account"
   },
   "page--login": {
-    "title": "LogIn",
-    "subtitle": "Enter your credentials to access your account.",
+    "title": "Log in",
+    "subtitle": "Enter your credentials to access your account",
     "no-account": "Don't have an account yet?",
     "enter-password": "Enter your password",
     "enter-username": "Enter your username"
   },
   "page--registration": {
-    "title": "Registry",
-    "subtitle": "Enter your credentials to access your account.",
+    "title": "Register",
+    "subtitle": "Enter your credentials to access your account",
     "have-account": "Already have an account?",
     "enter-password": "Enter your password",
     "enter-username": "Enter your username",
@@ -40,7 +70,7 @@
       "registration": "Registration",
       "login": "Login",
       "faq": "F.A.Q.",
-      "home:": "Home Page"
+      "home": "Home page"
     }
   },
   "notifications": {
@@ -49,17 +79,22 @@
   },
   "alerts": {
     "errors": {
+      "name": {
+        "empty": "Name cannot be empty!"
+      },
       "username": {
-        "empty": "username cannot be empty!",
-        "taken": "username is already taken!"
+        "empty": "Username cannot be empty!",
+        "taken": "Username is already taken!"
       },
       "email": {
-        "empty": "email cannot be empty!"
+        "empty": "Email cannot be empty!"
       },
       "password": {
-        "empty": "password cannot be empty!"
+        "empty": "Password cannot be empty!",
+        "length": "Password must be at least 8 characters long!",
+        "uppercase": "Password must contain at least one uppercase letter!",
+        "digit": "Password must contain at least one digit!"
       }
     }
   }
 }
-

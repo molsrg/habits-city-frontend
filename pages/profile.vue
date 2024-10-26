@@ -26,23 +26,14 @@
           <h2>{{ activeLabel }}</h2>
         </div>
 
-        <ProfileSetting
+        <ProfileSetting2
           v-if="activeLink === 'Settings'"
           :user-info="userInfo"
-          @save:data="saveUserData"
+          @update:user-password="updateUserPassword"
           @new:avatar="uploadNewAvatar"
-        />
-        <GitHubActivity v-if="activeLink === 'Stats'" />
+          @update:user-account="saveUserData" />
 
-        <UButton
-          v-if="activeLink === 'Settings'"
-          :label="$t('page--profile.delete-account')"
-          class="profile__delete-button"
-          color="red"
-          icon="i-heroicons-trash"
-          variant="outline"
-          @click="appStore.toggleIsDeleteAccount"
-        />
+        <GitHubActivity v-if="activeLink === 'Stats'" />
       </div>
     </div>
 
@@ -51,12 +42,14 @@
 </template>
 
 <script lang="ts" setup>
+
 import GitHubActivity from '@/components/charts/GitHubActivity.vue';
 import DeleteAccount from '@/components/modal/DeleteAccount.vue';
+import ProfileSetting2 from '@/components/profile/ProfileSetting2.vue';
 import { useAppStore } from '@/store/app.store';
 import { useUserStore } from '@/store/user.store';
 
-const { setLocale, t } = useI18n();
+const { t } = useI18n();
 const appStore = useAppStore();
 const userStore = useUserStore();
 const toast = useToast();
@@ -77,14 +70,14 @@ const changeLink = (link: string) => {
 };
 
 const links = [
-  // { label: t('page--profile.nav.public-info'), click: () => changeLink('Public info') },
-  { label: t('page--profile.nav.settings'), click: () => changeLink('Settings') },
-  { label: t('page--profile.nav.stats'), click: () => changeLink('Stats') },
+  { label: 'Settings', click: () => changeLink('Settings') },
+  { label: 'Stats', click: () => changeLink('Stats') },
 ];
 
 const formattedLinks = computed(() =>
   links.map(link => ({
     ...link,
+    label: t(`page--profile.nav.${link.label.toLowerCase()}`),
     active: activeLink.value === link.label,
   })),
 );
@@ -100,10 +93,19 @@ const activeIcon = computed(() => {
   }
 });
 
-const activeLabel = computed(() => activeLink.value);
+const activeLabel = computed(() => t(`page--profile.nav.${activeLink.value.toLowerCase()}`));
 
 const saveUserData = async (payload): Promise<void> => {
   const res = await userStore.changeUserInfo(payload);
+  const notification = res
+    ? { color: 'green', title: t('notifications.save-access') }
+    : { color: 'red', title: t('notifications.save-error') };
+
+  toast.add({ ...notification, timeout: 2000 });
+};
+
+const updateUserPassword = async (payload): Promise<void> => {
+  const res = await userStore.changeUserPassword(payload);
   const notification = res
     ? { color: 'green', title: t('notifications.save-access') }
     : { color: 'red', title: t('notifications.save-error') };
@@ -116,7 +118,6 @@ const uploadNewAvatar = async (payload): Promise<void> => {
   const notification = res
     ? { color: 'green', title: t('notifications.save-access') }
     : { color: 'red', title: t('notifications.save-error') };
-
 
   toast.add({ ...notification, timeout: 2000 });
 };
@@ -163,7 +164,6 @@ const uploadNewAvatar = async (payload): Promise<void> => {
   }
 
   &__delete-button {
-
     margin: auto;
   }
 }

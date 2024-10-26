@@ -4,20 +4,19 @@
       <label v-if="label" class="input-container__label">{{ label }}</label>
       <p v-if="description" class="input-container__description">{{ description }}</p>
     </span>
-
     <UInput
       :disabled="isDisabled"
       :model-value="modelValue"
+      :placeholder="placeholder"
+      :required="required"
       :type="inputType"
       class="input-container__input"
-      placeholder="Search..."
       @update:model-value="$emit('update:modelValue', $event)"
     />
     <AlertApp
-      v-for="(error, index) in errors"
-      :key="index"
-      :is-visible="!!error"
-      :label="error"
+      v-if="errors"
+      :is-visible="!!errors"
+      :label="errors"
       class="input-container__alert"
       type="error"
     />
@@ -30,13 +29,17 @@ import AlertApp from '@/components/alerts/AlertApp.vue';
 const props = defineProps({
   label: {
     type: String,
-    required: true,
+    default: '',
   },
   description: {
     type: String,
     default: '',
   },
   modelValue: {
+    type: [String, Object],
+    default: '',
+  },
+  placeholder: {
     type: String,
     default: '',
   },
@@ -45,12 +48,16 @@ const props = defineProps({
     default: false,
   },
   errors: {
-    type: Array as () => string[],
-    default: () => [],
+    type: String,
+    default: '',
   },
   inputType: {
     type: String,
     default: 'text',
+  },
+  required: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>
@@ -61,7 +68,7 @@ const props = defineProps({
   flex-direction: column;
   gap: 5px;
   width: 100%;
-  padding: 5px 10px;
+  //padding: 5px 10px;
 
   &__header {
     display: flex;
@@ -70,7 +77,8 @@ const props = defineProps({
   }
 
   &__label {
-    font-weight: bolder;
+    font-size: 14px;
+    //font-weight: bolder;
   }
 
   &__description {
@@ -78,9 +86,6 @@ const props = defineProps({
     color: #6b7280;
   }
 
-  &__input {
-    max-width: 80%;
-  }
 
   &__alert {
     margin-left: 15px;
