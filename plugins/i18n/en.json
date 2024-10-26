@@ -1,42 +1,100 @@
 {
   "page--index": {
-		"badge": "The compiler is a programmer's best friend: it will never say that you are a genius, but it will always show you where you went wrong."
-	}, 
-	"page--profile": {
-		"title": "Welcome to profile!", 
-		"subtitle": "Your account is already ready, but you can customize it for yourself", 
-		"settings" : "Settings",
-		"language": "Choose language", 
-		"settings-option": {
-			"username": "Username",
-			"email": "Email",
-      "password": "Password"
-		},
-		"save-data": "Save data"
-	}, 
-	"page--login": {
-		"title": "LogIn", 
-		"subtitle": "Enter your credentials to access your account.",
-		"no-account": "Don't have an account yet?", 
-		"enter-password": "Enter your password", 
-		"enter-username": "Enter your username"
-	},
-	"page--registration": {
-		"title": "Registry", 
-		"subtitle": "Enter your credentials to access your account.",
-		"have-account": "Already have an account?", 
-		"enter-password": "Enter your password", 
-		"enter-username": "Enter your username", 
-		"button": "Register"
-	},
-
-	"layout--default": {
+    "badge": "The compiler is a programmer's best friend: it will never say that you are a genius, but it will always show you where you went wrong"
+  },
+  "page--profile": {
+    "title": "Welcome to profile!",
+    "subtitle": "Your account is already ready, but you can customize it for yourself",
+    "nav": {
+      "settings": "Settings",
+      "public-info": "Public info",
+      "stats": "Stats"
+    },
+    "language": "Choose language",
+    "settings-option": {
+      "nav": {
+        "account": {
+          "label": "Account",
+          "description": "Make changes to your account here. Click save when you're done."
+        },
+        "password": {
+          "label": "Password",
+          "description": "Change your password here. After saving, you'll be logged out."
+        }
+      },
+      "name": {
+        "label": "Name",
+        "description": "Your name will only be visible to admins",
+        "placeholder": "Enter your name"
+      },
+      "username": {
+        "label": "Username",
+        "description": "Your username is visible when creating or completing tasks",
+        "placeholder": "Enter your username"
+      },
+      "email": "Email",
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password"
+      },
+      "new-password": {
+        "label": "New password",
+        "description": "Enter a strong password",
+        "placeholder": "Enter a new password"
+      },
+      "upload-avatar": "Upload avatar"
+    },
+    "nav-item": {
+    },
+    "save-account": "Save account",
+    "save-password": "Save password",
+    "delete-account": "Delete account"
+  },
+  "page--login": {
+    "title": "Log in",
+    "subtitle": "Enter your credentials to access your account",
+    "no-account": "Don't have an account yet?",
+    "enter-password": "Enter your password",
+    "enter-username": "Enter your username"
+  },
+  "page--registration": {
+    "title": "Register",
+    "subtitle": "Enter your credentials to access your account",
+    "have-account": "Already have an account?",
+    "enter-password": "Enter your password",
+    "enter-username": "Enter your username",
+    "button": "Register"
+  },
+  "layout--default": {
     "label": {
-			"registration": "Registration", 
-			"login": "Login", 
-			"faq": "F.A.Q.",
-			"home:": "Home Page"
-		}
+      "registration": "Registration",
+      "login": "Login",
+      "faq": "F.A.Q.",
+      "home": "Home page"
+    }
+  },
+  "notifications": {
+    "save-access": "Save data access",
+    "save-error": "Save data error"
+  },
+  "alerts": {
+    "errors": {
+      "name": {
+        "empty": "Name cannot be empty!"
+      },
+      "username": {
+        "empty": "Username cannot be empty!",
+        "taken": "Username is already taken!"
+      },
+      "email": {
+        "empty": "Email cannot be empty!"
+      },
+      "password": {
+        "empty": "Password cannot be empty!",
+        "length": "Password must be at least 8 characters long!",
+        "uppercase": "Password must contain at least one uppercase letter!",
+        "digit": "Password must contain at least one digit!"
+      }
+    }
   }
 }
-

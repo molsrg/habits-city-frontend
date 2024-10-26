@@ -1,21 +1,24 @@
 <template>
-	<div class="error-page">
-<!--		 <h1>Error {{ error.statusCode }}</h1>-->
-		<span>
-			{{ error.message }}
-		</span>
-		<img :src="`https://http.cat/${error.statusCode}.jpg`" alt="Error" >
-		<UButton color="white" variant="solid" @click="handleError"
-			>Go back home
-		</UButton>
-	</div>
+  <div class="error-page">
+    <!--		 <h1>Error {{ error.statusCode }}</h1>-->
+    <span>
+      {{ error.message }}
+    </span>
+    <img :src="`https://http.cat/${error.statusCode}.jpg`" alt="Error" >
+    <UButton
+      color="white"
+      variant="solid"
+      @click="handleError"
+    >Go back home
+    </UButton>
+  </div>
 </template>
 
 <script setup lang="ts">
 import type { NuxtError } from '#app'
 
 const props = defineProps({
-	error: Object as () => NuxtError,
+  error: Object as () => NuxtError,
 })
 
 const handleError = () => clearError({ redirect: '/' })

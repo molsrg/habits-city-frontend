@@ -1,233 +1,170 @@
 <template>
-	<div class="profile-setting">
-		<div class="profile-settings-container">
-			<div class="profile-settings-detail">
-				<div class="profile-settings-detail--change">
-					<span>{{ $t('page--profile.settings-option.username') }}</span>
-					<UButton
-						variant="ghost"
-						:icon="
-							isDisabled.username
-								? 'i-heroicons-lock-closed'
-								: 'i-heroicons-lock-open'
-						"
-						size="2xs"
-						@click="toggleDisabled('username')"
-					/>
-				</div>
-				<InputText
-					v-model="userInfo.username"
-					type="text"
-					class="phone-number"
-					:disabled="isDisabled.username"
-				/>
+  <div class="profile-setting">
+    <div class="profile-setting__photo">
+      <UAvatar
+        :alt="userInfo.username || '' "
+        :src="userInfo.avatar || ''"
+        chip-position="bottom-right"
+        size="3xl"
+      />
+      <InputFileUpload
+        :label="$t('page--profile.settings-option.upload-avatar')"
+        file-type="img"
+        icon="i-heroicons-user-circle"
+        @upload:file="onFileChange" />
+    </div>
 
-				<Transition>
-					<AlertApp v-if="isInvalidUsername" :label="'username уже занят !'" />
-				</Transition>
-				<Transition>
-					<AlertApp
-						v-if="isInvalidUsernameLength"
-						:label="'username не может быть пустым !'"
-					/>
-				</Transition>
-			</div>
-			<div class="profile-settings-detail">
-				<div class="profile-settings-detail--change">
-					<span>{{ $t('page--profile.settings-option.email') }}</span>
-					<UButton
-						variant="ghost"
-						:icon="
-							isDisabled.email
-								? 'i-heroicons-lock-closed'
-								: 'i-heroicons-lock-open'
-						"
-						size="2xs"
-						@click="toggleDisabled('email')"
-					/>
-				</div>
-				<InputText
-					v-model="userInfo.email"
-					type="email"
-					class="phone-number"
-					:disabled="isDisabled.email"
-				/>
-			</div>
+    <ProfileInputItem
+      v-for="(field) in fields"
+      :key="field.name"
+      v-model="modifiedUserInfo[field.name]"
+      :description="field.description"
+      :errors="field.errors"
+      :input-type="field.inputType"
+      :is-disabled="field.disabled"
+      :label="field.label"
+    />
 
-			<div class="profile-settings-detail">
-				<div class="profile-settings-detail--change">
-					<span>{{ $t('page--profile.settings-option.password') }}</span>
-					<UButton
-						variant="ghost"
-						:icon="
-							isDisabled.password
-								? 'i-heroicons-lock-closed'
-								: 'i-heroicons-lock-open'
-						"
-						size="2xs"
-						@click="toggleDisabled('password')"
-					/>
-				</div>
-				<InputText
-					v-model="userInfo.password"
-					:type="isDisabled.password ? 'password' : 'text'"
-					class="phone-number"
-					:disabled="isDisabled.password"
-				/>
-			</div>
-		</div>
-		<UButton
-			:class="buttonHidden"
-			:label="$t('page--profile.save-data')"
-			@click="saveDataUser"
-		/>
-	</div>
+    <UButton
+      :class="['profile-setting__save-button', { 'profile-setting__save-button--visible': hasChanges && !hasErrors }]"
+      :disabled="!hasChanges || hasErrors"
+      :label="$t('page--profile.save-data')"
+      @click="saveDataUser"
+    />
+  </div>
 </template>
 
-<script setup lang="ts">
-import { debounce } from 'lodash'
+<script lang="ts" setup>
+import { debounce, isEqual } from 'lodash';
+import { useRouter } from 'vue-router';
 
-import AlertApp from '@/components/alerts/AlertApp'
-import { useApiStore } from '@/store/api.store'
+import { useApiStore } from '@/store/api.store';
 
-const apiStore = useApiStore()
-const router = useRouter()
+const { locale, t } = useI18n();
+const apiStore = useApiStore();
+const router = useRouter();
 
 const props = defineProps({
-	userInfo: {
-		type: Object,
-		required: true,
-	},
-})
-const emit = defineEmits(['saveData'])
+  userInfo: {
+    type: Object,
+    required: true,
+  },
+});
+const emit = defineEmits(['save:data', 'new:avatar']);
 
-// Исходные данные пользователя
-const originalUserInfo = ref({ ...props.userInfo })
+const modifiedUserInfo = ref({ ...props.userInfo });
+const fields = reactive([
+  {
+    name: 'username',
+    disabled: false,
+    errors: computed(() => {
+      const errors = [];
+      if (apiStore.getIsValidUsername) errors.push(t('alerts.errors.username.taken'));
+      if (modifiedUserInfo.value.username?.length === 0) errors.push(t('alerts.errors.username.empty'));
+      return errors;
+    }),
+    label: t('page--profile.settings-option.username'),
+    inputType: 'text',
+    description: 'Your username is visible to all users',
+  },
+  {
+    name: 'email',
+    disabled: true,
+    errors: computed(() => {
+      const errors = [];
+      if (modifiedUserInfo.value.email?.length === 0) errors.push(t('alerts.errors.email.empty'));
+      return errors;
+    }),
+    label: t('page--profile.settings-option.email'),
+    inputType: 'email',
+    description: 'You can @mention other users and organizations to link to them.',
+  },
+]);
 
-// Вычисляемое свойство для отслеживания изменений данных пользователя
+const onFileChange = (file) => {
+  emit('new:avatar', file);
+};
+
 const hasChanges = computed(() => {
-	return (
-		JSON.stringify(props.userInfo) !== JSON.stringify(originalUserInfo.value)
-	)
-})
+  const { avatar, ...otherFields } = props.userInfo;
+  const { avatar: originalAvatar, ...originalOtherFields } = modifiedUserInfo.value;
+  return !isEqual(otherFields, originalOtherFields);
+});
 
-const buttonHidden = computed(() => {
-	return {
-		'save-button': true,
-		'save-button--visible':
-			!isInvalidUsernameLength.value &&
-			!isInvalidUsername.value &&
-			hasChanges.value,
-	}
-})
+const hasErrors = computed(() => {
+  return fields.some(field => field.errors.length > 0);
+});
 
-// Смена возможности изменения полей
-const isDisabled = reactive({
-	username: true,
-	email: true,
-	password: true,
-})
+const checkUsername = debounce(async (newUsername) => {
+  await apiStore.existUsername(newUsername);
+}, 300);
 
-const toggleDisabled = (field: string) => {
-	isDisabled[field] = !isDisabled[field]
-}
+watchEffect(() => {
+  if (props.userInfo.username !== modifiedUserInfo.value.username) {
+    checkUsername(modifiedUserInfo.value.username);
+  }
+});
 
-// Ошибка нового username
-const isInvalidUsername = computed(() => {
-	return apiStore.getIsValidUsername
-})
-
-// Ошибка пустого username
-const isInvalidUsernameLength = computed(() => {
-	return props.userInfo.username.length == 0
-})
-
-// Дебаунс функция для проверки существования username
-const debouncedCheckUsername = debounce(async (newUsername, oldUsername) => {
-	if (newUsername !== oldUsername) {
-		await apiStore.existUsername(newUsername, oldUsername)
-	}
-}, 300)
-
-watch(
-	() => props.userInfo.username,
-	(newUsername, oldUsername) => {
-		debouncedCheckUsername(newUsername, oldUsername)
-	}
-)
-
-// Сейвим новые значения
 const saveDataUser = () => {
-	emit('saveData')
-	isDisabled.username = true
-	isDisabled.email = true
-	isDisabled.password = true
+  emit('save:data', modifiedUserInfo.value);
 
-	originalUserInfo.value = { ...props.userInfo }
-}
+};
 
-// Запретить переход если есть ошибка
 router.beforeEach((to, from, next) => {
-	if (!isInvalidUsername.value && !isInvalidUsernameLength.value) {
-		next()
-	} else {
-		next(false)
-	}
-})
+  if (!hasErrors.value && !hasChanges.value) {
+    next();
+  } else {
+    next(false);
+  }
+});
 </script>
 
 <style scoped>
 .profile-setting {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 20px;
-	font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
 
-}
-.profile-settings-container {
-	display: flex;
-	justify-content: center;
-	align-items: start;
-	row-gap: 10px;
-	column-gap: 30px;
-	flex-wrap: wrap;
-}
+  &__photo {
+    padding: 10px 20px;
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
 
-.profile-settings-detail {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-between;
-	column-gap: 10px;
-	row-gap: 5px;
-}
+  &-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    row-gap: 10px;
+    column-gap: 30px;
+    flex-wrap: wrap;
+  }
 
-.profile-settings-detail--change {
-	display: flex;
-	align-items: center;
-	column-gap: 10px;
-}
+  &__detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 10px;
+    row-gap: 5px;
+  }
 
-.save-button {
-	opacity: 0;
-	transition: all 0.5s ease-in-out; /* Плавная анимация для opacity */
-}
+  &__save-button {
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+    pointer-events: none;
 
-.save-button--visible {
-	opacity: 1;
-	transform: translateY(-10px);
-}
-
-/* we will explain what these classes do next! */
-.v-enter-active,
-.v-leave-active {
-	transition: opacity 0.5s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-	opacity: 0;
+    &--visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(-10px);
+    }
+  }
 }
 </style>

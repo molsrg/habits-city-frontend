@@ -10,6 +10,9 @@ export const useUserStore = defineStore('userStore', {
       username: '',
       email: '',
       password: '',
+      avatar: '',
+      isOauth: null,
+      roles: [],
     },
   }),
 
@@ -27,9 +30,33 @@ export const useUserStore = defineStore('userStore', {
         console.log(error.response?.data || error);
       }
     },
+
     async changeUserInfo(userInfo: object): Promise<void> {
       console.log('updateUserInfo', userInfo);
+      return false;
     },
+
+    async changeUserPassword(userInfo: object): Promise<void> {
+      console.log('updateUserInfo', userInfo);
+      return true;
+    },
+
+
+    async uploadNewAvatar(payload: File): Promise<void> {
+      try {
+        const formData = new FormData();
+        formData.append('avatar', payload);
+
+        const { data } = await userService.postFormData('/user/changeAvatar', formData);
+        this.userInfo.avatar = data.url;
+        return true;
+
+      } catch (e) {
+        console.log(e);
+        return false;
+      }
+    },
+
 
     async deleteAccount(userInfo: string): Promise<void> {
       console.log('deleteAccount', userInfo);

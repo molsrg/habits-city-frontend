@@ -74,11 +74,10 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { useAppStore } from '@/store/app.store';
+import { useAuthStore } from '@/store/auth.store';
+import getGoogleURL from '@/utils/getGoogleURL';
 
-import { useAuthStore } from '../../store/auth.store';
-import getGoogleURL from '../../utils/getGoogleURL';
-import { useAppStore } from '../../store/app.store';
 definePageMeta({
   middleware: ['guest'],
 });
@@ -89,9 +88,8 @@ useHead({
 
 const authStore = useAuthStore();
 const appStore = useAppStore();
-const toast = useToast();
-
 appStore.$reset();
+
 const userData = reactive({
   username: '',
   password: '',

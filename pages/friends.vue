@@ -1,82 +1,97 @@
 <template>
-	<div class="friends">
-		<UInput
-			v-model="searchFriend"
-			class="friends-search"
-			size="xl"
-			name="search-friend"
-			placeholder="Enter your friend's username..."
-			icon="i-heroicons-magnifying-glass-20-solid"
-			autocomplete="off"
-			:ui="{ icon: { trailing: { pointer: '' } } }"
-		>
-			<template #trailing>
-				<UButton
-					v-show="searchFriend !== ''"
-					color="gray"
-					variant="link"
-					icon="i-heroicons-x-mark-20-solid"
-					:padded="false"
-					@click="searchFriend = ''"
-				/>
-			</template>
-		</UInput>
-		<div class="friends-container">
-			<CardsProfile
-				v-for="user in filteredPeople"
-				:key="user.username"
-				:people-info="user"
-				@add-people="addNewPeople"
-			/>
-		</div>
-	</div>
+  <div class="friends">
+    <UInput
+      v-model="searchFriend"
+      :ui="{ icon: { trailing: { pointer: '' } } }"
+      autocomplete="off"
+      class="friends__search"
+      icon="i-heroicons-magnifying-glass-20-solid"
+      name="search-friend"
+      placeholder="Enter your friend's username..."
+      size="xl"
+    >
+      <template #trailing>
+        <UButton
+          v-show="searchFriend !== ''"
+          :padded="false"
+          color="gray"
+          icon="i-heroicons-x-mark-20-solid"
+          variant="link"
+          @click="searchFriend = ''"
+        />
+      </template>
+    </UInput>
+    <div class="friends__container">
+      <CardsProfile
+        v-for="user in friendStore.getSuggestedFriends"
+        :key="user.username"
+        :people-info="user"
+        @add:people="addNewPeople"
+      />
+      <div v-if="friendStore.getSuggestedFriends.length === 0">
+        <UCard>
+          <template #header>
+            <Placeholder class="h-8" />
+          </template>
+
+          <Placeholder class="h-32" />
+
+          <template #footer>
+            <Placeholder class="h-8" />
+          </template>
+        </UCard>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script setup lang="ts">
-import { useFriendStore } from '@/store/friend.store'
+<script lang="ts" setup>
+import { useFriendStore } from '@/store/friend.store';
+
 definePageMeta({
-	middleware: ['auth'],
-})
-
+  middleware: ['auth'],
+});
 useHead({
-	title: 'HS | Friends',
-})
-const friendStore = useFriendStore()
+  title: 'HS | Friends',
+});
 
+const friendStore = useFriendStore();
+const searchFriend = ref('');
 
-const searchFriend = ref('')
+const addNewPeople = (username: string): void => {
+  friendStore.addNewFriend(username);
+};
 
-const addNewPeople = (username: string) => {
-  friendStore.addNewFriend(username)
-}
-
-
-const filteredPeople = computed(() => {
-	return friendStore.getSuggestedFriends.filter(user =>
-		user.username.toLowerCase().includes(searchFriend.value.toLowerCase())
-	)
-})
+let debounceTimeout: ReturnType<typeof setTimeout>;
+watch(searchFriend, (newValue) => {
+  clearTimeout(debounceTimeout);
+  debounceTimeout = setTimeout(() => {
+    if (newValue.trim()) {
+      friendStore.fetchSuggestedFriends(newValue.trim());
+    }
+  }, 300);
+});
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .friends {
-	margin-top: 5vh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	row-gap: 10px;
-}
+  margin-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
 
-.friends-search {
-	width: 60vw;
-}
+  &__search {
+    width: 60vw;
+  }
 
-.friends-container {
-	margin-top: 2vh;
-	display: flex;
-	gap: 12px;
-	align-items: center;
-	justify-content: center;
-	flex-wrap: wrap;
+  &__container {
+    margin-top: 2vh;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }
 </style>

@@ -3,69 +3,104 @@
     <UHorizontalNavigation
       v-if="isDesktop"
       :links="links"
-      class="border-b border-gray-200 px-2 dark:border-gray-800"
-    />
+      class="border-b border-gray-200 px-2 dark:border-gray-800 whitespace-nowrap flex-wrap"
+    >
+      <template #default="{ link }">
+        <div class="group-hover:text-primary relative flex flex-1 dark:text-white">
+          <div class="flex items-center">
+            <div v-if="!link.dropdown">{{ link.label }}</div>
+            <div v-else>
+              <USelect
+                v-model="currentLanguage"
+                :options="optionsLang"
+                icon="i-heroicons-language-16-solid"
+                variant="none"
+              />
+            </div>
+          </div>
+        </div>
+      </template>
+    </UHorizontalNavigation>
 
     <UVerticalNavigation
       v-else
       :links="links"
-      :ui="{
-        label: 'hidden',
-      }"
+      :ui="{ label: 'hidden' }"
       class="px-2 pt-2"
     >
       <template #default="{ link }">
         <div class="group-hover:text-primary relative flex flex-1 dark:text-white">
           <div class="flex items-center">
-            <div>{{ link.label }}</div>
+            <div v-if="!link.dropdown">{{ link.label }}</div>
+            <div v-else>
+              <USelect
+                v-model="currentLanguage"
+                :options="optionsLang"
+                icon="i-heroicons-language-16-solid"
+                variant="none"
+              />
+            </div>
           </div>
         </div>
       </template>
     </UVerticalNavigation>
+
     <slot />
   </div>
 </template>
 
 <script lang="ts" setup>
-// Проверка на ширину экрана
+import { useRouter } from 'vue-router';
+
 import { useScreenSize } from '@/composables/useScreenSize';
-import { useAuthStore } from '../store/auth.store';
-import { useTokenStore } from '../store/token.store';
+import { useTokenStore } from '@/store/token.store';
+import { useUserStore } from '@/store/user.store';
+import { optionsLang } from '@/values/language';
 
+const { setLocale } = useI18n();
 const { isDesktop } = useScreenSize();
-
 const tokenStore = useTokenStore();
-const authStore = useAuthStore();
+const userStore = useUserStore();
 const router = useRouter();
 
-// Выход из системы
-const logoutUser = (): void => {
-  tokenStore.removeToken();
-  console.log('Logout user');
-};
+const user = computed(() => userStore.getUserInfo);
 
-const namePathRoute = computed(() => {
-  return router.currentRoute.value.name;
+const currentLanguage = ref('');
+onMounted(() => {
+  if (import.meta.client) {
+    const savedLanguage = localStorage.getItem('language') || 'en';
+    currentLanguage.value = savedLanguage;
+    setLocale(savedLanguage);
+  }
 });
 
+watch(currentLanguage, (newLang) => {
+  localStorage.setItem('language', newLang);
+  setLocale(newLang);
+});
+
+const logoutUser = (): void => {
+  tokenStore.removeToken();
+};
+
+const namePathRoute = computed(() => router.currentRoute.value.name);
+
 const logInOrRegistration = computed(() => {
-  if (namePathRoute.value === 'auth-registration') {
-    return [
+  return namePathRoute.value === 'auth-registration'
+    ? [
       {
         label: 'Registration',
         icon: 'i-heroicons-user-plus-20-solid',
         to: '/auth/registration',
       },
-    ];
-  } else {
-    return [
+    ]
+    : [
       {
         label: 'LogIn',
         icon: 'i-heroicons-finger-print-20-solid',
         to: '/auth/login',
       },
     ];
-  }
 });
 
 interface Link {
@@ -77,15 +112,15 @@ interface Link {
   badge?: number;
   to?: string;
   click?: () => void;
+  dropdown?: boolean;
 }
 
 const baseLinks: Link[][] = [
   [],
   [
     {
-      label: 'Store',
-      icon: 'i-heroicons-shopping-bag',
-      to: '/questions',
+      label: 'Language',
+      dropdown: true,
     },
     {
       label: 'Home Page',
@@ -105,9 +140,14 @@ const authLinks = computed(() =>
         click: logoutUser,
       },
       {
-        icon: 'i-heroicons-user',
-        label: 'Profile',
+        label: user.value.username || 'User',
         badge: '100',
+        avatar: user.value.avatar
+          ? { src: user.value.avatar }
+          : undefined,
+        icon: user.value.avatar
+          ? undefined
+          : 'i-heroicons-user',
         to: '/profile',
       },
       {
@@ -121,12 +161,21 @@ const authLinks = computed(() =>
         label: 'Tasks',
         to: '/tasks',
       },
-
     ]
     : [...logInOrRegistration.value],
 );
 
-const links = computed<Link[][]>(() => {
-  return [[...authLinks.value], [...baseLinks[1]]];
-});
+const links = computed<Link[][]>(() => [[...authLinks.value], [...baseLinks[1]]]);
 </script>
+
+<style lang="scss" scoped>
+::v-deep select {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border-radius: 16px;
+}
+
+::v-deep option {
+  background-color: #121212;
+}
+</style>

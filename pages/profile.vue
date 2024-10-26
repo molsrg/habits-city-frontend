@@ -1,98 +1,129 @@
 <template>
   <div class="profile">
-    <div class="profile-title">
+    <div class="profile__title">
       <h1>{{ $t('page--profile.title') }}</h1>
-      <h2 class="profile-subtitle">
-        {{ $t('page--profile.subtitle') }}
-      </h2>
+      <h2 class="profile__subtitle">{{ $t('page--profile.subtitle') }}</h2>
     </div>
     <UDivider />
-
-    <div class="profile-options">
-      <UIcon name="i-heroicons-cog-6-tooth-20-solid" />
-      <h2>{{ $t('page--profile.settings') }}</h2>
-    </div>
-    <ProfileSetting :user-info="userInfo" @save-data="saveUserData" />
-    <div class="profile-options">
-      <UIcon name="i-heroicons-language" />
-      <h2>{{ $t('page--profile.language') }}</h2>
-    </div>
-
-    <div class="radio-button">
-      <InputRadioButton
-        v-for="options in optionsLang"
-        :key="options.value"
-        :select-options="options"
-        :select-value="currentLanguage"
-        @update:select-value="handleSelectValue"
+    <div class="profile__nav">
+      <UVerticalNavigation
+        :links="formattedLinks"
+        :ui="{
+          wrapper: 'border-s border-gray-200 dark:border-gray-800 space-y-2',
+          base: 'group block border-s -ms-px leading-6 before:hidden',
+          padding: 'p-1 ps-4',
+          rounded: '',
+          font: 'text-lg',
+          ring: '',
+          active: 'text-primary-500 dark:text-primary-400 border-current font-semibold',
+          inactive: 'border-transparent hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300'
+        }"
+        style="height: fit-content"
       />
+      <div class="profile__options">
+        <div class="profile__options-header">
+          <UIcon :name="activeIcon" />
+          <h2>{{ activeLabel }}</h2>
+        </div>
+
+        <ProfileSetting2
+          v-if="activeLink === 'Settings'"
+          :user-info="userInfo"
+          @update:user-password="updateUserPassword"
+          @new:avatar="uploadNewAvatar"
+          @update:user-account="saveUserData" />
+
+        <GitHubActivity v-if="activeLink === 'Stats'" />
+      </div>
     </div>
-    <!--		<div class="profile-options">-->
-    <!--			<UIcon name="i-heroicons-chart-pie" />-->
-    <!--			<h2>Statistic</h2>-->
-    <!--		</div>-->
-    <!--		<ChartApp />-->
 
-    <UButton
-      class="delete-button"
-      color="red"
-      icon="i-heroicons-trash"
-      label="Удалить аккаунт"
-      variant="outline"
-      @click="appStore.toggleIsDeleteAccount"
-    />
-
-    <!-- <VerificatedPhone /> -->
     <DeleteAccount :username="userInfo.username" />
   </div>
 </template>
 
 <script lang="ts" setup>
+
+import GitHubActivity from '@/components/charts/GitHubActivity.vue';
 import DeleteAccount from '@/components/modal/DeleteAccount.vue';
+import ProfileSetting2 from '@/components/profile/ProfileSetting2.vue';
 import { useAppStore } from '@/store/app.store';
 import { useUserStore } from '@/store/user.store';
 
-const { locale, setLocale } = useI18n();
+const { t } = useI18n();
 const appStore = useAppStore();
 const userStore = useUserStore();
-userStore.fetchUserInfo();
 const toast = useToast();
 
-definePageMeta({
-  middleware: ['auth'],
-});
-useHead({
-  title: 'HS | Profile',
-});
+definePageMeta({ middleware: ['auth'] });
+useHead({ title: 'HS | Profile' });
 
-
-const currentLanguage = ref('en');
-const optionsLang = [
-  { inputId: 'lang1', value: 'ru', label: 'Русский' },
-  { inputId: 'lang2', value: 'en', label: 'English' },
-  { inputId: 'lang3', value: 'fr', label: 'France' },
-];
-const handleSelectValue = (value: string) => {
-  currentLanguage.value = value;
-  setLocale(value);
-};
-
-const userInfo = reactive({
+const userInfo = computed(() => ({
   username: userStore.getUserInfo.username,
   email: userStore.getUserInfo.email,
-  password: userStore.getUserInfo.password,
+  avatar: userStore.getUserInfo.avatar,
+}));
+
+const activeLink = ref('Settings');
+
+const changeLink = (link: string) => {
+  activeLink.value = link;
+};
+
+const links = [
+  { label: 'Settings', click: () => changeLink('Settings') },
+  { label: 'Stats', click: () => changeLink('Stats') },
+];
+
+const formattedLinks = computed(() =>
+  links.map(link => ({
+    ...link,
+    label: t(`page--profile.nav.${link.label.toLowerCase()}`),
+    active: activeLink.value === link.label,
+  })),
+);
+
+const activeIcon = computed(() => {
+  switch (activeLink.value) {
+    case 'Settings':
+      return 'i-heroicons-cog-6-tooth';
+    case 'Stats':
+      return 'i-heroicons-chart-bar';
+    default:
+      return 'i-heroicons-user-circle';
+  }
 });
-const saveUserData = () => {
-  userStore.changeUserInfo(userInfo);
-  toast.add({
-    color: 'green',
-    title: 'Save data access',
-    timeout: 2000,
-  });
+
+const activeLabel = computed(() => t(`page--profile.nav.${activeLink.value.toLowerCase()}`));
+
+const saveUserData = async (payload): Promise<void> => {
+  const res = await userStore.changeUserInfo(payload);
+  const notification = res
+    ? { color: 'green', title: t('notifications.save-access') }
+    : { color: 'red', title: t('notifications.save-error') };
+
+  toast.add({ ...notification, timeout: 2000 });
+};
+
+const updateUserPassword = async (payload): Promise<void> => {
+  const res = await userStore.changeUserPassword(payload);
+  const notification = res
+    ? { color: 'green', title: t('notifications.save-access') }
+    : { color: 'red', title: t('notifications.save-error') };
+
+  toast.add({ ...notification, timeout: 2000 });
+};
+
+const uploadNewAvatar = async (payload): Promise<void> => {
+  const res = await userStore.uploadNewAvatar(payload);
+  const notification = res
+    ? { color: 'green', title: t('notifications.save-access') }
+    : { color: 'red', title: t('notifications.save-error') };
+
+  toast.add({ ...notification, timeout: 2000 });
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .profile {
   display: flex;
   flex-direction: column;
@@ -100,35 +131,40 @@ const saveUserData = () => {
   justify-content: center;
   row-gap: 10px;
   padding: 5px;
-}
 
-.profile-title {
-  align-self: flex-start;
-  width: 100%;
-  font-size: 22px;
-}
+  &__title {
+    align-self: flex-start;
+    width: 100%;
+    font-size: 22px;
+  }
 
-.profile-subtitle {
-  font-size: 16px;
-  color: #b0b1b1;
-}
+  &__subtitle {
+    font-size: 16px;
+    color: #b0b1b1;
+  }
 
-.profile-options {
-  align-self: flex-start;
-  display: flex;
-  align-items: center;
-  column-gap: 8px;
+  &__nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
 
-  font-size: 20px;
-}
+  &__options {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 5px;
 
-.delete-button {
-  margin: 20px;
-  /* align-self: flex-end; */
-}
+    &-header {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
 
-.radio-button {
-  display: flex;
-  column-gap: 30px;
+  &__delete-button {
+    margin: auto;
+  }
 }
 </style>

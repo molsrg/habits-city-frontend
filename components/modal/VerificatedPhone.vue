@@ -1,130 +1,130 @@
 <template>
-	<div>
-		<UModal v-model="appStore.isVerificatedPhone" class="confirm" prevent-close>
-			<UCard
-				:ui="{
-					ring: '',
-					divide: 'divide-y divide-gray-100 dark:divide-gray-800',
-				}"
-			>
-				<template #header>
-					<div class="flex items-center justify-between">
-						<h3
-							class="text-base font-semibold leading-6 text-gray-900 dark:text-white"
-						>
-							Привяжи свой номер телефона
-						</h3>
-						<UButton
-							color="gray"
-							variant="ghost"
-							icon="i-heroicons-x-mark-20-solid"
-							class="-my-1"
-							@click="appStore.toggleIsVerificatedPhone"
-						/>
-					</div>
-				</template>
+  <div>
+    <UModal v-model="appStore.isVerificatedPhone" class="confirm" prevent-close>
+      <UCard
+        :ui="{
+          ring: '',
+          divide: 'divide-y divide-gray-100 dark:divide-gray-800',
+        }"
+      >
+        <template #header>
+          <div class="flex items-center justify-between">
+            <h3
+              class="text-base font-semibold leading-6 text-gray-900 dark:text-white"
+            >
+              Привяжи свой номер телефона
+            </h3>
+            <UButton
+              color="gray"
+              variant="ghost"
+              icon="i-heroicons-x-mark-20-solid"
+              class="-my-1"
+              @click="appStore.toggleIsVerificatedPhone"
+            />
+          </div>
+        </template>
 
-				<div class="h-21">
-					<div v-if="!codeFromServer" class="confirm-step">
-						<div class="confirm-phone">
-							<InputMask
-								id="otp"
-								v-model="phoneNumber"
-								class="phone-number"
-								mask="8-999-999-99-99"
-								placeholder="8-999-999-99-99"
-							/>
-						</div>
+        <div class="h-21">
+          <div v-if="!codeFromServer" class="confirm-step">
+            <div class="confirm-phone">
+              <InputMask
+                id="otp"
+                v-model="phoneNumber"
+                class="phone-number"
+                mask="8-999-999-99-99"
+                placeholder="8-999-999-99-99"
+              />
+            </div>
 
-						<UButton
-							:disabled="!phoneNumber.length"
-							icon="i-heroicons-finger-print-20-solid"
-							size="sm"
-							color="primary"
-							variant="soft"
-							label="Отправить СМС"
-							@click="sendCode"
-						/>
-					</div>
+            <UButton
+              :disabled="!phoneNumber.length"
+              icon="i-heroicons-finger-print-20-solid"
+              size="sm"
+              color="primary"
+              variant="soft"
+              label="Отправить СМС"
+              @click="sendCode"
+            />
+          </div>
 
-					<div v-if="codeFromServer" class="confirm-step">
-						<div class="confirm-phone">
-							<label for="OTP-code">Введи код с телефона</label>
-							<InputOtp v-model="OTPcode" integer-only />
-							<AlertApp v-if="isInvalidCode" :label="'неверный код !'" />
+          <div v-if="codeFromServer" class="confirm-step">
+            <div class="confirm-phone">
+              <label for="OTP-code">Введи код с телефона</label>
+              <InputOtp v-model="OTPcode" integer-only />
+              <AlertApp v-if="isInvalidCode" :label="'неверный код !'" />
 
-							<UButton
-								class="confirm-phone--recive"
-								color="primary"
-								size="xs"
-								variant="link"
-								@click="errorSendCode"
-								>Не пришёл код?</UButton
-							>
-						</div>
-					</div>
+              <UButton
+                class="confirm-phone--recive"
+                color="primary"
+                size="xs"
+                variant="link"
+                @click="errorSendCode"
+              >Не пришёл код?</UButton
+              >
+            </div>
+          </div>
 
-					<div class="modal-no-recive-code">
-						<UModal v-model="showSecondSendCode">
-							<div class="p-2">
-								<Stepper linear>
-									<StepperPanel key="step1" header="Шаг 1">
-										<template #content="{ nextCallback }">
-											<div class="auth-modal">
-												<h3 class="auth-modal-title">
-													Давай проверим твой номер телефона
-												</h3>
-												<InputMask
-													v-model="phoneNumber"
-													disabled
-													class="phone-number"
-													mask="8-999-999-99-99"
-													placeholder="8-999-999-99-99"
-												/>
-												<div class="auth-modal__container-bt">
-													<UButton
-														label="Нет, вернусь исправлю"
-														color="gray"
-														@click="resetAuthForm"
-													/>
-													<UButton
-														label="Да, это мой номер"
-														@click="nextCallback"
-													/>
-												</div>
-											</div>
-										</template>
-									</StepperPanel>
+          <div class="modal-no-recive-code">
+            <UModal v-model="showSecondSendCode">
+              <div class="p-2">
+                <Stepper linear>
+                  <StepperPanel key="step1" header="Шаг 1">
+                    <template #content="{ nextCallback }">
+                      <div class="auth-modal">
+                        <h3 class="auth-modal-title">
+                          Давай проверим твой номер телефона
+                        </h3>
+                        <InputMask
+                          v-model="phoneNumber"
+                          disabled
+                          class="phone-number"
+                          mask="8-999-999-99-99"
+                          placeholder="8-999-999-99-99"
+                        />
+                        <div class="auth-modal__container-bt">
+                          <UButton
+                            label="Нет, вернусь исправлю"
+                            color="gray"
+                            @click="resetAuthForm"
+                          />
+                          <UButton
+                            label="Да, это мой номер"
+                            @click="nextCallback"
+                          />
+                        </div>
+                      </div>
+                    </template>
+                  </StepperPanel>
 
-									<StepperPanel key="step2" header="Шаг 2">
-										<template #content="{}">
-											<div class="auth-modal">
-												<h3 class="auth-modal-title" style="text-align: center">
-													Извини, вероятно с нашими серверами что-то не
-													так...Давай попробуем отправить код ещё раз!
-												</h3>
-												<UButton
-													class="mt-2"
-													icon="i-heroicons-finger-print-20-solid"
-													size="sm"
-													color="primary"
-													variant="soft"
-													label="Отправить СМС"
-													@click="sendCodeSecondary"
-												/>
-											</div>
-										</template>
-									</StepperPanel>
-								</Stepper>
-							</div>
-						</UModal>
-					</div>
-				</div>
-			</UCard>
-		</UModal>
+                  <StepperPanel key="step2" header="Шаг 2">
+                    <template #content="{}">
+                      <div class="auth-modal">
+                        <h3 class="auth-modal-title" style="text-align: center">
+                          Извини, вероятно с нашими серверами что-то не
+                          так...Давай попробуем отправить код ещё раз!
+                        </h3>
+                        <UButton
+                          class="mt-2"
+                          icon="i-heroicons-finger-print-20-solid"
+                          size="sm"
+                          color="primary"
+                          variant="soft"
+                          label="Отправить СМС"
+                          @click="sendCodeSecondary"
+                        />
+                      </div>
+                    </template>
+                  </StepperPanel>
+                </Stepper>
+              </div>
+            </UModal>
+          </div>
+        </div>
+      </UCard>
+    </UModal>
 
-		<!-- <UButton @click="isOpen = !isOpen">Открыть</UButton> -->
-	</div>
+    <!-- <UButton @click="isOpen = !isOpen">Открыть</UButton> -->
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -147,16 +147,16 @@ const phoneNumber = ref<string>('')
 
 // Запрос кода на сервере
 const sendCode = () => {
-	// Запрос кода
-	authStore.sendCode(phoneNumber.value)
+  // Запрос кода
+  authStore.sendCode(phoneNumber.value)
 
-	// Проверка существует ли пользователь в БД
-	apiStore.existUserPhone(phoneNumber.value)
+  // Проверка существует ли пользователь в БД
+  apiStore.existUserPhone(phoneNumber.value)
 }
 
 // Отправлен ли код?
 const codeFromServer = computed(() => {
-	return authStore.getOTPcode
+  return authStore.getOTPcode
 })
 
 // Проверка введенного кода и подсчет ошибок
@@ -168,41 +168,41 @@ const countInvalidCode = ref<number>(0)
 watch(OTPcode, checkOtpCode)
 
 function checkOtpCode(newValue: string) {
-	if (newValue.length !== 4) {
-		isInvalidCode.value = false
-		return
-	}
-	if (newValue === codeFromServer.value) {
-		handleValidOtpCode()
-	} else {
-		handleInvalidOtpCode()
-	}
+  if (newValue.length !== 4) {
+    isInvalidCode.value = false
+    return
+  }
+  if (newValue === codeFromServer.value) {
+    handleValidOtpCode()
+  } else {
+    handleInvalidOtpCode()
+  }
 }
 const handleValidOtpCode = async () => {
-	// Существует ли номер в БД?
-	const isExist = computed(() => {
-		return apiStore.getIsExistUserPhone
-	})
+  // Существует ли номер в БД?
+  const isExist = computed(() => {
+    return apiStore.getIsExistUserPhone
+  })
 
-	// Если да то запрашиваем user
-	if (isExist.value) {
-		await authStore.getUser()
-	}
-	// Иначе создаём
-	else {
-		await authStore.createUser()
-	}
-	router.push('/profile')
+  // Если да то запрашиваем user
+  if (isExist.value) {
+    await authStore.getUser()
+  }
+  // Иначе создаём
+  else {
+    await authStore.createUser()
+  }
+  router.push('/profile')
 }
 
 const handleInvalidOtpCode = () => {
-	if (countInvalidCode.value === 4) {
-		console.log('Попытки закончились, код протух')
-		resetAuthForm()
-		return
-	}
-	isInvalidCode.value = true
-	countInvalidCode.value++
+  if (countInvalidCode.value === 4) {
+    console.log('Попытки закончились, код протух')
+    resetAuthForm()
+    return
+  }
+  isInvalidCode.value = true
+  countInvalidCode.value++
 }
 
 // Не пришёл код?
@@ -210,18 +210,18 @@ const showSecondSendCode = ref<boolean>(false)
 
 // Открытие модалки "Не пришёл код?"
 const errorSendCode = () => {
-	showSecondSendCode.value = true
+  showSecondSendCode.value = true
 }
 
 // Повторный запрос кода
 const sendCodeSecondary = () => {
-	authStore.sendCode(phoneNumber.value)
-	showSecondSendCode.value = false
+  authStore.sendCode(phoneNumber.value)
+  showSecondSendCode.value = false
 }
 
 // Перезагрузка страницы
 const resetAuthForm = () => {
-	window.location.reload()
+  window.location.reload()
 }
 </script>
 
