@@ -26,7 +26,7 @@
           <h2>{{ activeLabel }}</h2>
         </div>
 
-        <ProfileSetting2
+        <ProfileSetting
           v-if="activeLink === 'Settings'"
           :user-info="userInfo"
           @update:user-password="updateUserPassword"
@@ -45,12 +45,9 @@
 
 import GitHubActivity from '@/components/charts/GitHubActivity.vue';
 import DeleteAccount from '@/components/modal/DeleteAccount.vue';
-import ProfileSetting2 from '@/components/profile/ProfileSetting2.vue';
-import { useAppStore } from '@/store/app.store';
 import { useUserStore } from '@/store/user.store';
 
 const { t } = useI18n();
-const appStore = useAppStore();
 const userStore = useUserStore();
 const toast = useToast();
 
