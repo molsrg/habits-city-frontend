@@ -1,48 +1,15 @@
-<template>
-  <div class="profile-setting">
-    <div class="profile-setting__photo">
-      <UAvatar
-        :alt="userInfo.username || '' "
-        :src="userInfo.avatar || ''"
-        chip-position="bottom-right"
-        size="3xl"
-      />
-      <InputFileUpload
-        :label="$t('page--profile.settings-option.upload-avatar')"
-        file-type="img"
-        icon="i-heroicons-user-circle"
-        @upload:file="onFileChange" />
-    </div>
-
-    <ProfileInputItem
-      v-for="(field) in fields"
-      :key="field.name"
-      v-model="modifiedUserInfo[field.name]"
-      :description="field.description"
-      :errors="field.errors"
-      :input-type="field.inputType"
-      :is-disabled="field.disabled"
-      :label="field.label"
-    />
-
-    <UButton
-      :class="['profile-setting__save-button', { 'profile-setting__save-button--visible': hasChanges && !hasErrors }]"
-      :disabled="!hasChanges || hasErrors"
-      :label="$t('page--profile.save-data')"
-      @click="saveDataUser"
-    />
-  </div>
-</template>
-
 <script lang="ts" setup>
-import { debounce, isEqual } from 'lodash';
-import { useRouter } from 'vue-router';
+import { debounce } from 'lodash';
 
+import { useAccountForm, useAccountTabsForm } from '@/helpers/accountForm.ts';
 import { useApiStore } from '@/store/api.store';
+import { useAppStore } from '@/store/app.store';
 
-const { locale, t } = useI18n();
+const { t } = useI18n();
 const apiStore = useApiStore();
-const router = useRouter();
+const appStore = useAppStore();
+const tabs = useAccountTabsForm();
+const accountForm = useAccountForm();
 
 const props = defineProps({
   userInfo: {
@@ -50,85 +17,190 @@ const props = defineProps({
     required: true,
   },
 });
-const emit = defineEmits(['save:data', 'new:avatar']);
 
-const modifiedUserInfo = ref({ ...props.userInfo });
-const fields = reactive([
-  {
-    name: 'username',
-    disabled: false,
-    errors: computed(() => {
-      const errors = [];
-      if (apiStore.getIsValidUsername) errors.push(t('alerts.errors.username.taken'));
-      if (modifiedUserInfo.value.username?.length === 0) errors.push(t('alerts.errors.username.empty'));
-      return errors;
-    }),
-    label: t('page--profile.settings-option.username'),
-    inputType: 'text',
-    description: 'Your username is visible to all users',
-  },
-  {
-    name: 'email',
-    disabled: true,
-    errors: computed(() => {
-      const errors = [];
-      if (modifiedUserInfo.value.email?.length === 0) errors.push(t('alerts.errors.email.empty'));
-      return errors;
-    }),
-    label: t('page--profile.settings-option.email'),
-    inputType: 'email',
-    description: 'You can @mention other users and organizations to link to them.',
-  },
-]);
+const emit = defineEmits(['update:user-account', 'new:avatar', 'update:user-password']);
 
-const onFileChange = (file) => {
-  emit('new:avatar', file);
+const selectedTabs = ref(0);
+const activeFields = computed(() => {
+  const activeTab = tabs.value[selectedTabs.value];
+  if (activeTab) {
+    return activeTab.fields.reduce((acc, field) => {
+      acc[field] = accountForm.value[field];
+      return acc;
+    }, {});
+  }
+  return {};
+});
+
+const accountFormField = reactive({
+  name: props.userInfo.name || null,
+  username: props.userInfo.username || null,
+  password: null,
+  new_password: null,
+});
+
+const accountErrors = computed(() => ({
+  name: accountFormField.name !== null && accountFormField.name.length === 0
+    ? t('alerts.errors.name.empty')
+    : '',
+
+  username: apiStore.getIsValidUsername
+    ? t('alerts.errors.username.taken')
+    : accountFormField.username !== null && accountFormField.username.length === 0
+      ? t('alerts.errors.username.empty')
+      : '',
+
+  password: accountFormField.password !== null && accountFormField.password.length === 0
+    ? t('alerts.errors.password.empty')
+    : null,
+
+  new_password: (() => {
+    const field = accountFormField.new_password;
+    if (field !== null && field.length === 0) {
+      return t('alerts.errors.password.empty');
+    } else if (field && field.length < 8) {
+      return t('alerts.errors.password.length');
+    } else if (field && !/[A-Z]/.test(field)) {
+      return t('alerts.errors.password.uppercase');
+    } else if (field && !/\d/.test(field)) {
+      return t('alerts.errors.password.digit');
+    }
+    return null;
+  })(),
+}));
+
+const hasErrors = (fields) => {
+  return fields.some(field => accountErrors.value[field] !== '' && accountErrors.value[field] !== null);
 };
-
-const hasChanges = computed(() => {
-  const { avatar, ...otherFields } = props.userInfo;
-  const { avatar: originalAvatar, ...originalOtherFields } = modifiedUserInfo.value;
-  return !isEqual(otherFields, originalOtherFields);
-});
-
-const hasErrors = computed(() => {
-  return fields.some(field => field.errors.length > 0);
-});
 
 const checkUsername = debounce(async (newUsername) => {
   await apiStore.existUsername(newUsername);
 }, 300);
 
 watchEffect(() => {
-  if (props.userInfo.username !== modifiedUserInfo.value.username) {
-    checkUsername(modifiedUserInfo.value.username);
+  if (props.userInfo.username !== accountFormField.username) {
+    checkUsername(accountFormField.username);
   }
 });
 
-const saveDataUser = () => {
-  emit('save:data', modifiedUserInfo.value);
-
+const getClickHandler = (action) => {
+  switch (action) {
+    case 'saveAccount':
+      return saveAccountUser();
+    case 'savePassword':
+      return savePasswordUser();
+    case 'deleteAccount':
+      return deleteAccount();
+    default:
+      return null;
+  }
 };
 
-router.beforeEach((to, from, next) => {
-  if (!hasErrors.value && !hasChanges.value) {
-    next();
-  } else {
-    next(false);
+const saveAccountUser = () => {
+  const updatedData = ['name', 'username'].reduce((acc, field) => {
+    if (accountFormField[field] !== props.userInfo[field]) {
+      acc[field] = accountFormField[field];
+    }
+    return acc;
+  }, {});
+
+  if (Object.keys(updatedData).length) {
+    emit('update:user-account', updatedData);
   }
-});
+};
+
+const savePasswordUser = () => {
+  const updatedData = {
+    password: accountFormField.password,
+    new_password: accountFormField.new_password,
+  };
+
+  emit('update:user-password', updatedData);
+};
+
+const deleteAccount = () => {
+  appStore.toggleIsDeleteAccount();
+};
 </script>
+
+<template>
+  <UTabs v-model="selectedTabs" :items="tabs" class="w-full">
+
+    <template #item="{ item }">
+      <UCard>
+        <template #header>
+          <p class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+            {{ item.label }}
+          </p>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            {{ item.description }}
+          </p>
+        </template>
+        <div v-if="item.key === 'account'" class="space-y-3">
+          <div class="profile-setting__photo">
+            <UAvatar
+              :alt="userInfo.username || '' "
+              :src="userInfo.avatar || ''"
+              size="3xl"
+            />
+            <InputFileUpload
+              :label="$t('page--profile.settings-option.upload-avatar')"
+              file-type="img"
+              icon="i-heroicons-user-circle"
+              @upload:file="$emit('new:avatar', $event)" />
+          </div>
+
+          <ProfileInputItem
+            v-for="(field, key) in activeFields"
+            :key="key"
+            v-model="accountFormField[key]"
+            :errors="accountErrors[key]"
+            :input-type="field.inputType"
+            :is-disabled="field.disabled"
+            :label="field.label"
+            :placeholder="field.placeholder"
+            :required="field.required"
+          />
+
+        </div>
+        <div v-else-if="item.key === 'password'" class="space-y-3">
+          <ProfileInputItem
+            v-for="(field, key) in activeFields"
+            :key="key"
+            v-model="accountFormField[key]"
+            :errors="accountErrors[key]"
+            :input-type="field.inputType"
+            :is-disabled="field.disabled"
+            :label="field.label"
+            :placeholder="field.placeholder"
+            :required="field.required"
+          />
+        </div>
+
+        <template #footer>
+          <div class="profile-setting__actions">
+            <UButton
+              v-for="button in tabs[selectedTabs].actions"
+              :key="button.label"
+              :color="button.color"
+              :disabled="button.disabled && hasErrors(button.disabled)"
+              :icon="button.icon"
+              :label="button.label"
+              :variant="button.variant"
+              @click="getClickHandler(button.action)"
+            />
+          </div>
+        </template>
+      </UCard>
+    </template>
+  </UTabs>
+</template>
+
 
 <style scoped>
 .profile-setting {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-
   &__photo {
-    padding: 10px 20px;
+    //padding: 10px 20px;
     align-self: flex-start;
     display: flex;
     align-items: center;
@@ -136,35 +208,11 @@ router.beforeEach((to, from, next) => {
     flex-wrap: wrap;
   }
 
-  &-container {
+  &__actions {
+    //background-color: #fff;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    row-gap: 10px;
-    column-gap: 30px;
-    flex-wrap: wrap;
-  }
-
-  &__detail {
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    column-gap: 10px;
-    row-gap: 5px;
-  }
-
-  &__save-button {
-    opacity: 0;
-    transition: all 0.5s ease-in-out;
-    pointer-events: none;
-
-    &--visible {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(-10px);
-    }
+    gap: 15px;
   }
 }
 </style>
