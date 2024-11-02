@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
-import { userService } from '@/api/ApiService';
-import { endpoints } from '@/api/endpoints';
+import { endPoints } from '@/constants/endPoints';
+import { userService } from '@/services/api.service';
 
 export const useUserStore = defineStore('userStore', {
   persist: true,
@@ -24,7 +24,7 @@ export const useUserStore = defineStore('userStore', {
   actions: {
     async fetchUserInfo(): Promise<void> {
       try {
-        const { data } = await userService.get(endpoints.user.fetchInfo);
+        const { data } = await userService.get(endPoints.user.fetchInfo);
         if (data) this.userInfo = data;
       } catch (error) {
         console.log(error.response?.data || error);

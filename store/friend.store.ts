@@ -1,20 +1,16 @@
 import { defineStore } from 'pinia';
 
-import { authService, userService } from '@/api/ApiService';
-import { endpoints } from '@/api/endpoints';
+import { endPoints } from '@/constants/endPoints';
+import { authService, userService } from '@/services/api.service';
 
 
 export const useFriendStore = defineStore('friendStore', {
   // persist: true,
   state: () => ({
-    isOpenVerificatedPhone: false,
     suggestedFriends: [],
   }),
 
   getters: {
-    isVerificatedPhone(state) {
-      return state.isOpenVerificatedPhone;
-    },
     getSuggestedFriends(state) {
       return state.suggestedFriends;
     },
@@ -22,9 +18,6 @@ export const useFriendStore = defineStore('friendStore', {
 
   },
   actions: {
-    toggleIsVerificatedPhone() {
-      this.isOpenVerificatedPhone = !this.isOpenVerificatedPhone;
-    },
     async addNewFriend(username) {
       console.log(username);
     },

@@ -1,21 +1,3 @@
-<template>
-  <div>
-    <div v-if="!appStore.errorOAuthText" class="pending">
-      <h3 class="text-xl">Wait for the authorization!</h3>
-
-      <span class="loader" />
-    </div>
-    <div v-else class="pending-error">
-      <h3 class="text-xl">{{ appStore.errorOAuthText }}</h3>
-      <UButton
-        color="white"
-        variant="solid"
-        @click="handleError"
-      >Go back login
-      </UButton>
-    </div>
-  </div>
-</template>
 <script lang="ts" setup>
 import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';
@@ -70,6 +52,24 @@ console.warn = (message, ...args) => {
   }
 };
 </script>
+<template>
+  <div>
+    <div v-if="!appStore.errorOAuthText" class="pending">
+      <h3 class="text-xl">Wait for the authorization!</h3>
+
+      <span class="loader" />
+    </div>
+    <div v-else class="pending-error">
+      <h3 class="text-xl">{{ appStore.errorOAuthText }}</h3>
+      <UButton
+        color="white"
+        variant="solid"
+        @click="handleError"
+      >Go back login
+      </UButton>
+    </div>
+  </div>
+</template>
 <style scoped>
 .pending {
   display: flex;

@@ -28,7 +28,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
   ],
   i18n: {
-    vueI18n: './i18n.config.ts',
+    vueI18n: './plugins/i18n.config.ts',
   },
   css: ['~/assets/main.css'],
   primevue: {

@@ -48,10 +48,10 @@
 </template>
 
 <script lang="ts" setup>
-import StepperProgressBar from '@/components/StepperProgressBar.vue';
-import { useLinkEmailForm } from '@/helpers/linkEmailForm';
+import StepperProgressBar from '@/components/stepper/StepperProgressBar.vue';
+import { useLinkEmailForm } from '@/configs/linkEmailForm';
+import { ModalName } from '@/constants/modalName';
 import { modalService } from '@/services/modal.service';
-import { ModalName } from '@/values/modalName';
 
 const isOpenModal = computed(() => modalService.isOpen(ModalName.LinkEmail));
 const currentStep = ref(0);

@@ -3,9 +3,9 @@
 import GitHubActivity from '@/components/charts/GitHubActivity.vue';
 import DeleteAccount from '@/components/modal/DeleteAccount.vue';
 import LinkEmail from '@/components/modal/LinkEmail.vue';
+import { ModalName } from '@/constants/modalName';
 import { modalService } from '@/services/modal.service';
 import { useUserStore } from '@/store/user.store';
-import { ModalName } from '@/values/modalName';
 
 const { t } = useI18n();
 const userStore = useUserStore();

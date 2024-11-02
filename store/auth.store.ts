@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
-import { authService } from '@/api/ApiService';
-import { endpoints } from '@/api/endpoints';
+import { endPoints } from '@/constants/endPoints';
+import { authService } from '@/services/api.service';
 import { useAppStore } from '@/store/app.store';
 import { useTokenStore } from '@/store/token.store';
 
@@ -29,7 +29,7 @@ export const useAuthStore = defineStore('authStore', {
       appStore.toggleLoadingReg();
 
       try {
-        const { data } = await authService.post(endpoints.auth.registration, userData);
+        const { data } = await authService.post(endPoints.auth.registration, userData);
 
         if (data?.AccessToken) {
           sessionStorage.setItem('RefreshToken', data.RefreshToken);
@@ -54,7 +54,7 @@ export const useAuthStore = defineStore('authStore', {
       appStore.sendErrorLogInText('');
 
       try {
-        const { data } = await authService.post(endpoints.auth.login, payload);
+        const { data } = await authService.post(endPoints.auth.login, payload);
         if (data?.AccessToken) {
           sessionStorage.setItem('AccessToken', data.AccessToken);
           tokenStore.setToken(data.AccessToken);

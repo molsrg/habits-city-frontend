@@ -49,10 +49,10 @@
 </template>
 
 <script lang="ts" setup>
+import { ModalName } from '@/constants/modalName';
 import { modalService } from '@/services/modal.service';
 import { useAppStore } from '@/store/app.store';
 import { useUserStore } from '@/store/user.store';
-import { ModalName } from '@/values/modalName';
 
 const appStore = useAppStore();
 const userStore = useUserStore();

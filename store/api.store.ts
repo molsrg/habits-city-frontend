@@ -1,18 +1,14 @@
 import { defineStore } from 'pinia';
 
-import { userService } from '@/api/ApiService';
+import { userService } from '@/services/api.service';
 
 export const useApiStore = defineStore('apiStore', {
   state: () => ({
     isValidUserName: false,
-    isExistUserPhone: false,
   }),
   getters: {
     getIsValidUsername(state): boolean {
       return state.isValidUserName;
-    },
-    getIsExistUserPhone(state): boolean {
-      return state.isExistUserPhone;
     },
   },
   actions: {
@@ -24,10 +20,6 @@ export const useApiStore = defineStore('apiStore', {
         this.isValidUserName = data;
       } catch (e) {
       }
-    },
-
-    async existUserPhone(userPhone: string) {
-      return true;
     },
   },
 });

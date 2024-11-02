@@ -1,3 +1,13 @@
+<script lang="ts" setup>
+definePageMeta({
+  middleware: ['auth'],
+});
+
+useHead({
+  title: 'HS | Calendar',
+});
+</script>
+
 <template>
   <div class="flex w-full flex-col gap-6 p-4">
     <!-- Daily Tasks -->
@@ -50,12 +60,3 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-definePageMeta({
-  middleware: ['auth'],
-});
-
-useHead({
-  title: 'HS | Calendar',
-});
-</script>

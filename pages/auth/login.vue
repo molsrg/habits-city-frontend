@@ -15,7 +15,6 @@ useHead({
 const config = useRuntimeConfig();
 const authStore = useAuthStore();
 const appStore = useAppStore();
-const toast = useToast();
 appStore.$reset();
 
 const userData = reactive({
@@ -27,10 +26,7 @@ const logInUser = () => {
   authStore.logInWithPassword(userData);
 };
 
-const logInUserWithPhone = () => {
-  appStore.toggleIsLogInWithPhone();
-};
-
+// TODO: make it a constant
 const logInUserWithYandex = () => {
   window.location.href = `https://oauth.yandex.ru/authorize?response_type=token&client_id=${config.public.clientIdYandex}`;
 };
@@ -105,13 +101,6 @@ const pushToRegPage = () => {
 
         <UDivider label="OR" />
         <div class="auth-btn">
-          <!--					<UButton-->
-          <!--						block-->
-          <!--						icon="i-heroicons-phone-20-solid"-->
-          <!--						variant="soft"-->
-          <!--						label="LogIn using your phone number"-->
-          <!--						@click="logInUserWithPhone"-->
-          <!--					/>-->
           <div class="auth-btn--flex">
             <UButton color="white" label="Yandex" variant="solid" @click="logInUserWithYandex">
               <template #leading>

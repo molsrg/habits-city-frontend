@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { faqOptions } from '@/values/faqOptions';
+import { faqOptions } from '@/constants/faqOptions';
 
 definePageMeta({
   layout: 'default',

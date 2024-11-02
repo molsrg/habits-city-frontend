@@ -1,13 +1,11 @@
 export default defineAppConfig({
   ui: {
     primary: 'green',
-    gray: 'cool'
+    gray: 'cool',
   },
-	colorMode: {
+  colorMode: {
     preference: 'dark',
-    fallback: 'dark'
-  }, 
+    fallback: 'dark',
+  },
 
-})
-
-// useAppconfig
+});

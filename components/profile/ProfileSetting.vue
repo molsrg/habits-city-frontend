@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { debounce } from 'lodash';
 
-import { useAccountForm, useAccountTabsForm } from '@/helpers/accountForm.ts';
+import { useAccountForm, useAccountTabsForm } from '@/configs/accountForm.ts';
+import { ModalName } from '@/constants/modalName';
 import { modalService } from '@/services/modal.service';
 import { useApiStore } from '@/store/api.store';
 import { useAppStore } from '@/store/app.store';
-import { ModalName } from '@/values/modalName';
 
 const { t } = useI18n();
 const apiStore = useApiStore();

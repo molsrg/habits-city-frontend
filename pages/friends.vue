@@ -1,3 +1,31 @@
+<script lang="ts" setup>
+import { useFriendStore } from '@/store/friend.store';
+
+definePageMeta({
+  middleware: ['auth'],
+});
+useHead({
+  title: 'HS | Friends',
+});
+
+const friendStore = useFriendStore();
+const searchFriend = ref('');
+
+const addNewPeople = (username: string): void => {
+  friendStore.addNewFriend(username);
+};
+
+let debounceTimeout: ReturnType<typeof setTimeout>;
+watch(searchFriend, (newValue) => {
+  clearTimeout(debounceTimeout);
+  debounceTimeout = setTimeout(() => {
+    if (newValue.trim()) {
+      friendStore.fetchSuggestedFriends(newValue.trim());
+    }
+  }, 300);
+});
+</script>
+
 <template>
   <div class="friends">
     <UInput
@@ -44,34 +72,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-import { useFriendStore } from '@/store/friend.store';
-
-definePageMeta({
-  middleware: ['auth'],
-});
-useHead({
-  title: 'HS | Friends',
-});
-
-const friendStore = useFriendStore();
-const searchFriend = ref('');
-
-const addNewPeople = (username: string): void => {
-  friendStore.addNewFriend(username);
-};
-
-let debounceTimeout: ReturnType<typeof setTimeout>;
-watch(searchFriend, (newValue) => {
-  clearTimeout(debounceTimeout);
-  debounceTimeout = setTimeout(() => {
-    if (newValue.trim()) {
-      friendStore.fetchSuggestedFriends(newValue.trim());
-    }
-  }, 300);
-});
-</script>
 
 <style lang="scss" scoped>
 .friends {

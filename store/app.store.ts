@@ -3,10 +3,6 @@ import { defineStore } from 'pinia';
 export const useAppStore = defineStore('appStore', {
   persist: true,
   state: () => ({
-    isOpenVerificatedPhone: false,
-    isOpenLogInWithPhone: false,
-    isOpenDeleteAccount: false,
-
     errorRegMessage: '',
     errorLogInMessage: '',
     errorOAuthMessage: '',
@@ -16,17 +12,6 @@ export const useAppStore = defineStore('appStore', {
   }),
 
   getters: {
-    isVerificatedPhone(state) {
-      return state.isOpenVerificatedPhone;
-    },
-    isLogInWithPhone(state) {
-      return state.isOpenLogInWithPhone;
-    },
-
-    isDeleteAccount(state) {
-      return state.isOpenDeleteAccount;
-    },
-
     errorRegText(state) {
       return state.errorRegMessage;
     },
@@ -45,16 +30,6 @@ export const useAppStore = defineStore('appStore', {
     },
   },
   actions: {
-    toggleIsVerificatedPhone() {
-      this.isOpenVerificatedPhone = !this.isOpenVerificatedPhone;
-    },
-    toggleIsLogInWithPhone() {
-      this.isOpenLogInWithPhone = !this.isOpenLogInWithPhone;
-    },
-    toggleIsDeleteAccount() {
-      this.isOpenDeleteAccount = !this.isOpenDeleteAccount;
-    },
-
     sendErrorRegText(error: string) {
       this.errorRegMessage = error;
     },

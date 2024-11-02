@@ -53,9 +53,9 @@
 import { useRouter } from 'vue-router';
 
 import { useScreenSize } from '@/composables/useScreenSize';
+import { optionsLang } from '@/constants/languageOptions';
 import { useTokenStore } from '@/store/token.store';
 import { useUserStore } from '@/store/user.store';
-import { optionsLang } from '@/values/language';
 
 const { setLocale } = useI18n();
 const { isDesktop } = useScreenSize();

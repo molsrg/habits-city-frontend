@@ -1,3 +1,46 @@
+<script lang="ts" setup>
+import { useAppStore } from '@/store/app.store';
+import { useAuthStore } from '@/store/auth.store';
+import getGoogleURL from '@/utils/getGoogleURL';
+
+definePageMeta({
+  middleware: ['guest'],
+});
+
+useHead({
+  title: 'HS | Auth',
+});
+
+const authStore = useAuthStore();
+const appStore = useAppStore();
+appStore.$reset();
+
+const userData = reactive({
+  username: '',
+  password: '',
+});
+
+const loadingData = ref(false);
+
+const registerUser = () => {
+  authStore.createUser(userData);
+  loadingData.value = true;
+};
+
+const RegUserWithYandex = () => {
+  const config = useRuntimeConfig();
+  window.location.href = `https://oauth.yandex.ru/authorize?response_type=token&client_id=${config.public.clientIdYandex}`;
+};
+
+const RegUserWithGoogle = () => {
+  window.location.href = getGoogleURL();
+};
+const pushToLogInPage = () => {
+  const router = useRouter();
+  appStore.sendErrorRegText('');
+  router.push('/auth/login');
+};
+</script>
 <template>
   <div class="auth">
     <div :class="[appStore.errorRegText ? 'auth-form--error' : '']" class="auth-form">
@@ -73,49 +116,6 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { useAppStore } from '@/store/app.store';
-import { useAuthStore } from '@/store/auth.store';
-import getGoogleURL from '@/utils/getGoogleURL';
-
-definePageMeta({
-  middleware: ['guest'],
-});
-
-useHead({
-  title: 'HS | Auth',
-});
-
-const authStore = useAuthStore();
-const appStore = useAppStore();
-appStore.$reset();
-
-const userData = reactive({
-  username: '',
-  password: '',
-});
-
-const loadingData = ref(false);
-
-const registerUser = () => {
-  authStore.createUser(userData);
-  loadingData.value = true;
-};
-
-const RegUserWithYandex = () => {
-  const config = useRuntimeConfig();
-  window.location.href = `https://oauth.yandex.ru/authorize?response_type=token&client_id=${config.public.clientIdYandex}`;
-};
-
-const RegUserWithGoogle = () => {
-  window.location.href = getGoogleURL();
-};
-const pushToLogInPage = () => {
-  const router = useRouter();
-  appStore.sendErrorRegText('');
-  router.push('/auth/login');
-};
-</script>
 
 <style scoped>
 .auth {
