@@ -1,28 +1,3 @@
-<template>
-  <div class="input-container">
-    <span class="input-container__header">
-      <label v-if="label" class="input-container__label">{{ label }}</label>
-      <p v-if="description" class="input-container__description">{{ description }}</p>
-    </span>
-    <UInput
-      :disabled="isDisabled"
-      :model-value="modelValue"
-      :placeholder="placeholder"
-      :required="required"
-      :type="inputType"
-      class="input-container__input"
-      @update:model-value="$emit('update:modelValue', $event)"
-    />
-    <AlertApp
-      v-if="errors"
-      :is-visible="!!errors"
-      :label="errors"
-      class="input-container__alert"
-      type="error"
-    />
-  </div>
-</template>
-
 <script lang="ts" setup>
 import AlertApp from '@/components/alerts/AlertApp.vue';
 
@@ -38,6 +13,10 @@ const props = defineProps({
   modelValue: {
     type: [String, Object],
     default: '',
+  },
+  actions: {
+    type: Object, default: () => {
+    },
   },
   placeholder: {
     type: String,
@@ -60,7 +39,47 @@ const props = defineProps({
     default: false,
   },
 });
+
+const emit = defineEmits(['update:modelValue', 'handle:action']);
 </script>
+
+<template>
+  <div class="input-container">
+    <div class="input-container__header">
+      <label v-if="label" class="input-container__label">{{ label }}</label>
+      <p v-if="description" class="input-container__description">{{ description }}</p>
+      <ul v-for="(button, key) in actions" :key="key">
+        <UButton
+          v-if="(modelValue && !button.condition) || (!modelValue && button.condition)"
+          :color="button.color"
+          :disabled="button.disabled && hasErrors(button.disabled)"
+          :icon="button.icon"
+          :label="button.label"
+          :size="button.size"
+          :variant="button.variant"
+          @click="$emit('handle:action',button.action)"
+        />
+      </ul>
+    </div>
+    <UInput
+      :disabled="isDisabled"
+      :model-value="modelValue"
+      :placeholder="placeholder"
+      :required="required"
+      :type="inputType"
+      class="input-container__input"
+      @update:model-value="$emit('update:modelValue', $event)"
+    />
+    <AlertApp
+      v-if="errors"
+      :is-visible="!!errors"
+      :label="errors"
+      class="input-container__alert"
+      type="error"
+    />
+  </div>
+</template>
+
 
 <style lang="scss" scoped>
 .input-container {

@@ -18,6 +18,32 @@ export const useAccountForm = () => {
       inputType: 'text',
       description: t('page--profile.settings-option.username.description'),
     },
+    email: {
+      disabled: true,
+      required: false,
+      placeholder: t('page--profile.settings-option.email.placeholder'),
+      label: t('page--profile.settings-option.email.label'),
+      inputType: 'text',
+      description: t('page--profile.settings-option.email.description'),
+      actions: {
+        link: {
+          label: t('page--profile.link-email'),
+          color: 'primary',
+          size: '2xs',
+          variant: 'soft',
+          action: 'linkEmail',
+          condition: true,
+        },
+        change: {
+          label: t('page--profile.change-email'),
+          color: 'primary',
+          size: '2xs',
+          variant: 'soft',
+          action: 'changeEmail',
+          condition: false,
+        },
+      },
+    },
     password: {
       disabled: false,
       required: true,
@@ -44,7 +70,7 @@ export const useAccountTabsForm = () => {
       key: 'account',
       label: t('page--profile.settings-option.nav.account.label'),
       description: t('page--profile.settings-option.nav.account.description'),
-      fields: ['name', 'username'],
+      fields: ['name', 'username', 'email'],
       actions: {
         save: {
           label: t('page--profile.save-account'),
@@ -58,7 +84,7 @@ export const useAccountTabsForm = () => {
           color: 'red',
           type: 'submit',
           variant: 'outline',
-          icon: 'i-heroicons-trash',
+          // icon: 'i-heroicons-trash',
           action: 'deleteAccount',
         },
       },

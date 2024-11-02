@@ -2,8 +2,10 @@
 import { debounce } from 'lodash';
 
 import { useAccountForm, useAccountTabsForm } from '@/helpers/accountForm.ts';
+import { modalService } from '@/services/modal.service';
 import { useApiStore } from '@/store/api.store';
 import { useAppStore } from '@/store/app.store';
+import { ModalName } from '@/values/modalName';
 
 const { t } = useI18n();
 const apiStore = useApiStore();
@@ -18,7 +20,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['update:user-account', 'new:avatar', 'update:user-password']);
+const emit = defineEmits(['update:user-account', 'new:avatar', 'update:user-password', 'link:email', 'update:email']);
 
 const selectedTabs = ref(0);
 const activeFields = computed(() => {
@@ -35,6 +37,7 @@ const activeFields = computed(() => {
 const accountFormField = reactive({
   name: props.userInfo.name || null,
   username: props.userInfo.username || null,
+  email: props.userInfo.email || null,
   password: null,
   new_password: null,
 });
@@ -91,6 +94,12 @@ const getClickHandler = (action) => {
       return savePasswordUser();
     case 'deleteAccount':
       return deleteAccount();
+    case 'linkEmail':
+      emit('link:email');
+      return;
+    case 'changeEmail':
+      emit('update:email');
+      return;
     default:
       return null;
   }
@@ -119,7 +128,7 @@ const savePasswordUser = () => {
 };
 
 const deleteAccount = () => {
-  appStore.toggleIsDeleteAccount();
+  modalService.open(ModalName.DeleteAccount);
 };
 </script>
 
@@ -137,7 +146,7 @@ const deleteAccount = () => {
           </p>
         </template>
         <div v-if="item.key === 'account'" class="space-y-3">
-          <div class="profile-setting__photo">
+          <div class="self-start flex items-center gap-5 flex-wrap">
             <UAvatar
               :alt="userInfo.username || '' "
               :src="userInfo.avatar || ''"
@@ -145,22 +154,29 @@ const deleteAccount = () => {
             />
             <InputFileUpload
               :label="$t('page--profile.settings-option.upload-avatar')"
+              color="primary"
               file-type="img"
               icon="i-heroicons-user-circle"
+              size="md"
+              variant="soft"
               @upload:file="$emit('new:avatar', $event)" />
           </div>
-
-          <ProfileInputItem
+          <div
             v-for="(field, key) in activeFields"
-            :key="key"
-            v-model="accountFormField[key]"
-            :errors="accountErrors[key]"
-            :input-type="field.inputType"
-            :is-disabled="field.disabled"
-            :label="field.label"
-            :placeholder="field.placeholder"
-            :required="field.required"
-          />
+            :key="key">
+            <ProfileInputItem
+              v-model="accountFormField[key]"
+              :actions="field.actions"
+              :description="field.description"
+              :errors="accountErrors[key]"
+              :input-type="field.inputType"
+              :is-disabled="field.disabled"
+              :label="field.label"
+              :placeholder="field.placeholder"
+              :required="field.required"
+              @handle:action="getClickHandler"
+            />
+          </div>
 
         </div>
         <div v-else-if="item.key === 'password'" class="space-y-3">
@@ -178,7 +194,7 @@ const deleteAccount = () => {
         </div>
 
         <template #footer>
-          <div class="profile-setting__actions">
+          <div class="flex items-center gap-4">
             <UButton
               v-for="button in tabs[selectedTabs].actions"
               :key="button.label"
@@ -195,24 +211,3 @@ const deleteAccount = () => {
     </template>
   </UTabs>
 </template>
-
-
-<style scoped>
-.profile-setting {
-  &__photo {
-    //padding: 10px 20px;
-    align-self: flex-start;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-
-  &__actions {
-    //background-color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-}
-</style>

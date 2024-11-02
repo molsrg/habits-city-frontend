@@ -32,7 +32,11 @@
         "description": "Your username is visible when creating or completing tasks",
         "placeholder": "Enter your username"
       },
-      "email": "Email",
+      "email": {
+        "label": "Email",
+        "placeholder": "Email will be displayed here",
+        "description": "Link your email to restore your account"
+      },
       "password": {
         "label": "Password",
         "placeholder": "Enter your password"
@@ -46,6 +50,8 @@
     },
     "nav-item": {
     },
+    "link-email": "Link Email",
+    "change-email": "Change email",
     "save-account": "Save account",
     "save-password": "Save password",
     "delete-account": "Delete account"
@@ -96,5 +102,19 @@
         "digit": "Password must contain at least one digit!"
       }
     }
+  },
+  "modal": {
+    "link-email": {
+      "title": "Link email",
+      "description": "Link your email to restore your password",
+      "steppers": {
+        "enter-email": "Enter email",
+        "confirm-email": "Confirm email"
+      }
+    }
+  },
+  "stepper": {
+    "prev": "Prev",
+    "next": "Next"
   }
 }

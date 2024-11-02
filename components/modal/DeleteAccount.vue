@@ -1,5 +1,5 @@
 <template>
-  <UModal v-model="appStore.isDeleteAccount" prevent-close>
+  <UModal v-model="isOpenModal" prevent-close>
     <UCard
       :ui="{
         ring: '',
@@ -20,11 +20,11 @@
           </div>
 
           <UButton
-            color="gray"
-            variant="ghost"
-            icon="i-heroicons-x-mark-20-solid"
             class="-my-1"
-            @click="appStore.toggleIsDeleteAccount"
+            color="gray"
+            icon="i-heroicons-x-mark-20-solid"
+            variant="ghost"
+            @click="modalService.close(ModalName.DeleteAccount)"
           />
         </div>
       </template>
@@ -32,15 +32,15 @@
       <div class="delete-form">
         <InputText
           v-model="deleteUsernameInput"
-          type="text"
           class="phone-number"
           placeholder="Input your username"
+          type="text"
         />
         <UButton
-          label="Delete Account"
-          color="red"
-          variant="solid"
           :disabled="deleteUsernameInput !== props.username"
+          color="red"
+          label="Delete Account"
+          variant="solid"
           @click="deleteAccount"
         />
       </div>
@@ -48,33 +48,40 @@
   </UModal>
 </template>
 
-<script setup lang="ts">
-import { useAppStore } from '@/store/app.store'
-import { useUserStore } from '@/store/user.store'
-const appStore = useAppStore()
-const userStore = useUserStore()
+<script lang="ts" setup>
+import { modalService } from '@/services/modal.service';
+import { useAppStore } from '@/store/app.store';
+import { useUserStore } from '@/store/user.store';
+import { ModalName } from '@/values/modalName';
+
+const appStore = useAppStore();
+const userStore = useUserStore();
 
 const props = defineProps({
   username: {
     type: String,
     required: true,
   },
-})
-const deleteUsernameInput = ref('')
+});
+const deleteUsernameInput = ref('');
+const isOpenModal = computed(() => {
+  return modalService.isOpen(ModalName.DeleteAccount);
+});
+
 
 const deleteAccount = () => {
-  userStore.deleteAccount(deleteUsernameInput.value)
-  deleteUsernameInput.value = ''
-  appStore.toggleIsDeleteAccount()
-}
+  userStore.deleteAccount(deleteUsernameInput.value);
+  deleteUsernameInput.value = '';
+  appStore.toggleIsDeleteAccount();
+};
 </script>
 
 <style scoped>
 .delete-form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	row-gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 10px;
 }
 </style>

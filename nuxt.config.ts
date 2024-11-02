@@ -33,18 +33,18 @@ export default defineNuxtConfig({
   css: ['~/assets/main.css'],
   primevue: {
     components: {
-      // include: '*',
-      include: [
-        'Stepper',
-        'StepperPanel',
-        'InputMask',
-        'InputOtp',
-        'InputText',
-        'FileUpload',
-        'Chart',
-        'Fieldset',
-        'RadioButton',
-      ],
+      include: '*',
+      // include: [
+      //   'Stepper',
+      //   'StepperPanel',
+      //   'InputMask',
+      //   'InputOtp',
+      //   'InputText',
+      //   'FileUpload',
+      //   'Chart',
+      //   'Fieldset',
+      //   'RadioButton',
+      // ],
     },
     composables: {
       // include: ['useStyle'],

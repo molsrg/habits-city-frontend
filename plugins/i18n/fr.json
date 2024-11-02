@@ -1,10 +1,10 @@
 {
   "page--index": {
-    "badge": "Le compilateur est le meilleur ami d'un programmeur : il ne dira jamais que vous êtes un génie, mais il vous montrera toujours où vous vous êtes trompé"
+    "badge": "Le compilateur est le meilleur ami du programmeur : il ne dira jamais que vous êtes un génie, mais il vous montrera toujours où vous vous êtes trompé"
   },
   "page--profile": {
-    "title": "Bienvenue dans le profil !",
-    "subtitle": "Votre compte est déjà prêt, mais vous pouvez le personnaliser pour vous",
+    "title": "Bienvenue sur le profil !",
+    "subtitle": "Votre compte est déjà prêt, mais vous pouvez le personnaliser",
     "nav": {
       "settings": "Paramètres",
       "public-info": "Informations publiques",
@@ -15,7 +15,7 @@
       "nav": {
         "account": {
           "label": "Compte",
-          "description": "Apportez des modifications à votre compte ici. Cliquez sur enregistrer lorsque vous avez terminé."
+          "description": "Apportez des modifications à votre compte ici. Cliquez sur 'Enregistrer' lorsque vous avez terminé."
         },
         "password": {
           "label": "Mot de passe",
@@ -29,10 +29,14 @@
       },
       "username": {
         "label": "Nom d'utilisateur",
-        "description": "Votre nom d'utilisateur est visible lors de la création ou de l'achèvement de tâches",
+        "description": "Votre nom d'utilisateur est visible lors de la création ou de l'exécution de tâches",
         "placeholder": "Entrez votre nom d'utilisateur"
       },
-      "email": "E-mail",
+      "email": {
+        "label": "Email",
+        "placeholder": "L'email sera affiché ici",
+        "description": "Liez votre email pour restaurer votre compte"
+      },
       "password": {
         "label": "Mot de passe",
         "placeholder": "Entrez votre mot de passe"
@@ -45,6 +49,8 @@
       "upload-avatar": "Télécharger un avatar"
     },
     "nav-item": {},
+    "link-email": "Lier l'email",
+    "change-email": "Changer l'email",
     "save-account": "Enregistrer le compte",
     "save-password": "Enregistrer le mot de passe",
     "delete-account": "Supprimer le compte"
@@ -68,13 +74,13 @@
     "label": {
       "registration": "Inscription",
       "login": "Connexion",
-      "faq": "FAQ",
+      "faq": "F.A.Q.",
       "home": "Page d'accueil"
     }
   },
   "notifications": {
     "save-access": "Enregistrer l'accès aux données",
-    "save-error": "Erreur de sauvegarde des données"
+    "save-error": "Erreur d'enregistrement des données"
   },
   "alerts": {
     "errors": {
@@ -86,7 +92,7 @@
         "taken": "Le nom d'utilisateur est déjà pris !"
       },
       "email": {
-        "empty": "L'e-mail ne peut pas être vide !"
+        "empty": "L'email ne peut pas être vide !"
       },
       "password": {
         "empty": "Le mot de passe ne peut pas être vide !",
@@ -95,5 +101,19 @@
         "digit": "Le mot de passe doit contenir au moins un chiffre !"
       }
     }
+  },
+  "modal": {
+    "link-email": {
+      "title": "Lier l'email",
+      "description": "Liez votre email pour restaurer votre mot de passe",
+      "steppers": {
+        "enter-email": "Entrez l'email",
+        "confirm-email": "Confirmez l'email"
+      }
+    }
+  },
+  "stepper": {
+    "prev": "Précédent",
+    "next": "Suivant"
   }
 }
