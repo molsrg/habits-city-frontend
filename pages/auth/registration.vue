@@ -3,12 +3,15 @@ import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';
 import getGoogleURL from '@/utils/getGoogleURL';
 
+const { t } = useI18n();
 definePageMeta({
   middleware: ['guest'],
 });
 
+const title = computed(() => `HS | ${t('nav--layout.registration')}`);
+
 useHead({
-  title: 'HS | Auth',
+  title,
 });
 
 const authStore = useAuthStore();

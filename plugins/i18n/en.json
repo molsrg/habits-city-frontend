@@ -2,6 +2,10 @@
   "page--index": {
     "badge": "The compiler is a programmer's best friend: it will never say that you are a genius, but it will always show you where you went wrong"
   },
+  "page--pending": {
+    "go-back-login": "Go back login",
+    "wait-for-authorization": "Wait for the authorization!"
+  },
   "page--profile": {
     "title": "Welcome to profile!",
     "subtitle": "Your account is already ready, but you can customize it for yourself",
@@ -113,8 +117,18 @@
       }
     }
   },
+  "nav--layout": {
+    "friends": "Friends",
+    "logout": "Logout",
+    "tasks": "Tasks",
+    "home-page": "Home page",
+    "login": "Login",
+    "registration": "Registration"
+  },
   "stepper": {
     "prev": "Prev",
     "next": "Next"
+  },
+  "error": {
   }
 }

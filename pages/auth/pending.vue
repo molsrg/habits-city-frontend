@@ -1,15 +1,12 @@
 <script lang="ts" setup>
 import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';
-import { useTokenStore } from '@/store/token.store';
 import type { NuxtError } from '#app';
 
-const tokenStore = useTokenStore();
 const authStore = useAuthStore();
 
 const appStore = useAppStore();
 const route = useRoute();
-const router = useRouter();
 
 let accessToken = {
   code: '',
@@ -55,7 +52,7 @@ console.warn = (message, ...args) => {
 <template>
   <div>
     <div v-if="!appStore.errorOAuthText" class="pending">
-      <h3 class="text-xl">Wait for the authorization!</h3>
+      <h3 class="text-xl">{{ $t('page--pending.wait-for-authorization') }}</h3>
 
       <span class="loader" />
     </div>
@@ -65,7 +62,7 @@ console.warn = (message, ...args) => {
         color="white"
         variant="solid"
         @click="handleError"
-      >Go back login
+      >{{ $t('page--pending.go-back-login') }}
       </UButton>
     </div>
   </div>

@@ -57,6 +57,8 @@ import { optionsLang } from '@/constants/languageOptions';
 import { useTokenStore } from '@/store/token.store';
 import { useUserStore } from '@/store/user.store';
 
+const { t } = useI18n();
+
 const { setLocale } = useI18n();
 const { isDesktop } = useScreenSize();
 const tokenStore = useTokenStore();
@@ -89,14 +91,14 @@ const logInOrRegistration = computed(() => {
   return namePathRoute.value === 'auth-registration'
     ? [
       {
-        label: 'Registration',
+        label: t('nav--layout.registration'),
         icon: 'i-heroicons-user-plus-20-solid',
         to: '/auth/registration',
       },
     ]
     : [
       {
-        label: 'LogIn',
+        label: t('nav--layout.login'),
         icon: 'i-heroicons-finger-print-20-solid',
         to: '/auth/login',
       },
@@ -115,7 +117,7 @@ interface Link {
   dropdown?: boolean;
 }
 
-const baseLinks: Link[][] = [
+const baseLinks = computed<Link[][]>(() => [
   [],
   [
     {
@@ -123,19 +125,19 @@ const baseLinks: Link[][] = [
       dropdown: true,
     },
     {
-      label: 'Home Page',
+      label: t('nav--layout.home-page'),
       icon: 'i-heroicons-home',
       to: '/',
     },
   ],
-];
+]);
 
 const authLinks = computed(() =>
   tokenStore.getStatus
     ? [
       {
         icon: 'i-heroicons-arrow-left-on-rectangle-20-solid',
-        label: 'Log Out',
+        label: t('nav--layout.logout'),
         badge: '',
         click: logoutUser,
       },
@@ -152,20 +154,20 @@ const authLinks = computed(() =>
       },
       {
         icon: 'i-heroicons-user-group',
-        label: 'Friends',
+        label: t('nav--layout.friends'),
         badge: '0',
         to: '/friends',
       },
       {
         icon: 'i-heroicons-circle-stack',
-        label: 'Tasks',
+        label: t('nav--layout.tasks'),
         to: '/tasks',
       },
     ]
     : [...logInOrRegistration.value],
 );
 
-const links = computed<Link[][]>(() => [[...authLinks.value], [...baseLinks[1]]]);
+const links = computed<Link[][]>(() => [[...authLinks.value], [...baseLinks.value[1]]]);
 </script>
 
 <style lang="scss" scoped>

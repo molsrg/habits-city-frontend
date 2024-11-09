@@ -12,7 +12,11 @@ const userStore = useUserStore();
 const toast = useToast();
 
 definePageMeta({ middleware: ['auth'] });
-useHead({ title: 'HS | Profile' });
+const title = computed(() => `HS | ${t('nav--layout.friends')}`);
+
+useHead({
+  title,
+});
 
 const userInfo = computed(() => ({
   username: userStore.getUserInfo.username,

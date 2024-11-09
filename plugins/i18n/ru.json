@@ -102,6 +102,14 @@
       }
     }
   },
+  "nav--layout": {
+    "friends": "Друзья",
+    "logout": "Выйти",
+    "tasks": "Задачи",
+    "home-page": "Главная страница",
+    "login": "Вход",
+    "registration": "Регистрация"
+  },
   "modal": {
     "link-email": {
       "title": "Связать электронную почту",
@@ -111,6 +119,10 @@
         "confirm-email": "Подтвердите электронную почту"
       }
     }
+  },
+  "page--pending": {
+    "go-back-login": "Вернуться к входу",
+    "wait-for-authorization": "Ожидайте авторизацию!"
   },
   "stepper": {
     "prev": "Назад",

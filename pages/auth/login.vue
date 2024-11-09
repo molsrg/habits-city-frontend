@@ -4,12 +4,15 @@ import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';
 import getGoogleURL from '@/utils/getGoogleURL';
 
+const { t } = useI18n();
 definePageMeta({
   middleware: ['guest'],
 });
 
+const title = computed(() => `HS | ${t('nav--layout.login')}`);
+
 useHead({
-  title: 'HS | Auth',
+  title,
 });
 
 const config = useRuntimeConfig();
