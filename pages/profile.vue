@@ -32,6 +32,7 @@ const changeLink = (link: string) => {
 
 const links = [
   { label: 'Settings', click: () => changeLink('Settings') },
+  { label: 'Public info', click: () => changeLink('Public info') },
   { label: 'Stats', click: () => changeLink('Stats') },
 ];
 
@@ -67,6 +68,7 @@ const saveUserData = async (payload): Promise<void> => {
 
 const updateUserPassword = async (payload): Promise<void> => {
   const res = await userStore.changeUserPassword(payload);
+  console.log(res);
   const notification = res
     ? { color: 'green', title: t('notifications.save-access') }
     : { color: 'red', title: t('notifications.save-error') };
@@ -88,7 +90,7 @@ const linkNewEmail = () => {
 };
 
 const updateEmail = () => {
-  console.log(1212);
+  modalService.open(ModalName.LinkEmail);
 };
 </script>
 

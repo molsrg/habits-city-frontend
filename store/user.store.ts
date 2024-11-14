@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 
 import { endPoints } from '@/constants/endPoints';
-import { userService } from '@/services/api.service';
+import { authService, userService } from '@/services/api.service';
+import { useTokenStore } from '@/store/token.store';
 
 export const useUserStore = defineStore('userStore', {
   persist: true,
@@ -36,9 +37,32 @@ export const useUserStore = defineStore('userStore', {
       return false;
     },
 
-    async changeUserPassword(userInfo: object): Promise<void> {
-      console.log('updateUserInfo', userInfo);
-      return true;
+    async changeUserPassword(userInfo: object): Promise<number> {
+      const payload = {
+        oldPassword: userInfo.password,
+        newPassword: userInfo.new_password,
+      };
+
+      const tokenStore = useTokenStore();
+      let statusCode = null; // Инициализируем со значением по умолчанию (например, 500 для ошибки сервера)
+
+      try {
+        const { data } = await userService.post(endPoints.user.changePassword, payload);
+
+        // Удаление токена и перенаправление на страницу логина
+        tokenStore.removeToken();
+        navigateTo('/auth/login');
+
+        statusCode = data.statusCode; // Обновляем статус код при успешном запросе
+
+      } catch (error) {
+        if (error.response && error.response.status) {
+          statusCode = error.response.status;
+        }
+
+      } finally {
+        return statusCode;
+      }
     },
 
 
@@ -60,6 +84,28 @@ export const useUserStore = defineStore('userStore', {
 
     async deleteAccount(userInfo: string): Promise<void> {
       console.log('deleteAccount', userInfo);
+    },
+
+
+    async sendEmailCode(payload: object): Promise<void> {
+      try {
+        const { data } = await userService.post(endPoints.user.sendEmailCode, payload);
+        console.log(data);
+      } catch (error) {
+        if (error.response && error.response.status) {
+          console.log(error.response);
+        }
+      }
+    },
+    async verifyEmailCode(payload: object): Promise<void> {
+      try {
+        const { data } = await userService.post(endPoints.user.verifyEmailCode, payload);
+        console.log(data);
+      } catch (error) {
+        if (error.response && error.response.status) {
+          console.log(error.response);
+        }
+      }
     },
   },
 });

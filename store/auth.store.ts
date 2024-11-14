@@ -32,9 +32,8 @@ export const useAuthStore = defineStore('authStore', {
         const { data } = await authService.post(endPoints.auth.registration, userData);
 
         if (data?.AccessToken) {
-          sessionStorage.setItem('RefreshToken', data.RefreshToken);
           sessionStorage.setItem('AccessToken', data.AccessToken);
-          tokenStore.setToken(data.AccessToken);
+          tokenStore.setToken(data);
           router.push('/profile');
         } else {
           throw new Error('Token not received');

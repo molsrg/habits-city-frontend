@@ -11,7 +11,7 @@
     "subtitle": "Your account is already ready, but you can customize it for yourself",
     "nav": {
       "settings": "Settings",
-      "public-info": "Public info",
+      "public info": "Public info",
       "stats": "Stats"
     },
     "language": "Choose language",
@@ -19,7 +19,7 @@
       "nav": {
         "account": {
           "label": "Account",
-          "description": "Make changes to your account here. Click save when you're done."
+          "description": "Make changes here. Click save when you're done."
         },
         "password": {
           "label": "Password",
@@ -28,22 +28,22 @@
       },
       "name": {
         "label": "Name",
-        "description": "Your name will only be visible to admins",
+        "description": "Visible only to administrators",
         "placeholder": "Enter your name"
       },
       "username": {
         "label": "Username",
-        "description": "Your username is visible when creating or completing tasks",
-        "placeholder": "Enter your username"
+        "description": "Visible when creating or executing tasks",
+        "placeholder": "Enter username"
       },
       "email": {
         "label": "Email",
         "placeholder": "Email will be displayed here",
-        "description": "Link your email to restore your account"
+        "description": "Link email to restore your account"
       },
       "password": {
         "label": "Password",
-        "placeholder": "Enter your password"
+        "placeholder": "Enter password"
       },
       "new-password": {
         "label": "New password",
@@ -62,17 +62,17 @@
   },
   "page--login": {
     "title": "Log in",
-    "subtitle": "Enter your credentials to access your account",
+    "subtitle": "Enter your credentials to access account",
     "no-account": "Don't have an account yet?",
-    "enter-password": "Enter your password",
-    "enter-username": "Enter your username"
+    "enter-password": "Enter password",
+    "enter-username": "Enter username"
   },
   "page--registration": {
     "title": "Register",
-    "subtitle": "Enter your credentials to access your account",
+    "subtitle": "Enter your credentials to access account",
     "have-account": "Already have an account?",
-    "enter-password": "Enter your password",
-    "enter-username": "Enter your username",
+    "enter-password": "Enter password",
+    "enter-username": "Enter username",
     "button": "Register"
   },
   "layout--default": {

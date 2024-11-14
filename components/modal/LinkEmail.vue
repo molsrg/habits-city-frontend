@@ -1,3 +1,52 @@
+<script lang="ts" setup>
+import StepperProgressBar from '@/components/stepper/StepperProgressBar.vue';
+import { useLinkEmailForm } from '@/configs/linkEmailForm';
+import { ModalName } from '@/constants/modalName';
+import { modalService } from '@/services/modal.service';
+import { useUserStore } from '@/store/user.store';
+
+const isOpenModal = computed(() => modalService.isOpen(ModalName.LinkEmail));
+const currentStep = ref(0);
+const formConfig = useLinkEmailForm();
+const totalSteps = Object.keys(formConfig.value.stepper.steps).length;
+const userStore = useUserStore();
+const stepTitles = computed(() => {
+  return Object.values(formConfig.value.stepper.steps).map(step => step.title);
+});
+
+const getClickHandler = (action) => {
+  switch (action) {
+    case 'prev':
+      return prevStep();
+    case 'next':
+      return nextStep();
+  }
+};
+
+const newEmail = ref('');
+const verifyCode = ref('');
+
+const prevStep = () => {
+  if (currentStep.value > 0) {
+    currentStep.value--;
+  }
+};
+
+const nextStep = () => {
+  if (currentStep.value === 0) {
+    // userStore.sendEmailCode({ email: newEmail.value });
+  }
+  if (currentStep.value === 1) {
+    userStore.verifyEmailCode({ code: verifyCode.value });
+  }
+
+  if (currentStep.value < totalSteps - 1) {
+    currentStep.value++;
+  }
+};
+</script>
+
+
 <template>
   <UModal v-model="isOpenModal">
     <UCard
@@ -29,7 +78,11 @@
         </div>
       </template>
 
-      {{ formConfig.stepper }}
+      <div class="flex align-center justify-center">
+        <ProfileInputItem v-if="currentStep=== 0" v-model="newEmail" placeholder="Input email" />
+        <InputOtp v-if="currentStep=== 1" v-model="verifyCode" :length="6" integer-only />
+      </div>
+
 
       <template #footer>
         <div class="flex justify-between">
@@ -47,39 +100,4 @@
   </UModal>
 </template>
 
-<script lang="ts" setup>
-import StepperProgressBar from '@/components/stepper/StepperProgressBar.vue';
-import { useLinkEmailForm } from '@/configs/linkEmailForm';
-import { ModalName } from '@/constants/modalName';
-import { modalService } from '@/services/modal.service';
 
-const isOpenModal = computed(() => modalService.isOpen(ModalName.LinkEmail));
-const currentStep = ref(0);
-const formConfig = useLinkEmailForm();
-const totalSteps = Object.keys(formConfig.value.stepper.steps).length;
-
-const stepTitles = computed(() => {
-  return Object.values(formConfig.value.stepper.steps).map(step => step.title);
-});
-
-const getClickHandler = (action) => {
-  switch (action) {
-    case 'prev':
-      return prevStep();
-    case 'next':
-      return nextStep();
-  }
-};
-
-const prevStep = () => {
-  if (currentStep.value > 0) {
-    currentStep.value--;
-  }
-};
-
-const nextStep = () => {
-  if (currentStep.value < totalSteps - 1) {
-    currentStep.value++;
-  }
-};
-</script>
