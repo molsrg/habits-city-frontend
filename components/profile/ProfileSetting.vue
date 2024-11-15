@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { debounce } from 'lodash';
+import { useI18n } from 'vue-i18n';
 
 import { useAccountForm, useAccountTabsForm } from '@/configs/accountForm.ts';
 import { ModalName } from '@/constants/modalName';
@@ -9,7 +10,7 @@ import { useAppStore } from '@/store/app.store';
 
 const { t } = useI18n();
 const apiStore = useApiStore();
-const appStore = useAppStore();
+
 const tabs = useAccountTabsForm();
 const accountForm = useAccountForm();
 
@@ -34,17 +35,19 @@ const activeFields = computed(() => {
   return {};
 });
 
-const accountFormField = reactive({
-  name: props.userInfo.name || null,
+const initialAccountFormField = {
+  bio: props.userInfo.bio || null,
   username: props.userInfo.username || null,
   email: props.userInfo.email || null,
   password: null,
   new_password: null,
-});
+};
+
+const accountFormField = reactive({ ...initialAccountFormField });
 
 const accountErrors = computed(() => ({
-  name: accountFormField.name !== null && accountFormField.name.length === 0
-    ? t('alerts.errors.name.empty')
+  bio: accountFormField.bio !== null && accountFormField.bio.length === 0
+    ? t('alerts.errors.bio.empty')
     : '',
 
   username: apiStore.getIsValidUsername
@@ -73,7 +76,10 @@ const accountErrors = computed(() => ({
 }));
 
 const hasErrors = (fields) => {
-  return fields.some(field => accountErrors.value[field] !== '' && accountErrors.value[field] !== null);
+  return fields.some(field => {
+    const isChanged = accountFormField[field] !== initialAccountFormField[field];
+    return (accountErrors.value[field] !== '' && accountErrors.value[field] !== null) || (isChanged && accountFormField[field] === null);
+  });
 };
 
 const checkUsername = debounce(async (newUsername) => {
@@ -106,7 +112,7 @@ const getClickHandler = (action) => {
 };
 
 const saveAccountUser = () => {
-  const updatedData = ['name', 'username'].reduce((acc, field) => {
+  const updatedData = ['bio', 'username'].reduce((acc, field) => {
     if (accountFormField[field] !== props.userInfo[field]) {
       acc[field] = accountFormField[field];
     }
@@ -134,7 +140,6 @@ const deleteAccount = () => {
 
 <template>
   <UTabs v-model="selectedTabs" :items="tabs" class="w-full">
-
     <template #item="{ item }">
       <UCard>
         <template #header>
@@ -177,7 +182,6 @@ const deleteAccount = () => {
               @handle:action="getClickHandler"
             />
           </div>
-
         </div>
         <div v-else-if="item.key === 'password'" class="space-y-3">
           <ProfileInputItem
@@ -192,7 +196,6 @@ const deleteAccount = () => {
             :required="field.required"
           />
         </div>
-
         <template #footer>
           <div class="flex items-center gap-4">
             <UButton

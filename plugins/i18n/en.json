@@ -1,75 +1,70 @@
 {
   "page--index": {
-    "badge": "The compiler is a programmer's best friend: it will never say that you are a genius, but it will always show you where you went wrong"
-  },
-  "page--pending": {
-    "go-back-login": "Go back login",
-    "wait-for-authorization": "Wait for the authorization!"
+    "badge": "The compiler is the programmer's best friend: it will never tell you that you are a genius, but it will always show you where you made a mistake"
   },
   "page--profile": {
-    "title": "Welcome to profile!",
-    "subtitle": "Your account is already ready, but you can customize it for yourself",
+    "title": "Welcome to your profile!",
+    "subtitle": "Your account is already set up, but you can customize it",
     "nav": {
       "settings": "Settings",
-      "public info": "Public info",
-      "stats": "Stats"
+      "public info": "Public Information",
+      "stats": "Statistics"
     },
-    "language": "Choose language",
+    "language": "Select language",
     "settings-option": {
       "nav": {
         "account": {
           "label": "Account",
-          "description": "Make changes here. Click save when you're done."
+          "description": "Make changes here. Click 'Save' when you're done."
         },
         "password": {
           "label": "Password",
-          "description": "Change your password here. After saving, you'll be logged out."
+          "description": "Change your password here. You will be logged out after saving."
         }
       },
-      "name": {
-        "label": "Name",
-        "description": "Visible only to administrators",
-        "placeholder": "Enter your name"
+      "bio": {
+        "label": "BIO",
+        "description": "Short information about you",
+        "placeholder": "Enter bio"
       },
       "username": {
         "label": "Username",
-        "description": "Visible when creating or executing tasks",
+        "description": "Visible when creating or completing tasks",
         "placeholder": "Enter username"
       },
       "email": {
         "label": "Email",
         "placeholder": "Email will be displayed here",
-        "description": "Link email to restore your account"
+        "description": "For account recovery"
       },
       "password": {
         "label": "Password",
         "placeholder": "Enter password"
       },
       "new-password": {
-        "label": "New password",
+        "label": "New Password",
         "description": "Enter a strong password",
-        "placeholder": "Enter a new password"
+        "placeholder": "Enter new password"
       },
       "upload-avatar": "Upload avatar"
     },
-    "nav-item": {
-    },
+    "nav-item": {},
     "link-email": "Link Email",
-    "change-email": "Change email",
-    "save-account": "Save account",
-    "save-password": "Save password",
-    "delete-account": "Delete account"
+    "change-email": "Change Email",
+    "save-account": "Save Changes",
+    "save-password": "Save Password",
+    "delete-account": "Delete Account"
   },
   "page--login": {
-    "title": "Log in",
-    "subtitle": "Enter your credentials to access account",
+    "title": "Login",
+    "subtitle": "Enter your credentials to access your account",
     "no-account": "Don't have an account yet?",
     "enter-password": "Enter password",
     "enter-username": "Enter username"
   },
   "page--registration": {
-    "title": "Register",
-    "subtitle": "Enter your credentials to access account",
+    "title": "Registration",
+    "subtitle": "Enter your credentials to access your account",
     "have-account": "Already have an account?",
     "enter-password": "Enter password",
     "enter-username": "Enter username",
@@ -79,25 +74,26 @@
     "label": {
       "registration": "Registration",
       "login": "Login",
-      "faq": "F.A.Q.",
-      "home": "Home page"
+      "faq": "Frequently Asked Questions",
+      "home": "Home Page"
     }
   },
   "notifications": {
-    "save-access": "Save data access",
-    "save-error": "Save data error"
+    "save-access": "Save access to data",
+    "save-error": "Data save error"
   },
   "alerts": {
     "errors": {
-      "name": {
-        "empty": "Name cannot be empty!"
+      "bio": {
+        "empty": "BIO cannot be empty!"
       },
       "username": {
         "empty": "Username cannot be empty!",
         "taken": "Username is already taken!"
       },
       "email": {
-        "empty": "Email cannot be empty!"
+        "empty": "Email cannot be empty!",
+        "invalid": "Invalid email format!"
       },
       "password": {
         "empty": "Password cannot be empty!",
@@ -107,28 +103,30 @@
       }
     }
   },
+  "nav--layout": {
+    "friends": "Friends",
+    "logout": "Logout",
+    "tasks": "Tasks",
+    "home-page": "Home Page",
+    "login": "Login",
+    "registration": "Registration"
+  },
   "modal": {
     "link-email": {
-      "title": "Link email",
-      "description": "Link your email to restore your password",
+      "title": "Link Email",
+      "description": "Link your email for password recovery",
       "steppers": {
         "enter-email": "Enter email",
         "confirm-email": "Confirm email"
       }
     }
   },
-  "nav--layout": {
-    "friends": "Friends",
-    "logout": "Logout",
-    "tasks": "Tasks",
-    "home-page": "Home page",
-    "login": "Login",
-    "registration": "Registration"
+  "page--pending": {
+    "go-back-login": "Go back to login",
+    "wait-for-authorization": "Wait for authorization!"
   },
   "stepper": {
-    "prev": "Prev",
+    "prev": "Back",
     "next": "Next"
-  },
-  "error": {
   }
 }

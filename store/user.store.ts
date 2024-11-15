@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia';
 
 import { endPoints } from '@/constants/endPoints';
+import { ModalName } from '@/constants/modalName';
 import { authService, userService } from '@/services/api.service';
+import { modalService } from '@/services/modal.service';
 import { useTokenStore } from '@/store/token.store';
 
 export const useUserStore = defineStore('userStore', {
@@ -44,16 +46,15 @@ export const useUserStore = defineStore('userStore', {
       };
 
       const tokenStore = useTokenStore();
-      let statusCode = null; // Инициализируем со значением по умолчанию (например, 500 для ошибки сервера)
+      let statusCode = null;
 
       try {
         const { data } = await userService.post(endPoints.user.changePassword, payload);
 
-        // Удаление токена и перенаправление на страницу логина
         tokenStore.removeToken();
         navigateTo('/auth/login');
 
-        statusCode = data.statusCode; // Обновляем статус код при успешном запросе
+        statusCode = data.statusCode;
 
       } catch (error) {
         if (error.response && error.response.status) {
@@ -89,18 +90,17 @@ export const useUserStore = defineStore('userStore', {
 
     async sendEmailCode(payload: object): Promise<void> {
       try {
-        const { data } = await userService.post(endPoints.user.sendEmailCode, payload);
-        console.log(data);
+        await userService.post(endPoints.user.sendEmailCode, payload);
+        return;
       } catch (error) {
-        if (error.response && error.response.status) {
-          console.log(error.response);
-        }
+        return error.response.data.message;
       }
     },
     async verifyEmailCode(payload: object): Promise<void> {
       try {
-        const { data } = await userService.post(endPoints.user.verifyEmailCode, payload);
-        console.log(data);
+        await userService.post(endPoints.user.verifyEmailCode, payload);
+        await this.fetchUserInfo();
+        modalService.close(ModalName.LinkEmail);
       } catch (error) {
         if (error.response && error.response.status) {
           console.log(error.response);

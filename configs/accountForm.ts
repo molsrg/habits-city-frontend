@@ -2,13 +2,13 @@ export const useAccountForm = () => {
   const { t } = useI18n();
 
   return computed(() => ({
-    name: {
+    bio: {
       disabled: false,
       required: false,
-      placeholder: t('page--profile.settings-option.name.placeholder'),
-      label: t('page--profile.settings-option.name.label'),
+      placeholder: t('page--profile.settings-option.bio.placeholder'),
+      label: t('page--profile.settings-option.bio.label'),
       inputType: 'text',
-      description: t('page--profile.settings-option.name.description'),
+      description: t('page--profile.settings-option.bio.description'),
     },
     username: {
       disabled: false,
@@ -34,14 +34,14 @@ export const useAccountForm = () => {
           action: 'linkEmail',
           condition: true,
         },
-        change: {
-          label: t('page--profile.change-email'),
-          color: 'primary',
-          size: '2xs',
-          variant: 'soft',
-          action: 'changeEmail',
-          condition: false,
-        },
+        // change: {
+        //   label: t('page--profile.change-email'),
+        //   color: 'primary',
+        //   size: '2xs',
+        //   variant: 'soft',
+        //   action: 'changeEmail',
+        //   condition: false,
+        // },
       },
     },
     password: {
@@ -70,14 +70,14 @@ export const useAccountTabsForm = () => {
       key: 'account',
       label: t('page--profile.settings-option.nav.account.label'),
       description: t('page--profile.settings-option.nav.account.description'),
-      fields: ['name', 'username', 'email'],
+      fields: ['username', 'bio', 'email'],
       actions: {
         save: {
           label: t('page--profile.save-account'),
           color: 'black',
           variant: 'solid',
           action: 'saveAccount',
-          disabled: ['name', 'username'],
+          disabled: ['bio', 'username'],
         },
         delete: {
           label: t('page--profile.delete-account'),

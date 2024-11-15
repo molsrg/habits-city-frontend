@@ -32,8 +32,9 @@ const changeLink = (link: string) => {
 
 const links = [
   { label: 'Settings', click: () => changeLink('Settings') },
-  { label: 'Public info', click: () => changeLink('Public info') },
   { label: 'Stats', click: () => changeLink('Stats') },
+  { label: 'Public info', click: () => changeLink('Public info') },
+
 ];
 
 const formattedLinks = computed(() =>
@@ -117,10 +118,10 @@ const updateEmail = () => {
         style="height: fit-content"
       />
       <div class="profile__options">
-        <div class="profile__options-header">
-          <UIcon :name="activeIcon" />
-          <h2>{{ activeLabel }}</h2>
-        </div>
+        <!--        <div class="profile__options-header">-->
+        <!--          <UIcon :name="activeIcon" />-->
+        <!--          <h2>{{ activeLabel }}</h2>-->
+        <!--        </div>-->
 
         <ProfileSetting
           v-if="activeLink === 'Settings'"

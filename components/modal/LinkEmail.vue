@@ -5,6 +5,7 @@ import { ModalName } from '@/constants/modalName';
 import { modalService } from '@/services/modal.service';
 import { useUserStore } from '@/store/user.store';
 
+const { t } = useI18n();
 const isOpenModal = computed(() => modalService.isOpen(ModalName.LinkEmail));
 const currentStep = ref(0);
 const formConfig = useLinkEmailForm();
@@ -23,7 +24,8 @@ const getClickHandler = (action) => {
   }
 };
 
-const newEmail = ref('');
+const newEmail = ref(null);
+
 const verifyCode = ref('');
 
 const prevStep = () => {
@@ -31,17 +33,41 @@ const prevStep = () => {
     currentStep.value--;
   }
 };
+const errorsEmail = ref([]);
+const isSendEmail = ref(false);
+const validateEmail = () => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  errorsEmail.value = [];
+  isSendEmail.value = false;
 
-const nextStep = () => {
+  if (newEmail.value !== null && newEmail.value.length === 0) {
+    errorsEmail.value.push(t('alerts.errors.email.empty'));
+  } else if (newEmail.value !== null && !emailRegex.test(newEmail.value)) {
+    errorsEmail.value.push(t('alerts.errors.email.invalid'));
+  }
+};
+watch(newEmail, validateEmail);
+
+const isNextButtonDisabled = computed(() => {
+  return errorsEmail.value.length > 0;
+});
+
+const nextStep = async () => {
   if (currentStep.value === 0) {
-    // userStore.sendEmailCode({ email: newEmail.value });
+    isSendEmail.value = true;
+    const result = await userStore.sendEmailCode({ email: newEmail.value });
+    if (result) {
+      errorsEmail.value.push(result);
+    }
   }
   if (currentStep.value === 1) {
-    userStore.verifyEmailCode({ code: verifyCode.value });
+    await userStore.verifyEmailCode({ code: verifyCode.value });
   }
 
   if (currentStep.value < totalSteps - 1) {
-    currentStep.value++;
+    if (errorsEmail.value.length === 0)
+      currentStep.value++;
+    isSendEmail.value = false;
   }
 };
 </script>
@@ -79,7 +105,12 @@ const nextStep = () => {
       </template>
 
       <div class="flex align-center justify-center">
-        <ProfileInputItem v-if="currentStep=== 0" v-model="newEmail" placeholder="Input email" />
+        <ProfileInputItem
+          v-if="currentStep=== 0"
+          v-model="newEmail"
+          :errors="errorsEmail[0]"
+          :placeholder="t('modal.link-email.steppers.enter-email')"
+          style="width:60%" />
         <InputOtp v-if="currentStep=== 1" v-model="verifyCode" :length="6" integer-only />
       </div>
 
@@ -90,6 +121,7 @@ const nextStep = () => {
             v-for="button in formConfig.stepper.actions"
             :key="button.label"
             :color="button.color"
+            :disabled="(button.action === 'next' ? isNextButtonDisabled : false) || isSendEmail"
             :label="button.label"
             :variant="button.variant"
             @click="getClickHandler(button.action)"
