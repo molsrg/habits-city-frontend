@@ -25,7 +25,6 @@ export default defineNuxtConfig({
     'nuxt-primevue',
     '@pinia-plugin-persistedstate/nuxt',
     '@nuxtjs/i18n',
-    'nuxt-lodash',
     '@nuxt/eslint',
   ],
   i18n: {

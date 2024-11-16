@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { debounce } from 'lodash';
 
+import { debounce } from '@/utils/debounce';
 import { useAccountForm, useAccountSocialNetworks, useAccountTabsForm } from '@/configs/accountForm.ts';
 import { ModalName } from '@/constants/modalName';
 import { modalService } from '@/services/modal.service';
@@ -84,7 +84,7 @@ const hasErrors = (fields) => {
 };
 
 
-const checkUsername = debounce(async (newUsername) => {
+const checkUsername = debounce(async (newUsername: string) => {
   await apiStore.existUsername(newUsername);
 }, 300);
 
@@ -165,7 +165,7 @@ const socialNetworkButtons = computed(() => {
 </script>
 
 <template>
-  <UTabs v-model="selectedTabs" :items="tabs" class="w-full">
+  <UTabs v-model="selectedTabs" class="w-full" :items="tabs">
     <template #item="{ item }">
       <UCard>
         <template #header>
@@ -180,14 +180,14 @@ const socialNetworkButtons = computed(() => {
           <div class="self-start flex items-center gap-5 flex-wrap">
             <UAvatar
               :alt="userInfo.username || '' "
-              :src="userInfo.avatar || ''"
               size="3xl"
+              :src="userInfo.avatar || ''"
             />
             <InputFileUpload
-              :label="$t('page--profile.settings-option.upload-avatar')"
               color="primary"
               file-type="img"
               icon="i-heroicons-user-circle"
+              :label="$t('page--profile.settings-option.upload-avatar')"
               size="md"
               variant="soft"
 
