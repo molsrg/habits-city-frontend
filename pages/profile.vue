@@ -21,7 +21,10 @@ useHead({
 const userInfo = computed(() => ({
   username: userStore.getUserInfo.username,
   email: userStore.getUserInfo.email,
+  bio: userStore.getUserInfo.bio,
   avatar: userStore.getUserInfo.avatar,
+  isYandex: userStore.getUserInfo.isYandex,
+  isGoogle: userStore.getUserInfo.isGoogle,
 }));
 
 const activeLink = ref('Settings');

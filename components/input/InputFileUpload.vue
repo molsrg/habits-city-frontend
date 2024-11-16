@@ -60,7 +60,3 @@ const handleFileChange = (event: Event) => {
   </div>
 </template>
 
-<style lang="scss" scoped>
-
-
-</style>

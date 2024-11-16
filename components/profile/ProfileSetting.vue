@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { debounce } from 'lodash';
 
-import { useAccountForm, useAccountTabsForm } from '@/configs/accountForm.ts';
+import { useAccountForm, useAccountSocialNetworks, useAccountTabsForm } from '@/configs/accountForm.ts';
 import { ModalName } from '@/constants/modalName';
 import { modalService } from '@/services/modal.service';
 import { useApiStore } from '@/store/api.store';
@@ -12,6 +12,7 @@ const apiStore = useApiStore();
 
 const tabs = useAccountTabsForm();
 const accountForm = useAccountForm();
+const socialNetworks = useAccountSocialNetworks();
 
 const props = defineProps({
   userInfo: {
@@ -34,18 +35,17 @@ const activeFields = computed(() => {
   return {};
 });
 
-const initialAccountFormField = {
-  bio: props.userInfo.bio || null,
+const accountFormField = reactive({
+  bio: props.userInfo.bio || undefined,
   username: props.userInfo.username || null,
   email: props.userInfo.email || null,
-  password: null,
-  new_password: null,
-};
+  password: undefined,
+  new_password: undefined,
+});
 
-const accountFormField = reactive({ ...initialAccountFormField });
 
 const accountErrors = computed(() => ({
-  bio: accountFormField.bio !== null && accountFormField.bio.length === 0
+  bio: accountFormField.bio !== undefined && accountFormField.bio.length === 0
     ? t('alerts.errors.bio.empty')
     : '',
 
@@ -55,13 +55,13 @@ const accountErrors = computed(() => ({
       ? t('alerts.errors.username.empty')
       : '',
 
-  password: accountFormField.password !== null && accountFormField.password.length === 0
+  password: accountFormField.password !== undefined && accountFormField.password.length === 0
     ? t('alerts.errors.password.empty')
     : null,
 
   new_password: (() => {
     const field = accountFormField.new_password;
-    if (field !== null && field.length === 0) {
+    if (field !== undefined && field.length === 0) {
       return t('alerts.errors.password.empty');
     } else if (field && field.length < 8) {
       return t('alerts.errors.password.length');
@@ -75,11 +75,14 @@ const accountErrors = computed(() => ({
 }));
 
 const hasErrors = (fields) => {
-  return fields.some(field => {
-    const isChanged = accountFormField[field] !== initialAccountFormField[field];
-    return (accountErrors.value[field] !== '' && accountErrors.value[field] !== null) || (isChanged && accountFormField[field] === null);
-  });
+  if (!Array.isArray(fields)) return false;
+
+  const changedFields = fields.filter(field => accountFormField[field] !== props.userInfo[field]);
+  if (changedFields.length === 0) return true;
+  return changedFields.some(field => accountErrors.value[field]);
+
 };
+
 
 const checkUsername = debounce(async (newUsername) => {
   await apiStore.existUsername(newUsername);
@@ -104,6 +107,12 @@ const getClickHandler = (action) => {
       return;
     case 'changeEmail':
       emit('update:email');
+      return;
+    case 'linkYandex':
+      console.log('linkYandex');
+      return;
+    case 'linkGoogle':
+      console.log('linkGoogle');
       return;
     default:
       return null;
@@ -135,6 +144,24 @@ const savePasswordUser = () => {
 const deleteAccount = () => {
   modalService.open(ModalName.DeleteAccount);
 };
+
+
+const socialNetworkButtons = computed(() => {
+  return socialNetworks.value.map((network) => {
+    const isLinked = network.key === 'yandex' ? props.userInfo.isYandex : props.userInfo.isGoogle;
+
+    return {
+      ...network,
+      disabled: isLinked,
+      tooltip: isLinked ? network.tooltipHasSocial : network.tooltip,
+      color: isLinked ? network.colorHasSocial : network.color,
+      variant: 'soft',
+      size: 'lg',
+    };
+  });
+});
+
+
 </script>
 
 <template>
@@ -163,6 +190,7 @@ const deleteAccount = () => {
               icon="i-heroicons-user-circle"
               size="md"
               variant="soft"
+
               @upload:file="$emit('new:avatar', $event)" />
           </div>
           <div
@@ -180,7 +208,35 @@ const deleteAccount = () => {
               :required="field.required"
               @handle:action="getClickHandler"
             />
+
+
           </div>
+
+          <div class="flex gap-2">
+            <UTooltip
+              v-for="button in socialNetworkButtons"
+              :key="button.key"
+              :text="button.tooltip"
+              @click="getClickHandler(button.action)">
+              <UButton
+                :color="button.color"
+                :disabled="button.disabled"
+                :label="button.label"
+                :variant="button.variant"
+              >
+                <Icon :name="button.icon" />
+              </UButton>
+            </UTooltip>
+            <UButton
+              color="blue"
+              label="Button"
+              size="sm"
+              style="display: none"
+              variant="soft"
+            />
+
+          </div>
+
         </div>
         <div v-else-if="item.key === 'password'" class="space-y-3">
           <ProfileInputItem
@@ -201,12 +257,13 @@ const deleteAccount = () => {
               v-for="button in tabs[selectedTabs].actions"
               :key="button.label"
               :color="button.color"
-              :disabled="button.disabled && hasErrors(button.disabled)"
+              :disabled="hasErrors(button.disabled)"
               :icon="button.icon"
               :label="button.label"
               :variant="button.variant"
               @click="getClickHandler(button.action)"
             />
+
           </div>
         </template>
       </UCard>

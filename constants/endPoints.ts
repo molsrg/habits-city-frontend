@@ -5,6 +5,7 @@ export const endPoints = {
   },
   user: {
     fetchInfo: 'user/getInfo',
+    changeInfo: 'user/changeData',
     changePassword: 'user/changePassword',
     sendEmailCode: 'user/sendEmailCode',
     verifyEmailCode: 'user/verifyCode',

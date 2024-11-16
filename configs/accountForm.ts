@@ -107,3 +107,33 @@ export const useAccountTabsForm = () => {
     },
   ]);
 };
+
+
+export const useAccountSocialNetworks = () => {
+  const { t } = useI18n();
+
+  return computed(() => [
+    {
+      key: 'yandex',
+      label: t('page--profile.social-networks.yandex.label'),
+      color: 'blue',
+      colorHasSocial: 'green',
+      variant: 'soft',
+      action: 'linkYandex',
+      tooltipHasSocial: t('page--profile.social-networks.yandex.tooltipHasSocial'),
+      tooltip: t('page--profile.social-networks.yandex.tooltip'),
+      icon: 'vscode-icons:file-type-yandex',
+    },
+    {
+      key: 'google',
+      label: t('page--profile.social-networks.google.label'),
+      color: 'blue',
+      colorHasSocial: 'green',
+      variant: 'soft',
+      action: 'linkGoogle',
+      tooltipHasSocial: t('page--profile.social-networks.google.tooltipHasSocial'),
+      tooltip: t('page--profile.social-networks.google.tooltip'),
+      icon: 'devicon:google',
+    },
+  ]);
+};

@@ -14,7 +14,8 @@ export const useUserStore = defineStore('userStore', {
       email: '',
       password: '',
       avatar: '',
-      isOauth: null,
+      isGoogle: false,
+      isYandex: false,
       roles: [],
     },
   }),
@@ -35,8 +36,22 @@ export const useUserStore = defineStore('userStore', {
     },
 
     async changeUserInfo(userInfo: object): Promise<void> {
-      console.log('updateUserInfo', userInfo);
-      return false;
+      try {
+        const payload: Record<string, unknown> = {};
+        if (userInfo.username !== undefined) {
+          payload.newUsername = userInfo.username;
+        }
+
+        if (userInfo.bio !== undefined) {
+          payload.newBio = userInfo.bio;
+        }
+
+        await userService.post(endPoints.user.changeInfo, payload);
+        await this.fetchUserInfo();
+        return true;
+      } catch (error) {
+        console.log(error.response?.data || error);
+      }
     },
 
     async changeUserPassword(userInfo: object): Promise<number> {

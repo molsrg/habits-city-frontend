@@ -10,6 +10,18 @@
       "public info": "Публичная информация",
       "stats": "Статистика"
     },
+    "social-networks": {
+      "yandex": {
+        "tooltip": "Подключить Яндекс",
+        "tooltipHasSocial": "Яндекс уже привязан",
+        "label": "Яндекс"
+      },
+      "google": {
+        "tooltip": "Подключить Google",
+        "tooltipHasSocial": "Google уже привязан",
+        "label": "Google"
+      }
+    },
     "language": "Выберите язык",
     "settings-option": {
       "nav": {
