@@ -1,3 +1,23 @@
+import withNuxt from './.nuxt/eslint.config.mjs';
+
+export default withNuxt({
+  files: ['**/*.ts', '**/*.vue'],
+  rules: {
+    'no-console': 'warn',
+    'no-debugger': 'warn',
+    'vue/no-unused-vars': 'warn',
+
+
+    'vue/attributes-order': [
+      'warn',
+      {
+        alphabetical: true,
+      },
+    ],
+  },
+});
+
+
 // import eslintPluginPrettier from 'eslint-plugin-prettier';
 // import eslintPluginSimpleImportSort from 'eslint-plugin-simple-import-sort';
 //
