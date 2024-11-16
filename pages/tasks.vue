@@ -1,5 +1,4 @@
 <script setup>
-import { reactive } from 'vue';
 import draggable from 'vuedraggable';
 
 const tasks = reactive({

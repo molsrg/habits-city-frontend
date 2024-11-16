@@ -11,10 +11,7 @@ const props = defineProps<{
   color: string;
 }>();
 
-const emit = defineEmits<{
-  (event: 'upload:file', file: File): void;
-}>();
-
+const emit = defineEmits(['upload:file']);
 const validTypes = {
   img: ['image/jpeg', 'image/png', 'image/gif'],
   file: ['application/pdf', 'application/docx'],

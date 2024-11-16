@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { defineEmits, defineProps } from 'vue';
 
 const props = defineProps({
   content: {
@@ -8,9 +7,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits<{
-  (event: 'update:status', updatedContent: number): void;
-}>();
+defineEmits(['update:status']);
 
 const toggleCompleted = () => {
   emit('update:status', props.content.id);
