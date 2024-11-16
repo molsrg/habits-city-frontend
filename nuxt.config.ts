@@ -25,7 +25,6 @@ export default defineNuxtConfig({
     'nuxt-primevue',
     '@pinia-plugin-persistedstate/nuxt',
     '@nuxtjs/i18n',
-    '@nuxt/eslint',
   ],
   i18n: {
     vueI18n: './plugins/i18n.config.ts',
