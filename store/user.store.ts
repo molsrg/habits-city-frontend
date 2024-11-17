@@ -36,22 +36,17 @@ export const useUserStore = defineStore('userStore', {
     },
 
     async changeUserInfo(userInfo: object): Promise<void> {
-      try {
-        const payload: Record<string, unknown> = {};
-        if (userInfo.username !== undefined) {
-          payload.newUsername = userInfo.username;
-        }
-
-        if (userInfo.bio !== undefined) {
-          payload.newBio = userInfo.bio;
-        }
-
-        await userService.post(endPoints.user.changeInfo, payload);
-        await this.fetchUserInfo();
-        return true;
-      } catch (error) {
-        console.log(error.response?.data || error);
+      const payload: Record<string, unknown> = {};
+      if (userInfo.username !== undefined) {
+        payload.newUsername = userInfo.username;
       }
+
+      if (userInfo.bio !== undefined) {
+        payload.newBio = userInfo.bio;
+      }
+
+      await userService.post(endPoints.user.changeInfo, payload);
+      await this.fetchUserInfo();
     },
 
     async changeUserPassword(userInfo: object): Promise<number> {
@@ -70,17 +65,14 @@ export const useUserStore = defineStore('userStore', {
         navigateTo('/auth/login');
 
         statusCode = data.statusCode;
-
       } catch (error) {
         if (error.response && error.response.status) {
           statusCode = error.response.status;
         }
-
       } finally {
         return statusCode;
       }
     },
-
 
     async uploadNewAvatar(payload: File): Promise<void> {
       try {
@@ -90,18 +82,15 @@ export const useUserStore = defineStore('userStore', {
         const { data } = await userService.postFormData('/user/changeAvatar', formData);
         this.userInfo.avatar = data.url;
         return true;
-
       } catch (e) {
         console.log(e);
         return false;
       }
     },
 
-
     async deleteAccount(userInfo: string): Promise<void> {
       console.log('deleteAccount', userInfo);
     },
-
 
     async sendEmailCode(payload: object): Promise<void> {
       try {

@@ -16,11 +16,28 @@ class ApiService {
 
     this.client.interceptors.request.use((config: AxiosRequestConfig) => {
       const tokenStore = useTokenStore();
+      const locale = useNuxtApp().$i18n;
+      console.log(locale.t('nav--layout.friends'));
       if (tokenStore.getToken) {
         config.headers.Authorization = `Bearer ${tokenStore.getToken}`;
       }
       return config;
     });
+
+    this.client.interceptors.response.use(
+      (response) => {
+        if (response.config.method === 'post') {
+          const toast = useToast();
+          toast.add({ color: 'green', title: response.data.status });
+        }
+        return response;
+      },
+      (error) => {
+        const toast = useToast();
+        toast.add({ color: 'red', title: error.response.data.message });
+        return Promise.reject(error.response.data);
+      },
+    );
   }
 
   async get<T>(url: string, params: Record<string, any> = {}): Promise<AxiosResponse<T>> {

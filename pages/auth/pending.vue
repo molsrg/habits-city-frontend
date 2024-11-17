@@ -35,11 +35,10 @@ if (accessTokenYandex) {
 if (import.meta.client && accessToken) {
   await authStore.oAuthUser(accessToken);
 }
-const props = defineProps({
+defineProps({
   error: Object as () => NuxtError,
 });
 const handleError = () => clearError({ redirect: '/auth/login' });
-
 
 // Переопределение метода console.warn
 const originalWarn = console.warn;
@@ -58,12 +57,7 @@ console.warn = (message, ...args) => {
     </div>
     <div v-else class="pending-error">
       <h3 class="text-xl">{{ appStore.errorOAuthText }}</h3>
-      <UButton
-        color="white"
-        variant="solid"
-        @click="handleError"
-      >{{ $t('page--pending.go-back-login') }}
-      </UButton>
+      <UButton color="white" variant="solid" @click="handleError">{{ $t('page--pending.go-back-login') }} </UButton>
     </div>
   </div>
 </template>

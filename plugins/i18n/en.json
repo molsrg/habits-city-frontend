@@ -1,21 +1,33 @@
 {
   "page--index": {
-    "badge": "The compiler is the programmer's best friend: it will never tell you that you are a genius, but it will always show you where you made a mistake"
+    "badge": "The compiler is the programmer's best friend: it will never tell you that you're a genius, but it will always show you where you made a mistake"
   },
   "page--profile": {
     "title": "Welcome to your profile!",
-    "subtitle": "Your account is already set up, but you can customize it",
+    "subtitle": "Your account is ready, but you can customize it",
     "nav": {
       "settings": "Settings",
-      "public info": "Public Information",
+      "public info": "Public Info",
       "stats": "Statistics"
     },
-    "language": "Select language",
+    "social-networks": {
+      "yandex": {
+        "tooltip": "Connect Yandex",
+        "tooltipHasSocial": "Yandex is already linked",
+        "label": "Yandex"
+      },
+      "google": {
+        "tooltip": "Connect Google",
+        "tooltipHasSocial": "Google is already linked",
+        "label": "Google"
+      }
+    },
+    "language": "Select Language",
     "settings-option": {
       "nav": {
         "account": {
           "label": "Account",
-          "description": "Make changes here. Click 'Save' when you're done."
+          "description": "Make changes here. Click 'Save' when done."
         },
         "password": {
           "label": "Password",
@@ -24,7 +36,7 @@
       },
       "bio": {
         "label": "BIO",
-        "description": "Short information about you",
+        "description": "Brief information about you",
         "placeholder": "Enter bio"
       },
       "username": {
@@ -46,7 +58,7 @@
         "description": "Enter a strong password",
         "placeholder": "Enter new password"
       },
-      "upload-avatar": "Upload avatar"
+      "upload-avatar": "Upload Avatar"
     },
     "nav-item": {},
     "link-email": "Link Email",
@@ -56,9 +68,9 @@
     "delete-account": "Delete Account"
   },
   "page--login": {
-    "title": "Login",
+    "title": "Log In",
     "subtitle": "Enter your credentials to access your account",
-    "no-account": "Don't have an account yet?",
+    "no-account": "Don't have an account?",
     "enter-password": "Enter password",
     "enter-username": "Enter username"
   },
@@ -68,19 +80,22 @@
     "have-account": "Already have an account?",
     "enter-password": "Enter password",
     "enter-username": "Enter username",
-    "button": "Register"
+    "button": "Sign Up"
   },
   "layout--default": {
     "label": {
       "registration": "Registration",
-      "login": "Login",
+      "login": "Log In",
       "faq": "Frequently Asked Questions",
       "home": "Home Page"
     }
   },
   "notifications": {
-    "save-access": "Save access to data",
-    "save-error": "Data save error"
+    "save-access": "Data saved successfully",
+    "save-error": "Data saving error",
+    "errors": {
+      "400": "Bad Request"
+    }
   },
   "alerts": {
     "errors": {
@@ -105,11 +120,11 @@
   },
   "nav--layout": {
     "friends": "Friends",
-    "logout": "Logout",
+    "logout": "Log Out",
     "tasks": "Tasks",
     "home-page": "Home Page",
-    "login": "Login",
-    "registration": "Registration"
+    "login": "Log In",
+    "registration": "Sign Up"
   },
   "modal": {
     "link-email": {
@@ -123,7 +138,7 @@
   },
   "page--pending": {
     "go-back-login": "Go back to login",
-    "wait-for-authorization": "Wait for authorization!"
+    "wait-for-authorization": "Please wait for authorization!"
   },
   "stepper": {
     "prev": "Back",

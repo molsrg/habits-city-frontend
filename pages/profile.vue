@@ -1,16 +1,17 @@
 <script lang="ts" setup>
-
 import GitHubActivity from '@/components/charts/GitHubActivity.vue';
 import DeleteAccount from '@/components/modal/DeleteAccount.vue';
 import LinkEmail from '@/components/modal/LinkEmail.vue';
+import { useNavigationLinks } from '@/configs/profileSettingsLink.ts';
 import { ModalName } from '@/constants/modalName';
 import { modalService } from '@/services/modal.service';
+import { useApiStore } from '@/store/api.store';
 import { useUserStore } from '@/store/user.store';
+import { debounce } from '@/utils/debounce';
 
 const { t } = useI18n();
 const userStore = useUserStore();
-const toast = useToast();
-
+const apiStore = useApiStore();
 definePageMeta({ middleware: ['auth'] });
 const title = computed(() => `HS | ${t('nav--layout.friends')}`);
 
@@ -18,83 +19,41 @@ useHead({
   title,
 });
 
-const userInfo = computed(() => ({
-  username: userStore.getUserInfo.username,
-  email: userStore.getUserInfo.email,
-  bio: userStore.getUserInfo.bio,
-  avatar: userStore.getUserInfo.avatar,
-  isYandex: userStore.getUserInfo.isYandex,
-  isGoogle: userStore.getUserInfo.isGoogle,
-}));
+// Link navigation
+const { formattedLinks, activeLink } = useNavigationLinks();
 
-const activeLink = ref('Settings');
-
-const changeLink = (link: string) => {
-  activeLink.value = link;
-};
-
-const links = [
-  { label: 'Settings', click: () => changeLink('Settings') },
-  { label: 'Stats', click: () => changeLink('Stats') },
-  { label: 'Public info', click: () => changeLink('Public info') },
-
-];
-
-const formattedLinks = computed(() =>
-  links.map(link => ({
-    ...link,
-    label: t(`page--profile.nav.${link.label.toLowerCase()}`),
-    active: activeLink.value === link.label,
-  })),
-);
-
-const activeIcon = computed(() => {
-  switch (activeLink.value) {
-    case 'Settings':
-      return 'i-heroicons-cog-6-tooth';
-    case 'Stats':
-      return 'i-heroicons-chart-bar';
-    default:
-      return 'i-heroicons-user-circle';
-  }
-});
-
-const activeLabel = computed(() => t(`page--profile.nav.${activeLink.value.toLowerCase()}`));
-
+// Actions
 const saveUserData = async (payload): Promise<void> => {
-  const res = await userStore.changeUserInfo(payload);
-  const notification = res
-    ? { color: 'green', title: t('notifications.save-access') }
-    : { color: 'red', title: t('notifications.save-error') };
-
-  toast.add({ ...notification, timeout: 2000 });
+  await userStore.changeUserInfo(payload);
 };
 
 const updateUserPassword = async (payload): Promise<void> => {
-  const res = await userStore.changeUserPassword(payload);
-  console.log(res);
-  const notification = res
-    ? { color: 'green', title: t('notifications.save-access') }
-    : { color: 'red', title: t('notifications.save-error') };
-
-  toast.add({ ...notification, timeout: 2000 });
+  await userStore.changeUserPassword(payload);
 };
 
 const uploadNewAvatar = async (payload): Promise<void> => {
-  const res = await userStore.uploadNewAvatar(payload);
-  const notification = res
-    ? { color: 'green', title: t('notifications.save-access') }
-    : { color: 'red', title: t('notifications.save-error') };
-
-  toast.add({ ...notification, timeout: 2000 });
+  await userStore.uploadNewAvatar(payload);
 };
 
+const checkUsername = debounce(async (newUsername: string) => {
+  await apiStore.existUsername(newUsername);
+}, 300);
+
+const linkSocialNetwork = async (payload): Promise<void> => {
+  console.log(payload.key);
+};
+
+// Open modals
 const linkNewEmail = () => {
   modalService.open(ModalName.LinkEmail);
 };
 
 const updateEmail = () => {
   modalService.open(ModalName.LinkEmail);
+};
+
+const deleteAccount = () => {
+  modalService.open(ModalName.DeleteAccount);
 };
 </script>
 
@@ -116,34 +75,33 @@ const updateEmail = () => {
           font: 'text-lg',
           ring: '',
           active: 'text-primary-500 dark:text-primary-400 border-current font-semibold',
-          inactive: 'border-transparent hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300'
+          inactive:
+            'border-transparent hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300',
         }"
         style="height: fit-content"
       />
       <div class="profile__options">
-        <!--        <div class="profile__options-header">-->
-        <!--          <UIcon :name="activeIcon" />-->
-        <!--          <h2>{{ activeLabel }}</h2>-->
-        <!--        </div>-->
-
         <ProfileSetting
           v-if="activeLink === 'Settings'"
-          :user-info="userInfo"
+          :user-info="userStore.getUserInfo"
           @update:user-password="updateUserPassword"
           @new:avatar="uploadNewAvatar"
           @update:user-account="saveUserData"
           @link:email="linkNewEmail"
-          @update:email="updateEmail" />
+          @update:email="updateEmail"
+          @delete:account="deleteAccount"
+          @check:username="checkUsername"
+          @link:social="linkSocialNetwork"
+        />
 
         <GitHubActivity v-if="activeLink === 'Stats'" />
       </div>
     </div>
 
-    <DeleteAccount :username="userInfo.username" />
+    <DeleteAccount :username="userStore.getUserInfo.username" />
     <LinkEmail />
   </div>
 </template>
-
 
 <style lang="scss" scoped>
 .profile {

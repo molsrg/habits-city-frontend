@@ -1,11 +1,6 @@
 <script lang="ts" setup>
-
-import { debounce } from '@/utils/debounce';
 import { useAccountForm, useAccountSocialNetworks, useAccountTabsForm } from '@/configs/accountForm.ts';
-import { ModalName } from '@/constants/modalName';
-import { modalService } from '@/services/modal.service';
 import { useApiStore } from '@/store/api.store';
-
 
 const { t } = useI18n();
 const apiStore = useApiStore();
@@ -21,8 +16,17 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['update:user-account', 'new:avatar', 'update:user-password', 'link:email', 'update:email']);
+const emit = defineEmits([
+  'update:user-account',
+  'new:avatar',
+  'update:user-password',
+  'link:email',
+  'delete:account',
+  'check:username',
+  'link:social',
+]);
 
+// Reactive tabs settings
 const selectedTabs = ref(0);
 const activeFields = computed(() => {
   const activeTab = tabs.value[selectedTabs.value];
@@ -43,11 +47,8 @@ const accountFormField = reactive({
   new_password: undefined,
 });
 
-
 const accountErrors = computed(() => ({
-  bio: accountFormField.bio !== undefined && accountFormField.bio.length === 0
-    ? t('alerts.errors.bio.empty')
-    : '',
+  bio: accountFormField.bio !== undefined && accountFormField.bio.length === 0 ? t('alerts.errors.bio.empty') : '',
 
   username: apiStore.getIsValidUsername
     ? t('alerts.errors.username.taken')
@@ -55,9 +56,7 @@ const accountErrors = computed(() => ({
       ? t('alerts.errors.username.empty')
       : '',
 
-  password: accountFormField.password !== undefined && accountFormField.password.length === 0
-    ? t('alerts.errors.password.empty')
-    : null,
+  password: accountFormField.password !== undefined && accountFormField.password.length === 0 ? t('alerts.errors.password.empty') : null,
 
   new_password: (() => {
     const field = accountFormField.new_password;
@@ -77,48 +76,12 @@ const accountErrors = computed(() => ({
 const hasErrors = (fields) => {
   if (!Array.isArray(fields)) return false;
 
-  const changedFields = fields.filter(field => accountFormField[field] !== props.userInfo[field]);
+  const changedFields = fields.filter((field) => accountFormField[field] !== props.userInfo[field]);
   if (changedFields.length === 0) return true;
-  return changedFields.some(field => accountErrors.value[field]);
-
+  return changedFields.some((field) => accountErrors.value[field]);
 };
 
-
-const checkUsername = debounce(async (newUsername: string) => {
-  await apiStore.existUsername(newUsername);
-}, 300);
-
-watchEffect(() => {
-  if (props.userInfo.username !== accountFormField.username) {
-    checkUsername(accountFormField.username);
-  }
-});
-
-const getClickHandler = (action) => {
-  switch (action) {
-    case 'saveAccount':
-      return saveAccountUser();
-    case 'savePassword':
-      return savePasswordUser();
-    case 'deleteAccount':
-      return deleteAccount();
-    case 'linkEmail':
-      emit('link:email');
-      return;
-    case 'changeEmail':
-      emit('update:email');
-      return;
-    case 'linkYandex':
-      console.log('linkYandex');
-      return;
-    case 'linkGoogle':
-      console.log('linkGoogle');
-      return;
-    default:
-      return null;
-  }
-};
-
+// Actions
 const saveAccountUser = () => {
   const updatedData = ['bio', 'username'].reduce((acc, field) => {
     if (accountFormField[field] !== props.userInfo[field]) {
@@ -141,31 +104,52 @@ const savePasswordUser = () => {
   emit('update:user-password', updatedData);
 };
 
-const deleteAccount = () => {
-  modalService.open(ModalName.DeleteAccount);
-};
+watchEffect(() => {
+  if (props.userInfo.username !== accountFormField.username) {
+    emit('check:username', accountFormField.username);
+  }
+});
 
-
+// Link Social Networks
 const socialNetworkButtons = computed(() => {
   return socialNetworks.value.map((network) => {
-    const isLinked = network.key === 'yandex' ? props.userInfo.isYandex : props.userInfo.isGoogle;
-
+    const isLinked = props.userInfo[network.linkedKey];
     return {
       ...network,
       disabled: isLinked,
       tooltip: isLinked ? network.tooltipHasSocial : network.tooltip,
       color: isLinked ? network.colorHasSocial : network.color,
-      variant: 'soft',
-      size: 'lg',
     };
   });
 });
 
-
+// Click handler configs
+const getClickHandler = (button) => {
+  switch (button.action) {
+    case 'saveAccount':
+      return saveAccountUser();
+    case 'savePassword':
+      return savePasswordUser();
+    case 'deleteAccount':
+      emit('delete:account');
+      return;
+    case 'linkEmail':
+      emit('link:email');
+      return;
+    case 'linkYandex':
+      emit('link:social', button);
+      return;
+    case 'linkGoogle':
+      emit('link:social', button);
+      return;
+    default:
+      return null;
+  }
+};
 </script>
 
 <template>
-  <UTabs v-model="selectedTabs" class="w-full" :items="tabs">
+  <UTabs v-model="selectedTabs" :items="tabs" class="w-full">
     <template #item="{ item }">
       <UCard>
         <template #header>
@@ -177,25 +161,19 @@ const socialNetworkButtons = computed(() => {
           </p>
         </template>
         <div v-if="item.key === 'account'" class="space-y-3">
-          <div class="self-start flex items-center gap-5 flex-wrap">
-            <UAvatar
-              :alt="userInfo.username || '' "
-              size="3xl"
-              :src="userInfo.avatar || ''"
-            />
+          <div class="flex flex-wrap items-center gap-5 self-start">
+            <UAvatar :alt="userInfo.username || ''" :src="userInfo.avatar || ''" size="3xl" />
             <InputFileUpload
+              :label="$t('page--profile.settings-option.upload-avatar')"
               color="primary"
               file-type="img"
               icon="i-heroicons-user-circle"
-              :label="$t('page--profile.settings-option.upload-avatar')"
               size="md"
               variant="soft"
-
-              @upload:file="$emit('new:avatar', $event)" />
+              @upload:file="$emit('new:avatar', $event)"
+            />
           </div>
-          <div
-            v-for="(field, key) in activeFields"
-            :key="key">
+          <div v-for="(field, key) in activeFields" :key="key">
             <ProfileInputItem
               v-model="accountFormField[key]"
               :actions="field.actions"
@@ -208,22 +186,11 @@ const socialNetworkButtons = computed(() => {
               :required="field.required"
               @handle:action="getClickHandler"
             />
-
-
           </div>
 
           <div class="flex gap-2">
-            <UTooltip
-              v-for="button in socialNetworkButtons"
-              :key="button.key"
-              :text="button.tooltip"
-              @click="getClickHandler(button.action)">
-              <UButton
-                :color="button.color"
-                :disabled="button.disabled"
-                :label="button.label"
-                :variant="button.variant"
-              >
+            <UTooltip v-for="button in socialNetworkButtons" :key="button.key" :text="button.tooltip" @click="getClickHandler(button)">
+              <UButton :color="button.color" :disabled="button.disabled" :label="button.label" :variant="button.variant">
                 <Icon :name="button.icon" />
               </UButton>
             </UTooltip>
@@ -232,11 +199,8 @@ const socialNetworkButtons = computed(() => {
               label="Button"
               size="sm"
               style="display: none"
-              variant="soft"
-            />
-
+              variant="soft" />
           </div>
-
         </div>
         <div v-else-if="item.key === 'password'" class="space-y-3">
           <ProfileInputItem
@@ -261,9 +225,8 @@ const socialNetworkButtons = computed(() => {
               :icon="button.icon"
               :label="button.label"
               :variant="button.variant"
-              @click="getClickHandler(button.action)"
+              @click="getClickHandler(button)"
             />
-
           </div>
         </template>
       </UCard>

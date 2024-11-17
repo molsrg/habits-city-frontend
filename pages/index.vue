@@ -16,7 +16,7 @@ definePageMeta({
         </div>
       </UContainer>
     </div>
-    <UAccordion :items="faqOptions" />
+    <!--    <UAccordion :items="faqOptions" />-->
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import AlertApp from '@/components/alerts/AlertApp.vue';
 
-const props = defineProps({
+defineProps({
   label: {
     type: String,
     default: '',
@@ -15,8 +15,8 @@ const props = defineProps({
     default: '',
   },
   actions: {
-    type: Object, default: () => {
-    },
+    type: Object,
+    default: () => {},
   },
   placeholder: {
     type: String,
@@ -40,7 +40,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['update:modelValue', 'handle:action']);
+defineEmits(['update:modelValue', 'handle:action']);
 </script>
 
 <template>
@@ -57,7 +57,7 @@ const emit = defineEmits(['update:modelValue', 'handle:action']);
           :label="button.label"
           :size="button.size"
           :variant="button.variant"
-          @click="$emit('handle:action',button.action)"
+          @click="$emit('handle:action', button)"
         />
       </ul>
     </div>
@@ -75,11 +75,9 @@ const emit = defineEmits(['update:modelValue', 'handle:action']);
       :is-visible="!!errors"
       :label="errors"
       class="input-container__alert"
-      type="error"
-    />
+      type="error" />
   </div>
 </template>
-
 
 <style lang="scss" scoped>
 .input-container {
@@ -87,7 +85,6 @@ const emit = defineEmits(['update:modelValue', 'handle:action']);
   flex-direction: column;
   gap: 5px;
   width: 100%;
-  //padding: 5px 10px;
 
   &__header {
     display: flex;
@@ -97,14 +94,12 @@ const emit = defineEmits(['update:modelValue', 'handle:action']);
 
   &__label {
     font-size: 14px;
-    //font-weight: bolder;
   }
 
   &__description {
     font-size: 12px;
     color: #6b7280;
   }
-
 
   &__alert {
     margin-left: 15px;

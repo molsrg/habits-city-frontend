@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import LogInWithPhone from '@/components/modal/LogInWithPhone.vue';
 import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';
 import getGoogleURL from '@/utils/getGoogleURL';
@@ -25,13 +24,16 @@ const userData = reactive({
   password: '',
 });
 
-const logInUser = () => {
-  authStore.logInWithPassword(userData);
+const hasError = ref(false);
+
+// Actions
+const logInUser = async () => {
+  const res = await authStore.logInWithPassword(userData);
+  hasError.value = !res;
 };
 
-// TODO: make it a constant
 const logInUserWithYandex = () => {
-  window.location.href = `https://oauth.yandex.ru/authorize?response_type=token&client_id=${config.public.clientIdYandex}`;
+  window.location.href = config.public.clientIdYandex;
 };
 
 const logInUserWithGoogle = () => {
@@ -40,25 +42,17 @@ const logInUserWithGoogle = () => {
 
 const pushToRegPage = () => {
   const router = useRouter();
-  appStore.sendErrorLogInText('');
   router.push('/auth/registration');
 };
 </script>
 
-
 <template>
   <div class="auth">
-    <LogInWithPhone />
-    <div class="auth-form">
+    <div :class="[hasError ? 'auth-form--error' : '']" class="auth-form">
       <UCard>
         <template #header>
           <div class="flex items-center justify-between">
-            <UButton
-              :label="$t('page--login.no-account')"
-              color="primary"
-              variant="link"
-              @click="pushToRegPage"
-            />
+            <UButton :label="$t('page--login.no-account')" color="primary" variant="link" @click="pushToRegPage" />
             <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
               {{ $t('page--login.title') }}
             </h3>
@@ -80,16 +74,6 @@ const pushToRegPage = () => {
             name="username"
             type="password"
           />
-
-          <div class="auth-form-error">
-            <UBadge
-              v-if="appStore.errorLogInText"
-              :label="appStore.errorLogInText"
-              color="red"
-              size="xs"
-              variant="subtle"
-            />
-          </div>
         </div>
 
         <UButton
@@ -122,14 +106,13 @@ const pushToRegPage = () => {
   </div>
 </template>
 
-
 <style lang="scss" scoped>
 .auth {
   margin-top: 17vh;
 }
 
 .auth-form {
-  width: 350px;
+  width: 370px;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid rgb(var(--color-primary-400));
@@ -161,7 +144,7 @@ const pushToRegPage = () => {
 
 .auth-btn--login {
   display: flex;
-  margin: 8px auto 10px;
+  margin: 12px auto 10px;
 }
 
 .auth-btn--flex {

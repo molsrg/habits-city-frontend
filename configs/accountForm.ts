@@ -39,7 +39,7 @@ export const useAccountForm = () => {
         //   color: 'primary',
         //   size: '2xs',
         //   variant: 'soft',
-        //   action: 'changeEmail',
+        //   action: 'linkEmail',
         //   condition: false,
         // },
       },
@@ -108,17 +108,18 @@ export const useAccountTabsForm = () => {
   ]);
 };
 
-
 export const useAccountSocialNetworks = () => {
   const { t } = useI18n();
 
   return computed(() => [
     {
       key: 'yandex',
+      linkedKey: 'isYandex',
       label: t('page--profile.social-networks.yandex.label'),
       color: 'blue',
       colorHasSocial: 'green',
       variant: 'soft',
+      size: 'lg',
       action: 'linkYandex',
       tooltipHasSocial: t('page--profile.social-networks.yandex.tooltipHasSocial'),
       tooltip: t('page--profile.social-networks.yandex.tooltip'),
@@ -126,10 +127,12 @@ export const useAccountSocialNetworks = () => {
     },
     {
       key: 'google',
+      linkedKey: 'isGoogle',
       label: t('page--profile.social-networks.google.label'),
       color: 'blue',
       colorHasSocial: 'green',
       variant: 'soft',
+      size: 'lg',
       action: 'linkGoogle',
       tooltipHasSocial: t('page--profile.social-networks.google.tooltipHasSocial'),
       tooltip: t('page--profile.social-networks.google.tooltip'),

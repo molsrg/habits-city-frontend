@@ -14,6 +14,7 @@ useHead({
   title,
 });
 
+const config = useRuntimeConfig();
 const authStore = useAuthStore();
 const appStore = useAppStore();
 appStore.$reset();
@@ -23,16 +24,15 @@ const userData = reactive({
   password: '',
 });
 
-const loadingData = ref(false);
+const hasError = ref(false);
 
-const registerUser = () => {
-  authStore.createUser(userData);
-  loadingData.value = true;
+// Actions
+const registerUser = async () => {
+  const res = await authStore.createUser(userData);
+  hasError.value = !res;
 };
-
 const RegUserWithYandex = () => {
-  const config = useRuntimeConfig();
-  window.location.href = `https://oauth.yandex.ru/authorize?response_type=token&client_id=${config.public.clientIdYandex}`;
+  window.location.href = config.public.clientIdYandex;
 };
 
 const RegUserWithGoogle = () => {
@@ -40,25 +40,19 @@ const RegUserWithGoogle = () => {
 };
 const pushToLogInPage = () => {
   const router = useRouter();
-  appStore.sendErrorRegText('');
   router.push('/auth/login');
 };
 </script>
 <template>
   <div class="auth">
-    <div :class="[appStore.errorRegText ? 'auth-form--error' : '']" class="auth-form">
+    <div :class="[hasError ? 'auth-form--error' : '']" class="auth-form">
       <UCard>
         <template #header>
           <div class="flex items-center justify-between">
             <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
               {{ $t('page--registration.title') }}
             </h3>
-            <UButton
-              :label="$t('page--registration.have-account')"
-              color="primary"
-              variant="link"
-              @click="pushToLogInPage"
-            />
+            <UButton :label="$t('page--registration.have-account')" color="primary" variant="link" @click="pushToLogInPage" />
           </div>
           <span class="auth-form-subtitle"> {{ $t('page--registration.subtitle') }}</span>
         </template>
@@ -77,16 +71,6 @@ const pushToLogInPage = () => {
             name="username"
             type="password"
           />
-
-          <div class="auth-form-error">
-            <UBadge
-              v-if="appStore.errorRegText"
-              :label="appStore.errorRegText"
-              color="red"
-              size="xs"
-              variant="subtle"
-            />
-          </div>
         </div>
 
         <UButton
@@ -119,14 +103,13 @@ const pushToLogInPage = () => {
   </div>
 </template>
 
-
-<style scoped>
+<style lang="scss" scoped>
 .auth {
   margin-top: 17vh;
 }
 
 .auth-form {
-  width: 350px;
+  width: 370px;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid rgb(var(--color-primary-400));
@@ -158,7 +141,7 @@ const pushToLogInPage = () => {
 
 .auth-btn--reg {
   display: flex;
-  margin: 8px auto 10px;
+  margin: 12px auto 10px;
 }
 
 .auth-btn--flex {

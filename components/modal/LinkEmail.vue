@@ -12,7 +12,7 @@ const formConfig = useLinkEmailForm();
 const totalSteps = Object.keys(formConfig.value.stepper.steps).length;
 const userStore = useUserStore();
 const stepTitles = computed(() => {
-  return Object.values(formConfig.value.stepper.steps).map(step => step.title);
+  return Object.values(formConfig.value.stepper.steps).map((step) => step.title);
 });
 
 const getClickHandler = (action) => {
@@ -46,6 +46,7 @@ const validateEmail = () => {
     errorsEmail.value.push(t('alerts.errors.email.invalid'));
   }
 };
+
 watch(newEmail, validateEmail);
 
 const isNextButtonDisabled = computed(() => {
@@ -53,32 +54,34 @@ const isNextButtonDisabled = computed(() => {
 });
 
 const nextStep = async () => {
-  if (currentStep.value === 0) {
-    isSendEmail.value = true;
-    const result = await userStore.sendEmailCode({ email: newEmail.value });
-    if (result) {
-      errorsEmail.value.push(result);
-    }
-  }
-  if (currentStep.value === 1) {
-    await userStore.verifyEmailCode({ code: verifyCode.value });
-  }
+  if (currentStep.value === 0) await handleEmailStep();
+  else if (currentStep.value === 1) await handleVerificationStep();
 
-  if (currentStep.value < totalSteps - 1) {
-    if (errorsEmail.value.length === 0)
-      currentStep.value++;
-    isSendEmail.value = false;
+  if (currentStep.value < totalSteps - 1 && errorsEmail.value.length === 0) {
+    currentStep.value++;
+  }
+  isSendEmail.value = false;
+};
+
+const handleEmailStep = async () => {
+  isSendEmail.value = true;
+  const result = await userStore.sendEmailCode({ email: newEmail.value });
+  if (result) {
+    errorsEmail.value.push(result);
   }
 };
-</script>
 
+const handleVerificationStep = async () => {
+  await userStore.verifyEmailCode({ code: verifyCode.value });
+};
+</script>
 
 <template>
   <UModal v-model="isOpenModal">
     <UCard
       :ui="{
         ring: '',
-        divide: 'divide-y divide-gray-100 dark:divide-gray-800'
+        divide: 'divide-y divide-gray-100 dark:divide-gray-800',
       }"
     >
       <template #header>
@@ -88,7 +91,7 @@ const nextStep = async () => {
               <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
                 {{ formConfig.title }}
               </h3>
-              <p class="text-sm text-gray-500 mb-4">
+              <p class="mb-4 text-sm text-gray-500">
                 {{ formConfig.description }}
               </p>
             </div>
@@ -97,23 +100,22 @@ const nextStep = async () => {
               color="gray"
               icon="i-heroicons-x-mark-20-solid"
               variant="ghost"
-              @click="modalService.close(ModalName.LinkEmail)"
-            />
+              @click="modalService.close(ModalName.LinkEmail)" />
           </div>
           <StepperProgressBar :current-step="currentStep" :steps="stepTitles" />
         </div>
       </template>
 
-      <div class="flex align-center justify-center">
+      <div class="align-center flex justify-center">
         <ProfileInputItem
-          v-if="currentStep=== 0"
+          v-if="currentStep === 0"
           v-model="newEmail"
           :errors="errorsEmail[0]"
           :placeholder="t('modal.link-email.steppers.enter-email')"
-          style="width:60%" />
-        <InputOtp v-if="currentStep=== 1" v-model="verifyCode" :length="6" integer-only />
+          style="width: 60%"
+        />
+        <InputOtp v-if="currentStep === 1" v-model="verifyCode" :length="6" integer-only />
       </div>
-
 
       <template #footer>
         <div class="flex justify-between">
@@ -131,5 +133,3 @@ const nextStep = async () => {
     </UCard>
   </UModal>
 </template>
-
-

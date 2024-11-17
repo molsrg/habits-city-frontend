@@ -7,26 +7,12 @@ import { useTokenStore } from '@/store/token.store';
 
 export const useAuthStore = defineStore('authStore', {
   persist: true,
-  state: () => ({
-    logInWithOTPCode: '',
-    phoneNumber: '',
-  }),
-  getters: {
-    getOTPCodeLogin(state): string {
-      return state.logInWithOTPCode;
-    },
-    getUserPhone(state): string {
-      return state.phoneNumber;
-    },
-  },
+  state: () => ({}),
+  getters: {},
   actions: {
     async createUser(userData: object): Promise<void> {
-      const appStore = useAppStore();
       const tokenStore = useTokenStore();
       const router = useRouter();
-
-      appStore.sendErrorRegText('');
-      appStore.toggleLoadingReg();
 
       try {
         const { data } = await authService.post(endPoints.auth.registration, userData);
@@ -34,37 +20,28 @@ export const useAuthStore = defineStore('authStore', {
         if (data?.AccessToken) {
           sessionStorage.setItem('AccessToken', data.AccessToken);
           tokenStore.setToken(data);
-          router.push('/profile');
-        } else {
-          throw new Error('Token not received');
+          await router.push('/profile');
         }
-      } catch (error) {
-        appStore.sendErrorRegText(error.response?.data?.message || 'Unknown error');
-      } finally {
-        appStore.toggleLoadingReg();
+        return true;
+      } catch (e) {
+        return false;
       }
     },
+
     async logInWithPassword(payload: object): Promise<void> {
-      const appStore = useAppStore();
       const tokenStore = useTokenStore();
       const router = useRouter();
-
-      appStore.toggleLoadingLogIn();
-      appStore.sendErrorLogInText('');
 
       try {
         const { data } = await authService.post(endPoints.auth.login, payload);
         if (data?.AccessToken) {
           sessionStorage.setItem('AccessToken', data.AccessToken);
           tokenStore.setToken(data.AccessToken);
-          router.push('/profile');
-        } else {
-          throw new Error('Token not received');
+          await router.push('/profile');
         }
-      } catch (error) {
-        appStore.sendErrorLogInText(error.response?.data?.message || 'Unknown error');
-      } finally {
-        appStore.toggleLoadingLogIn();
+        return true;
+      } catch (e) {
+        return false;
       }
     },
     async oAuthUser(userToken: { provider: string; code: string }): Promise<void> {
@@ -85,7 +62,6 @@ export const useAuthStore = defineStore('authStore', {
         appStore.sendErrorOAuthText(error?.response?.data?.message || 'Unknown error');
       }
     },
-
 
     // Метод для запроса кода на сервере
     // async logInWithPhoneNumber(userPhone: string) {
