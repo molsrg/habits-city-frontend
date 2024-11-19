@@ -61,16 +61,16 @@ definePageMeta({
         <p class="mt-4 text-xl text-gray-300">{{ $t('page--index.trackDescription') }}</p>
         <div class="mt-10 grid grid-cols-1 gap-10 md:grid-cols-3">
           <div class="rounded-lg bg-[#1f2937] p-6 shadow-lg">
-            <h3 class="text-2xl font-semibold text-[#4ade80]">{{ $t('page--index.createTasks') }}</h3>
-            <p class="mt-4 text-gray-200">{{ $t('page--index.createTasksDescription') }}</p>
+            <h3 class="text-2xl font-semibold text-[#4ade80]">{{ $t('page--index.setGoals') }}</h3>
+            <p class="mt-4 text-gray-200">{{ $t('page--index.setGoalsDescription') }}</p>
           </div>
           <div class="rounded-lg bg-[#1f2937] p-6 shadow-lg">
-            <h3 class="text-2xl font-semibold text-[#4ade80]">{{ $t('page--index.followFriends') }}</h3>
-            <p class="mt-4 text-gray-200">{{ $t('page--index.followFriendsDescription') }}</p>
+            <h3 class="text-2xl font-semibold text-[#4ade80]">{{ $t('page--index.stayMotivated') }}</h3>
+            <p class="mt-4 text-gray-200">{{ $t('page--index.stayMotivatedDescription') }}</p>
           </div>
           <div class="rounded-lg bg-[#1f2937] p-6 shadow-lg">
-            <h3 class="text-2xl font-semibold text-[#4ade80]">{{ $t('page--index.viewReports') }}</h3>
-            <p class="mt-4 text-gray-200">{{ $t('page--index.viewReportsDescription') }}</p>
+            <h3 class="text-2xl font-semibold text-[#4ade80]">{{ $t('page--index.celebrateSuccess') }}</h3>
+            <p class="mt-4 text-gray-200">{{ $t('page--index.celebrateSuccessDescription') }}</p>
           </div>
         </div>
       </section>

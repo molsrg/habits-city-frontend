@@ -18,6 +18,11 @@ const deleteUsernameInput = ref('');
 const isOpenModal = computed(() => {
   return modalService.isOpen(ModalName.DeleteAccount);
 });
+
+const handleDeleteAccount = async () => {
+  await userStore.deleteAccount();
+  modalService.close(ModalName.DeleteAccount);
+};
 </script>
 
 <template>
@@ -56,7 +61,7 @@ const isOpenModal = computed(() => {
           :label="t('modal.delete-account.delete-button')"
           color="red"
           variant="solid"
-          @click="userStore.deleteAccount()"
+          @click="handleDeleteAccount"
         />
       </div>
     </UCard>
