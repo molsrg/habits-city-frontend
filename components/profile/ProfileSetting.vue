@@ -105,7 +105,7 @@ const savePasswordUser = () => {
 };
 
 watchEffect(() => {
-  if (props.userInfo.username !== accountFormField.username) {
+  if (props.userInfo.username !== accountFormField.username && accountFormField.username && props.userInfo.username) {
     emit('check:username', accountFormField.username);
   }
 });

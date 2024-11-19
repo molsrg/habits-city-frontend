@@ -1,6 +1,7 @@
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import axios from 'axios';
 
+import { useLocaleStore } from '@/store/locale.store';
 import { useTokenStore } from '@/store/token.store';
 
 class ApiService {
@@ -16,21 +17,24 @@ class ApiService {
 
     this.client.interceptors.request.use((config: AxiosRequestConfig) => {
       const tokenStore = useTokenStore();
-      const locale = useNuxtApp().$i18n;
-      console.log(locale.t('nav--layout.friends'));
+      const localeStore = useLocaleStore();
+
+      // Устанавливаем локаль из store
+      config.headers['X-Locale-Language'] = localeStore.locale;
       if (tokenStore.getToken) {
         config.headers.Authorization = `Bearer ${tokenStore.getToken}`;
       }
+
       return config;
     });
 
     this.client.interceptors.response.use(
-      (response) => {
-        if (response.config.method === 'post') {
-          const toast = useToast();
-          toast.add({ color: 'green', title: response.data.status });
-        }
-        return response;
+      (response: AxiosResponse) => {
+        // if (response.config.method === 'post') {
+        //   const toast = useToast();
+        //   toast.add({ color: 'green', title: response.data.status });
+        // }
+        return response.data;
       },
       (error) => {
         const toast = useToast();

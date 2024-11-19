@@ -30,25 +30,24 @@ export default defineNuxtConfig({
   i18n: {
     vueI18n: './plugins/i18n.config.ts',
   },
-
   css: ['~/assets/main.css'],
   primevue: {
     components: {
-      include: '*',
-      // include: [
-      //   'Stepper',
-      //   'StepperPanel',
-      //   'InputMask',
-      //   'InputOtp',
-      //   'InputText',
-      //   'FileUpload',
-      //   'Chart',
-      //   'Fieldset',
-      //   'RadioButton',
-      // ],
+      // include: '*',
+      include: [
+        //   'Stepper',
+        //   'StepperPanel',
+        //   'InputMask',
+        'InputOtp',
+        //   'InputText',
+        //   'FileUpload',
+        //   'Chart',
+        //   'Fieldset',
+        //   'RadioButton',
+      ],
     },
     composables: {
-      // include: ['useStyle'],
+      include: ['useStyle'],
       exclude: ['useToast'],
     },
   },

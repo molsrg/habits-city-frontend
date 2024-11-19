@@ -1,3 +1,25 @@
+<script lang="ts" setup>
+import { useI18n } from 'vue-i18n';
+
+import { ModalName } from '@/constants/modalName';
+import { modalService } from '@/services/modal.service';
+import { useUserStore } from '@/store/user.store';
+
+const { t } = useI18n();
+const userStore = useUserStore();
+
+const props = defineProps({
+  username: {
+    type: String,
+    required: true,
+  },
+});
+const deleteUsernameInput = ref('');
+const isOpenModal = computed(() => {
+  return modalService.isOpen(ModalName.DeleteAccount);
+});
+</script>
+
 <template>
   <UModal v-model="isOpenModal" prevent-close>
     <UCard
@@ -8,14 +30,12 @@
     >
       <template #header>
         <div class="flex items-start justify-between">
-          <div class="flex items-start justify-between flex-col">
-            <h3
-              class="text-base font-semibold leading-6 text-gray-900 dark:text-white"
-            >
-              Delete Account
+          <div class="flex flex-col items-start justify-between">
+            <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+              {{ t('modal.delete-account.title') }}
             </h3>
-            <p class="text-sm text-gray-500 mb-4">
-              To delete your account, please enter your username below.
+            <p class="mb-4 text-sm text-gray-500">
+              {{ t('modal.delete-account.description') }}
             </p>
           </div>
 
@@ -29,59 +49,16 @@
         </div>
       </template>
 
-      <div class="delete-form">
-        <InputText
-          v-model="deleteUsernameInput"
-          class="phone-number"
-          placeholder="Input your username"
-          type="text"
-        />
+      <div class="flex flex-col items-center justify-center gap-2">
+        <UInput v-model="deleteUsernameInput" :placeholder="t('modal.delete-account.placeholder')" class="pb-4" type="text" />
         <UButton
           :disabled="deleteUsernameInput !== props.username"
+          :label="t('modal.delete-account.delete-button')"
           color="red"
-          label="Delete Account"
           variant="solid"
-          @click="deleteAccount"
+          @click="userStore.deleteAccount()"
         />
       </div>
     </UCard>
   </UModal>
 </template>
-
-<script lang="ts" setup>
-import { ModalName } from '@/constants/modalName';
-import { modalService } from '@/services/modal.service';
-import { useAppStore } from '@/store/app.store';
-import { useUserStore } from '@/store/user.store';
-
-const appStore = useAppStore();
-const userStore = useUserStore();
-
-const props = defineProps({
-  username: {
-    type: String,
-    required: true,
-  },
-});
-const deleteUsernameInput = ref('');
-const isOpenModal = computed(() => {
-  return modalService.isOpen(ModalName.DeleteAccount);
-});
-
-
-const deleteAccount = () => {
-  userStore.deleteAccount(deleteUsernameInput.value);
-  deleteUsernameInput.value = '';
-  appStore.toggleIsDeleteAccount();
-};
-</script>
-
-<style scoped>
-.delete-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  row-gap: 10px;
-}
-</style>

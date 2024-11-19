@@ -15,11 +15,10 @@ export const useAuthStore = defineStore('authStore', {
       const router = useRouter();
 
       try {
-        const { data } = await authService.post(endPoints.auth.registration, userData);
-
-        if (data?.AccessToken) {
-          sessionStorage.setItem('AccessToken', data.AccessToken);
-          tokenStore.setToken(data);
+        const response = await authService.post(endPoints.auth.registration, userData);
+        if (response?.AccessToken) {
+          sessionStorage.setItem('AccessToken', response.AccessToken);
+          tokenStore.setToken(response.AccessToken);
           await router.push('/profile');
         }
         return true;
@@ -33,10 +32,10 @@ export const useAuthStore = defineStore('authStore', {
       const router = useRouter();
 
       try {
-        const { data } = await authService.post(endPoints.auth.login, payload);
-        if (data?.AccessToken) {
-          sessionStorage.setItem('AccessToken', data.AccessToken);
-          tokenStore.setToken(data.AccessToken);
+        const response = await authService.post(endPoints.auth.login, payload);
+        if (response?.AccessToken) {
+          sessionStorage.setItem('AccessToken', response.AccessToken);
+          tokenStore.setToken(response.AccessToken);
           await router.push('/profile');
         }
         return true;
@@ -50,13 +49,13 @@ export const useAuthStore = defineStore('authStore', {
       const router = useRouter();
 
       try {
-        const { data } = await authService.get(`/auth/${userToken.provider}`, {
+        const response = await authService.get(`/auth/${userToken.provider}`, {
           code: userToken.code,
         });
-
-        sessionStorage.setItem('AccessToken', data.AccessToken);
-        tokenStore.setToken(data.AccessToken);
-        router.push('/profile');
+        sessionStorage.setItem('AccessToken', response.AccessToken);
+        tokenStore.setToken(response.AccessToken);
+        console.log(response.AccessToken);
+        await router.push('/profile');
       } catch (error) {
         console.error('Error fetching token:', error);
         appStore.sendErrorOAuthText(error?.response?.data?.message || 'Unknown error');

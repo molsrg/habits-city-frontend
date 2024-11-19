@@ -1,44 +1,25 @@
 <template>
   <div>
-    <UHorizontalNavigation
-      v-if="isDesktop"
-      :links="links"
-      class="border-b border-gray-200 px-2 dark:border-gray-800 whitespace-nowrap flex-wrap"
-    >
+    <UHorizontalNavigation v-if="isDesktop" :links="links" class="flex-wrap whitespace-nowrap border-b border-gray-200 px-2 dark:border-gray-800">
       <template #default="{ link }">
         <div class="group-hover:text-primary relative flex flex-1 dark:text-white">
           <div class="flex items-center">
             <div v-if="!link.dropdown">{{ link.label }}</div>
             <div v-else>
-              <USelect
-                v-model="currentLanguage"
-                :options="optionsLang"
-                icon="i-heroicons-language-16-solid"
-                variant="none"
-              />
+              <USelect v-model="currentLanguage" :options="optionsLang" icon="i-heroicons-language-16-solid" variant="none" />
             </div>
           </div>
         </div>
       </template>
     </UHorizontalNavigation>
 
-    <UVerticalNavigation
-      v-else
-      :links="links"
-      :ui="{ label: 'hidden' }"
-      class="px-2 pt-2"
-    >
+    <UVerticalNavigation v-else :links="links" :ui="{ label: 'hidden' }" class="px-2 pt-2">
       <template #default="{ link }">
         <div class="group-hover:text-primary relative flex flex-1 dark:text-white">
           <div class="flex items-center">
             <div v-if="!link.dropdown">{{ link.label }}</div>
             <div v-else>
-              <USelect
-                v-model="currentLanguage"
-                :options="optionsLang"
-                icon="i-heroicons-language-16-solid"
-                variant="none"
-              />
+              <USelect v-model="currentLanguage" :options="optionsLang" icon="i-heroicons-language-16-solid" variant="none" />
             </div>
           </div>
         </div>
@@ -54,15 +35,16 @@ import { useRouter } from 'vue-router';
 
 import { useScreenSize } from '@/composables/useScreenSize';
 import { optionsLang } from '@/constants/languageOptions';
+import { useLocaleStore } from '@/store/locale.store';
 import { useTokenStore } from '@/store/token.store';
 import { useUserStore } from '@/store/user.store';
 
-const { t } = useI18n();
+const { t, setLocale } = useI18n();
 
-const { setLocale } = useI18n();
 const { isDesktop } = useScreenSize();
 const tokenStore = useTokenStore();
 const userStore = useUserStore();
+const localeStore = useLocaleStore();
 const router = useRouter();
 
 const user = computed(() => userStore.getUserInfo);
@@ -72,12 +54,14 @@ onMounted(() => {
   if (import.meta.client) {
     const savedLanguage = localStorage.getItem('language') || 'en';
     currentLanguage.value = savedLanguage;
+    localeStore.setLocale(savedLanguage);
     setLocale(savedLanguage);
   }
 });
 
 watch(currentLanguage, (newLang) => {
   localStorage.setItem('language', newLang);
+  localeStore.setLocale(newLang);
   setLocale(newLang);
 });
 
@@ -143,13 +127,9 @@ const authLinks = computed(() =>
       },
       {
         label: user.value.username || 'User',
-        badge: '100',
-        avatar: user.value.avatar
-          ? { src: user.value.avatar }
-          : undefined,
-        icon: user.value.avatar
-          ? undefined
-          : 'i-heroicons-user',
+        badge: user.value.rating || undefined,
+        avatar: user.value.avatar ? { src: user.value.avatar } : undefined,
+        icon: user.value.avatar ? undefined : 'i-heroicons-user',
         to: '/profile',
       },
       {

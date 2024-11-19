@@ -9,5 +9,6 @@ export const endPoints = {
     changePassword: 'user/changePassword',
     sendEmailCode: 'user/sendEmailCode',
     verifyEmailCode: 'user/verifyCode',
+    deleteAccount: 'user/deleteAccount',
   },
 };

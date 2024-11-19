@@ -1,38 +1,39 @@
-export const faqOptions = [
+const { t } = useI18n();
+export const faqOptions = computed(() => [
   {
-    label: 'Как зарегистрироваться на нашей социальной сети?',
-    icon: 'i-heroicons-user-plus',
-    defaultOpen: true,
-    content:
-      'Чтобы зарегистрироваться, нажмите кнопку "Зарегистрироваться" на главной странице и заполните форму регистрации.',
+    label: t('page--index.faq.options.register'),
+    icon: 'i-heroicons-user-circle',
+    content: t('page--index.faq.options.register_content'),
   },
   {
-    label: 'Как добавить друга?',
-    icon: 'i-heroicons-user-add',
-    content: 'Чтобы добавить друга, перейдите на его профиль и нажмите кнопку "Добавить в друзья".',
+    label: t('page--index.faq.options.add_friend'),
+    icon: 'i-heroicons-user',
+    content: t('page--index.faq.options.add_friend_content'),
   },
   {
-    label: 'Как удалить свой аккаунт?',
-    icon: 'i-heroicons-trash',
-    content:
-      'Чтобы удалить свой аккаунт, перейдите в настройки профиля и выберите пункт "Удалить аккаунт".',
+    label: t('page--index.faq.options.modify_account'),
+    icon: 'i-heroicons-cog',
+    content: t('page--index.faq.options.modify_account_content'),
   },
   {
-    label: 'Как создать группу?',
+    label: t('page--index.faq.options.create_group'),
     icon: 'i-heroicons-users',
-    content:
-      'Чтобы создать группу, нажмите кнопку "Создать группу" на главной странице и заполните форму создания группы.',
+    content: t('page--index.faq.options.create_group_content'),
   },
   {
-    label: 'Как изменить свою фотографию профиля?',
+    label: t('page--index.faq.options.change_avatar'),
     icon: 'i-heroicons-camera',
-    content:
-      'Чтобы изменить фотографию профиля, перейдите в настройки профиля и нажмите на вашу текущую фотографию профиля, затем выберите новое изображение.',
+    content: t('page--index.faq.options.change_avatar_content'),
   },
   {
-    label: 'Как связаться с поддержкой?',
-    icon: 'i-heroicons-headphones',
-    content:
-      'Чтобы связаться с поддержкой, напишите нам на электронную почту support@mysocialnetwork.com или воспользуйтесь формой обратной связи на нашем сайте.',
+    label: t('page--index.faq.options.change_password'),
+    icon: 'i-heroicons-lock-closed',
+    content: t('page--index.faq.options.change_password_content'),
   },
-];
+
+  {
+    label: t('page--index.faq.options.recover_account'),
+    icon: 'i-heroicons-key',
+    content: t('page--index.faq.options.recover_account_content'),
+  },
+]);

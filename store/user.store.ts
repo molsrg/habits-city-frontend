@@ -27,25 +27,11 @@ export const useUserStore = defineStore('userStore', {
   },
   actions: {
     async fetchUserInfo(): Promise<void> {
-      try {
-        const { data } = await userService.get(endPoints.user.fetchInfo);
-        if (data) this.userInfo = data;
-      } catch (error) {
-        console.log(error.response?.data || error);
-      }
+      const { data } = await userService.get(endPoints.user.fetchInfo);
+      if (data) this.userInfo = data;
     },
-
     async changeUserInfo(userInfo: object): Promise<void> {
-      const payload: Record<string, unknown> = {};
-      if (userInfo.username !== undefined) {
-        payload.newUsername = userInfo.username;
-      }
-
-      if (userInfo.bio !== undefined) {
-        payload.newBio = userInfo.bio;
-      }
-
-      await userService.post(endPoints.user.changeInfo, payload);
+      await userService.post(endPoints.user.changeInfo, userInfo);
       await this.fetchUserInfo();
     },
 
@@ -56,22 +42,12 @@ export const useUserStore = defineStore('userStore', {
       };
 
       const tokenStore = useTokenStore();
-      let statusCode = null;
 
       try {
-        const { data } = await userService.post(endPoints.user.changePassword, payload);
-
+        await userService.post(endPoints.user.changePassword, payload);
         tokenStore.removeToken();
         navigateTo('/auth/login');
-
-        statusCode = data.statusCode;
-      } catch (error) {
-        if (error.response && error.response.status) {
-          statusCode = error.response.status;
-        }
-      } finally {
-        return statusCode;
-      }
+      } catch (e) {}
     },
 
     async uploadNewAvatar(payload: File): Promise<void> {
@@ -88,8 +64,10 @@ export const useUserStore = defineStore('userStore', {
       }
     },
 
-    async deleteAccount(userInfo: string): Promise<void> {
-      console.log('deleteAccount', userInfo);
+    async deleteAccount(): Promise<void> {
+      const tokenStore = useTokenStore();
+      await userService.delete(endPoints.user.deleteAccount);
+      tokenStore.removeToken();
     },
 
     async sendEmailCode(payload: object): Promise<void> {

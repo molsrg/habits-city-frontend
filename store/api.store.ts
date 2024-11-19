@@ -17,9 +17,8 @@ export const useApiStore = defineStore('apiStore', {
         const { data } = await userService.get('/user/isTaken', {
           username,
         });
-        this.isValidUserName = data;
-      } catch (e) {
-      }
+        this.isValidUserName = data.isTaken;
+      } catch (e) {}
     },
   },
 });
