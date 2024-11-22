@@ -79,7 +79,6 @@ const pushToRegPage = () => {
         <UButton
           :disabled="!userData.password.length || !userData.username.length"
           :label="$t('page--login.title')"
-          :loading="appStore.isLoadingLogIn"
           class="auth-btn--login"
           color="black"
           icon="i-heroicons-finger-print-20-solid"

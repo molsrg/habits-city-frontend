@@ -3,10 +3,8 @@ import GitHubActivity from '@/components/charts/GitHubActivity.vue';
 import DeleteAccount from '@/components/modal/DeleteAccount.vue';
 import LinkEmail from '@/components/modal/LinkEmail.vue';
 import ProfileModal from '@/components/modal/ProfileModal.vue';
-import ProfilePublicInfo from '@/components/profile/ProfilePublicInfo.vue';
 import { useNavigationLinks } from '@/configs/profileSettingsLink.ts';
 import { ModalName } from '@/constants/modalName';
-import { daysSince } from '@/helpers/dateFormat.helper';
 import { modalService } from '@/services/modal.service';
 import { useApiStore } from '@/store/api.store';
 import { useFriendStore } from '@/store/friend.store';
@@ -106,8 +104,6 @@ const openModalProfile = async (username: string): void => {
         />
 
         <GitHubActivity v-if="activeLink === 'Stats'" />
-
-        <!--        <ProfilePublicInfo v-if="activeLink === 'Public info'" :user-info="userStore.getUserInfo" />-->
       </div>
     </div>
 

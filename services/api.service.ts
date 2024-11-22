@@ -35,10 +35,22 @@ class ApiService {
         }
         return response.data;
       },
-      (error) => {
+      async (error) => {
         const toast = useToast();
-        toast.add({ color: 'red', title: error.response.data.message });
-        return Promise.reject(error.response.data);
+        const tokenStore = useTokenStore();
+
+        if (error.response && error.response.status === 401) {
+          await tokenStore.updateToken();
+          const newToken = tokenStore.getToken();
+          if (newToken) {
+            error.config.headers['Authorization'] = `Bearer ${newToken}`;
+          }
+          console.log(newToken);
+          return this.client.request(error.config);
+        } else {
+          toast.add({ color: 'red', title: error.response.data.message });
+          return Promise.reject(error.response.data);
+        }
       },
     );
   }
@@ -46,6 +58,7 @@ class ApiService {
   async get<T>(url: string, params: Record<string, any> = {}): Promise<AxiosResponse<T>> {
     const config: AxiosRequestConfig = {
       params,
+      withCredentials: true,
     };
     return this.client.get<T>(url, config);
   }
@@ -53,6 +66,7 @@ class ApiService {
   async post<T>(url: string, data: Record<string, any> = {}, headers: Record<string, string> = {}): Promise<AxiosResponse<T>> {
     const config: AxiosRequestConfig = {
       headers,
+      withCredentials: true,
     };
     return this.client.post<T>(url, data, config);
   }
@@ -76,5 +90,6 @@ class ApiService {
 
 const authService = new ApiService('http://localhost:5000');
 const userService = new ApiService('http://localhost:5001');
+const friendService = new ApiService('http://localhost:5001');
 
-export { authService, userService };
+export { authService, friendService, userService };

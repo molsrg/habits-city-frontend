@@ -1,23 +1,3 @@
-// import withNuxt from './.nuxt/eslint.config.mjs';
-//
-// export default withNuxt({
-//   files: ['**/*.ts', '**/*.vue'],
-//   rules: {
-//     'no-console': 'warn',
-//     'no-debugger': 'warn',
-//     'vue/no-unused-vars': 'warn',
-//
-//
-//     'vue/attributes-order': [
-//       'warn',
-//       {
-//         alphabetical: true,
-//       },
-//     ],
-//   },
-// });
-
-
 import eslintPluginPrettier from 'eslint-plugin-prettier';
 import eslintPluginSimpleImportSort from 'eslint-plugin-simple-import-sort';
 
@@ -33,11 +13,11 @@ export default withNuxt().append({
     'vue/no-multiple-template-root': 'off',
     'import/named': 'off',
     'no-undef': 'off',
-    'quotes': [
+    quotes: [
       'error',
       'single',
       {
-        'avoidEscape': true,
+        avoidEscape: true,
       },
     ],
     'sort-imports': 'off',
@@ -49,37 +29,37 @@ export default withNuxt().append({
       'error',
       2,
       {
-        'attribute': 1,
-        'baseIndent': 1,
-        'closeBracket': 0,
-        'alignAttributesVertically': true,
-        'ignores': [],
+        attribute: 1,
+        baseIndent: 1,
+        closeBracket: 0,
+        alignAttributesVertically: true,
+        ignores: [],
       },
     ],
     'vue/script-indent': [
       'error',
       2,
       {
-        'baseIndent': 0,
-        'switchCase': 1,
-        'ignores': [],
+        baseIndent: 0,
+        switchCase: 1,
+        ignores: [],
       },
     ],
     'vue/max-attributes-per-line': [
       'error',
       {
-        'singleline': {
-          'max': 4,
+        singleline: {
+          max: 4,
         },
-        'multiline': {
-          'max': 1,
+        multiline: {
+          max: 1,
         },
       },
     ],
     'vue/attributes-order': [
       'error',
       {
-        'order': [
+        order: [
           'DEFINITION',
           'LIST_RENDERING',
           'CONDITIONALS',
@@ -92,7 +72,7 @@ export default withNuxt().append({
           'EVENTS',
           'CONTENT',
         ],
-        'alphabetical': false,
+        alphabetical: false,
       },
     ],
   },

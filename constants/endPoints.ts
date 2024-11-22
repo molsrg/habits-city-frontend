@@ -11,4 +11,7 @@ export const endPoints = {
     verifyEmailCode: 'user/verifyCode',
     deleteAccount: 'user/deleteAccount',
   },
+  friend: {
+    searchUsers: 'user/searchUsers',
+  },
 };

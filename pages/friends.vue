@@ -28,9 +28,7 @@ let debounceTimeout: ReturnType<typeof setTimeout>;
 watch(searchFriend, (newValue) => {
   clearTimeout(debounceTimeout);
   debounceTimeout = setTimeout(() => {
-    if (newValue.trim()) {
-      friendStore.fetchSuggestedFriends(newValue.trim());
-    }
+    friendStore.fetchSuggestedFriends(newValue.trim());
   }, 300);
 });
 </script>

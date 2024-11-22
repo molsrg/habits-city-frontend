@@ -40,8 +40,24 @@ const daysSinceValue = computed(() => daysSince('2024-11-05T00:00:00'));
         <UTooltip :text="t('page--friends.card.tooltip-avatar')">
           <UAvatar :alt="peopleInfo.username" :src="peopleInfo.avatar || ''" size="lg" />
         </UTooltip>
-      </div>
+        <!--        <UTooltip :text="t('page&#45;&#45;friends.card.tooltip-avatar')">-->
+        <!--          <UChip :ui="{ base: '-mx-1 rounded-none ring-0', background: '' }" inset position="bottom-right" size="md">-->
+        <!--            <UAvatar :alt="peopleInfo.username" :src="peopleInfo.avatar || ''" size="lg" />-->
 
+        <!--            <template #content>-->
+        <!--              <UAvatar-->
+        <!--                :ui="{ rounded: 'rounded-md' }"-->
+        <!--                alt="Avatar"-->
+        <!--                class="shadow-md"-->
+        <!--                size="2xs"-->
+        <!--                src="https://avatars.githubusercontent.com/in/80442?v=4"-->
+        <!--              />-->
+        <!--              <UIcon class="text-yellow-500" name="star" size="lg" />-->
+        <!--              <UIcon class="h-4 w-4 text-yellow-700" name="i-heroicons-light-bulb" />-->
+        <!--            </template>-->
+        <!--          </UChip>-->
+        <!--        </UTooltip>-->
+      </div>
       <div class="flex flex-col items-start gap-2">
         <div class="flex flex-col items-start">
           <div class="mb-2 flex items-center gap-1">
@@ -51,7 +67,6 @@ const daysSinceValue = computed(() => daysSince('2024-11-05T00:00:00'));
             {{
               t('page--friends.card.days-with-us', {
                 count: daysSinceValue,
-                days: t('page--friends.card.days', { count: daysSinceValue }),
               })
             }}
           </UBadge>

@@ -15,10 +15,10 @@ export const useAuthStore = defineStore('authStore', {
       const router = useRouter();
 
       try {
-        const response = await authService.post(endPoints.auth.registration, userData);
-        if (response?.AccessToken) {
-          sessionStorage.setItem('AccessToken', response.AccessToken);
-          tokenStore.setToken(response.AccessToken);
+        const { data } = await authService.post(endPoints.auth.registration, userData);
+        if (data?.AccessToken) {
+          sessionStorage.setItem('AccessToken', data.AccessToken);
+          tokenStore.setToken(data.AccessToken);
           await router.push('/profile');
         }
         return true;
@@ -32,10 +32,10 @@ export const useAuthStore = defineStore('authStore', {
       const router = useRouter();
 
       try {
-        const response = await authService.post(endPoints.auth.login, payload);
-        if (response?.AccessToken) {
-          sessionStorage.setItem('AccessToken', response.AccessToken);
-          tokenStore.setToken(response.AccessToken);
+        const { data } = await authService.post(endPoints.auth.login, payload);
+        if (data?.AccessToken) {
+          sessionStorage.setItem('AccessToken', data.AccessToken);
+          tokenStore.setToken(data.AccessToken);
           await router.push('/profile');
         }
         return true;
@@ -49,42 +49,16 @@ export const useAuthStore = defineStore('authStore', {
       const router = useRouter();
 
       try {
-        const response = await authService.get(`/auth/${userToken.provider}`, {
+        const { data } = await authService.get(`/auth/${userToken.provider}`, {
           code: userToken.code,
         });
-        sessionStorage.setItem('AccessToken', response.AccessToken);
-        tokenStore.setToken(response.AccessToken);
-        console.log(response.AccessToken);
+        sessionStorage.setItem('AccessToken', data.AccessToken);
+        tokenStore.setToken(data.AccessToken);
         await router.push('/profile');
       } catch (error) {
         console.error('Error fetching token:', error);
         appStore.sendErrorOAuthText(error?.response?.data?.message || 'Unknown error');
       }
     },
-
-    // Метод для запроса кода на сервере
-    // async logInWithPhoneNumber(userPhone: string) {
-    //   const userData = { phone: userPhone };
-    //   const response = '1234';
-    //   this.logInWithOTPCode = response;
-    //
-    //   const config = useRuntimeConfig();
-    //
-    //   try {
-    //     const response = await axios.post(
-    //       `${config.public.apiURL}/auth/login`,
-    //       userData,
-    //     );
-    //
-    //     console.log(response);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // },
-    //
-    // // Сброс OTP code
-    // reloadOTP() {
-    //   this.logInWithOTPCode = '';
-    // },
   },
 });
