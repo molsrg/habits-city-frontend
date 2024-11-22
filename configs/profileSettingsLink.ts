@@ -12,7 +12,6 @@ export const useNavigationLinks = () => {
   const links = [
     { label: 'Settings', click: () => changeLink('Settings') },
     { label: 'Stats', click: () => changeLink('Stats') },
-    { label: 'Public info', click: () => changeLink('Public info') },
   ];
 
   const formattedLinks = computed(() =>

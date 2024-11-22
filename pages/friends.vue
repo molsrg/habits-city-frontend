@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import ProfileModal from '@/components/modal/ProfileModal.vue';
+import { ModalName } from '@/constants/modalName';
+import { modalService } from '@/services/modal.service';
 import { useFriendStore } from '@/store/friend.store';
 
 definePageMeta({
@@ -10,9 +13,15 @@ useHead({
 
 const friendStore = useFriendStore();
 const searchFriend = ref('');
+const { t } = useI18n();
 
 const addNewPeople = (username: string): void => {
   friendStore.addNewFriend(username);
+};
+
+const openModalProfile = async (username: string): void => {
+  const payload = await friendStore.fetchFriendInfo(username);
+  modalService.open(ModalName.Profile, payload);
 };
 
 let debounceTimeout: ReturnType<typeof setTimeout>;
@@ -30,12 +39,12 @@ watch(searchFriend, (newValue) => {
   <div class="friends">
     <UInput
       v-model="searchFriend"
+      :placeholder="t('page--friends.placeholder')"
       :ui="{ icon: { trailing: { pointer: '' } } }"
       autocomplete="off"
       class="friends__search"
       icon="i-heroicons-magnifying-glass-20-solid"
       name="search-friend"
-      placeholder="Enter your friend's username..."
       size="xl"
     >
       <template #trailing>
@@ -49,28 +58,22 @@ watch(searchFriend, (newValue) => {
         />
       </template>
     </UInput>
+
     <div class="friends__container">
       <CardsProfile
         v-for="user in friendStore.getSuggestedFriends"
         :key="user.username"
         :people-info="user"
+        @open:profile="openModalProfile"
         @add:people="addNewPeople"
       />
       <div v-if="friendStore.getSuggestedFriends.length === 0">
-        <UCard>
-          <template #header>
-            <Placeholder class="h-8" />
-          </template>
-
-          <Placeholder class="h-32" />
-
-          <template #footer>
-            <Placeholder class="h-8" />
-          </template>
-        </UCard>
+        <h3>{{ t('page--friends.not-found') }}</h3>
       </div>
     </div>
   </div>
+
+  <ProfileModal />
 </template>
 
 <style lang="scss" scoped>

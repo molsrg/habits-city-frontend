@@ -24,6 +24,7 @@ const emit = defineEmits([
   'delete:account',
   'check:username',
   'link:social',
+  'open:profile',
 ]);
 
 // Reactive tabs settings
@@ -48,7 +49,7 @@ const accountFormField = reactive({
 });
 
 const accountErrors = computed(() => ({
-  bio: accountFormField.bio !== undefined && accountFormField.bio.length === 0 ? t('alerts.errors.bio.empty') : '',
+  // bio: accountFormField.bio !== undefined && accountFormField.bio.length === 0 ? t('alerts.errors.bio.empty') : '',
 
   username: apiStore.getIsValidUsername
     ? t('alerts.errors.username.taken')
@@ -155,6 +156,15 @@ const getClickHandler = (button) => {
         <template #header>
           <p class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
             {{ item.label }}
+            <UTooltip v-if="item.key === 'account'" :text="t('page--profile.settings-option.nav.account.tooltip')" class="ml-1">
+              <UButton
+                :label="t('page--profile.settings-option.nav.account.modal-profile')"
+                color="blue"
+                size="2xs"
+                variant="soft"
+                @click="emit('open:profile', userInfo.username)"
+              />
+            </UTooltip>
           </p>
           <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
             {{ item.description }}

@@ -52,15 +52,14 @@ const helloArray = [
   [0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0],
-
 ];
 const squares = ref<HTMLElement | null>(null);
 
 onMounted(() => {
   if (squares.value) {
     squares.value.innerHTML = '';
-    helloArray.forEach(row => {
-      row.forEach(cell => {
+    helloArray.forEach((row) => {
+      row.forEach((cell) => {
         const level = cell === 1 ? 3 : 0;
         squares.value.insertAdjacentHTML('beforeend', `<li data-level="${level}"></li>`);
       });
@@ -100,12 +99,10 @@ onMounted(() => {
   </div>
 </template>
 
-
 <style>
-
 :root {
-  --square-size: 1.2vw;
-  --square-gap: 0.3vw;
+  --square-size: 1vw;
+  --square-gap: 0.4vw;
   --week-width: calc(var(--square-size) + var(--square-gap));
 }
 
@@ -126,8 +123,8 @@ onMounted(() => {
 .graph {
   display: inline-grid;
   grid-template-areas:
-		'empty months'
-		'days squares';
+    'empty months'
+    'days squares';
   grid-template-columns: auto 1fr;
   grid-gap: 10px;
   background-color: rgb(13, 17, 23);
@@ -136,18 +133,18 @@ onMounted(() => {
 .months {
   display: grid;
   grid-template-columns:
-		calc(var(--week-width) * 4) /* Jan */
-		calc(var(--week-width) * 4) /* Feb */
-		calc(var(--week-width) * 4) /* Mar */
-		calc(var(--week-width) * 5) /* Apr */
-		calc(var(--week-width) * 4) /* May */
-		calc(var(--week-width) * 4) /* Jun */
-		calc(var(--week-width) * 5) /* Jul */
-		calc(var(--week-width) * 4) /* Aug */
-		calc(var(--week-width) * 4) /* Sep */
-		calc(var(--week-width) * 5) /* Oct */
-		calc(var(--week-width) * 4) /* Nov */
-		calc(var(--week-width) * 1) /* Dec */;
+    calc(var(--week-width) * 4) /* Jan */
+    calc(var(--week-width) * 4) /* Feb */
+    calc(var(--week-width) * 4) /* Mar */
+    calc(var(--week-width) * 5) /* Apr */
+    calc(var(--week-width) * 4) /* May */
+    calc(var(--week-width) * 4) /* Jun */
+    calc(var(--week-width) * 5) /* Jul */
+    calc(var(--week-width) * 4) /* Aug */
+    calc(var(--week-width) * 4) /* Sep */
+    calc(var(--week-width) * 5) /* Oct */
+    calc(var(--week-width) * 4) /* Nov */
+    calc(var(--week-width) * 1) /* Dec */;
 }
 
 .days,

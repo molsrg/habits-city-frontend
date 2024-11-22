@@ -1,22 +1,22 @@
 {
   "page--index": {
-    "badge": "The compiler is a programmer's best friend: it will never tell you you're a genius, but it will always show you where you went wrong",
+    "badge": "The compiler is a programmer's best friend: it will never tell you you're a genius, but it will always show you where you made a mistake",
     "welcome": "Welcome to Habits City",
     "trackYourProgress": "Progress that inspires",
-    "trackDescription": "Track your development every day to not only see the results but also feel the inspiration on your way to success.",
+    "trackDescription": "Track your development every day, not only to see results but also to feel inspired on your way to success.",
     "createTasks": "Tasks that will change your life",
-    "createTasksDescription": "Plan your goals with clear tasks and pave the way for personal victories every day.",
-    "followFriends": "Support your friends in their achievements",
-    "followFriendsDescription": "Going towards goals together is easier. Track your friends' progress and create mutual motivation for greater accomplishments.",
-    "viewReports": "Get the full picture of your achievements",
-    "viewReportsDescription": "Analyze every step to know exactly where you stand and what steps to take for further victories.",
-    "setGoals": "Setting goals that inspire",
-    "setGoalsDescription": "Define clear goals and set ambitious tasks so you don’t stop at what’s already been achieved.",
+    "createTasksDescription": "Plan your goals with clear tasks and pave the way to personal victories every day.",
+    "followFriends": "Support your friends in their successes",
+    "followFriendsDescription": "It's easier to reach goals together. Track your friends' progress and create mutual motivation for greater achievements.",
+    "viewReports": "Get a complete picture of your achievements",
+    "viewReportsDescription": "Analyze every step to know exactly where you stand and what steps are needed for further victories.",
+    "setGoals": "Goal setting that inspires",
+    "setGoalsDescription": "Define clear goals and set ambitious tasks so you don't stop at what you've achieved.",
     "stayMotivated": "Motivation that works",
-    "stayMotivatedDescription": "Don’t let yourself relax! Keep your energy and motivation up on the road to success.",
-    "celebrateSuccess": "Celebrate your successes",
-    "celebrateSuccessDescription": "Every step toward your goal is a reason to celebrate. Share your achievements and rejoice in every success.",
-    "howItWorks": "How it works?",
+    "stayMotivatedDescription": "Don't let yourself relax! Keep your energy and motivation levels high on your way to success.",
+    "celebrateSuccess": "Celebrate your success",
+    "celebrateSuccessDescription": "Every step toward your goal is a reason to celebrate. Share your achievements and enjoy every success.",
+    "howItWorks": "How does it work?",
     "footer": "2024 Habits City. All rights reserved.",
     "faq": {
       "title": "Frequently Asked Questions",
@@ -25,45 +25,47 @@
         "add_friend": "How to add a new friend or follower?",
         "modify_account": "How to modify or delete your account?",
         "create_group": "How to create a group or community?",
-        "change_avatar": "How to change profile photo?",
+        "change_avatar": "How to change your profile picture?",
         "change_password": "How to change your account password?",
-        "recover_account": "How to recover your account?",
-        "register_content": "To register, click the 'Register' button on the homepage, then fill out the form with your details to create an account.",
-        "add_friend_content": "Go to the user's profile and click the 'Add Friend' or 'Follow' button to track their updates.",
-        "modify_account_content": "To modify account settings or delete your account, go to the 'Settings' section in the profile menu and choose the relevant option.",
-        "create_group_content": "To create a group, go to the 'Communities' section and click the 'Create Community' button, then fill out the form with the necessary information.",
-        "change_avatar_content": "To change your profile photo, go to profile settings and click the current photo. After that, choose a new image from your gallery.",
+        "recover_account": "How to recover access to your account?",
+        "register_content": "To register, click the 'Sign Up' button on the homepage, then fill out the form with your data to create an account.",
+        "add_friend_content": "Go to the user's profile and click 'Add to Friends' or 'Follow' to track their updates.",
+        "modify_account_content": "To change account settings or delete your account, go to the 'Settings' section in the profile menu and select the corresponding option.",
+        "create_group_content": "To create a group, go to the 'Communities' section and click 'Create Community', then fill out the necessary form.",
+        "change_avatar_content": "To change your profile picture, go to the profile settings and click on your current photo. Then select a new image from your gallery.",
         "change_password_content": "To change your password, go to account settings, select the 'Security' section, and follow the instructions to change your password.",
-        "recover_account_content": "If you forgot your password, click 'Forgot password?' on the login page, enter your email, and we will send you instructions to recover your account."
+        "recover_account_content": "If you forgot your password, click 'Forgot Password?' on the login page, enter your email, and we will send you instructions to recover access."
       }
     }
   },
   "page--profile": {
     "title": "Welcome to your profile!",
-    "subtitle": "Your account is ready, but you can customize it to your liking",
+    "subtitle": "Your account is ready, but you can customize it",
     "nav": {
       "settings": "Settings",
       "public info": "Public Info",
-      "stats": "Statistics"
+      "stats": "Stats"
     },
     "social-networks": {
       "yandex": {
         "tooltip": "Connect Yandex",
-        "tooltipHasSocial": "Yandex is already connected",
+        "tooltipHasSocial": "Yandex is already linked",
         "label": "Yandex"
       },
       "google": {
         "tooltip": "Connect Google",
-        "tooltipHasSocial": "Google is already connected",
+        "tooltipHasSocial": "Google is already linked",
         "label": "Google"
       }
     },
-    "language": "Choose language",
+    "language": "Select language",
     "settings-option": {
       "nav": {
         "account": {
           "label": "Account",
-          "description": "Make changes here. Click 'Save' when you're done."
+          "description": "Make changes here. Click 'Save' when done.",
+          "tooltip": "See what your profile looks like to other users",
+          "modal-profile": "Public profile"
         },
         "password": {
           "label": "Password",
@@ -82,7 +84,7 @@
       },
       "email": {
         "label": "Email",
-        "placeholder": "Email will appear here",
+        "placeholder": "Email will be displayed here",
         "description": "For account recovery"
       },
       "password": {
@@ -90,28 +92,38 @@
         "placeholder": "Enter password"
       },
       "new-password": {
-        "label": "New password",
-        "description": "Enter a strong password",
+        "label": "New Password",
+        "description": "Enter a secure password",
         "placeholder": "Enter new password"
       },
-      "upload-avatar": "Upload avatar"
+      "upload-avatar": "Upload Avatar"
     },
     "nav-item": {},
     "link-email": "Link Email",
     "change-email": "Change Email",
-    "save-account": "Save changes",
-    "save-password": "Save password",
-    "delete-account": "Delete account"
+    "save-account": "Save Changes",
+    "save-password": "Save Password",
+    "delete-account": "Delete Account"
   },
   "page--login": {
-    "title": "Login",
+    "title": "Log In",
     "subtitle": "Enter your credentials to access your account",
     "no-account": "Don't have an account?",
     "enter-password": "Enter password",
     "enter-username": "Enter username"
   },
+  "page--friends": {
+    "not-found": "Unfortunately, no users with that name...",
+    "placeholder": "Enter friend's name...",
+    "card": {
+      "subscribe": "Subscribe",
+      "inFriends": "In Friends",
+      "tooltip-avatar": "Click to see detailed information",
+      "days-with-us": "With us for {count} day | With us for {count} days"
+    }
+  },
   "page--registration": {
-    "title": "Registration",
+    "title": "Register",
     "subtitle": "Enter your credentials to access your account",
     "have-account": "Already have an account?",
     "enter-password": "Enter password",
@@ -123,11 +135,11 @@
       "registration": "Registration",
       "login": "Login",
       "faq": "Frequently Asked Questions",
-      "home": "Home page"
+      "home": "Home Page"
     }
   },
   "notifications": {
-    "save-access": "Data saved successfully",
+    "save-access": "Data successfully saved",
     "save-error": "Error saving data",
     "errors": {
       "400": "Bad request"
@@ -156,9 +168,9 @@
   },
   "nav--layout": {
     "friends": "Friends",
-    "logout": "Logout",
+    "logout": "Log Out",
     "tasks": "Tasks",
-    "home-page": "Home page",
+    "home-page": "Home Page",
     "login": "Login",
     "registration": "Registration"
   },
@@ -172,15 +184,18 @@
       }
     },
     "delete-account": {
-      "title": "Do you really want to delete your account?",
+      "title": "Are you sure you want to delete your account?",
       "description": "To delete, enter your username",
-      "placeholder": "Enter username",
-      "delete-button": "Delete account"
+      "placeholder": "Enter name",
+      "delete-button": "Delete Account"
+    },
+    "delete-friend": {
+      "delete": "Unfollow"
     }
   },
   "page--pending": {
     "go-back-login": "Go back to login",
-    "wait-for-authorization": "Waiting for authorization!"
+    "wait-for-authorization": "Wait for authorization!"
   },
   "stepper": {
     "prev": "Back",

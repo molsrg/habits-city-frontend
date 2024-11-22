@@ -3,7 +3,6 @@ import { defineStore } from 'pinia';
 import { endPoints } from '@/constants/endPoints';
 import { authService, userService } from '@/services/api.service';
 
-
 export const useFriendStore = defineStore('friendStore', {
   // persist: true,
   state: () => ({
@@ -14,10 +13,13 @@ export const useFriendStore = defineStore('friendStore', {
     getSuggestedFriends(state) {
       return state.suggestedFriends;
     },
-
-
   },
   actions: {
+    async fetchFriendInfo(username): Promise<void> {
+      const { data } = await userService.get(endPoints.user.fetchInfo);
+      return data;
+    },
+
     async addNewFriend(username) {
       console.log(username);
     },
@@ -27,6 +29,5 @@ export const useFriendStore = defineStore('friendStore', {
       });
       this.suggestedFriends = data;
     },
-
   },
 });

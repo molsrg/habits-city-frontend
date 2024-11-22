@@ -19,7 +19,6 @@ class ApiService {
       const tokenStore = useTokenStore();
       const localeStore = useLocaleStore();
 
-      // Устанавливаем локаль из store
       config.headers['X-Locale-Language'] = localeStore.locale;
       if (tokenStore.getToken) {
         config.headers.Authorization = `Bearer ${tokenStore.getToken}`;
@@ -30,10 +29,10 @@ class ApiService {
 
     this.client.interceptors.response.use(
       (response: AxiosResponse) => {
-        // if (response.config.method === 'post') {
-        //   const toast = useToast();
-        //   toast.add({ color: 'green', title: response.data.status });
-        // }
+        if (response.config.method === 'post') {
+          const toast = useToast();
+          toast.add({ color: 'green', title: response.data.message });
+        }
         return response.data;
       },
       (error) => {

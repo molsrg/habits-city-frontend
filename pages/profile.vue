@@ -2,15 +2,20 @@
 import GitHubActivity from '@/components/charts/GitHubActivity.vue';
 import DeleteAccount from '@/components/modal/DeleteAccount.vue';
 import LinkEmail from '@/components/modal/LinkEmail.vue';
+import ProfileModal from '@/components/modal/ProfileModal.vue';
+import ProfilePublicInfo from '@/components/profile/ProfilePublicInfo.vue';
 import { useNavigationLinks } from '@/configs/profileSettingsLink.ts';
 import { ModalName } from '@/constants/modalName';
+import { daysSince } from '@/helpers/dateFormat.helper';
 import { modalService } from '@/services/modal.service';
 import { useApiStore } from '@/store/api.store';
+import { useFriendStore } from '@/store/friend.store';
 import { useUserStore } from '@/store/user.store';
 import { debounce } from '@/utils/debounce';
 
 const { t } = useI18n();
 const userStore = useUserStore();
+const friendStore = useFriendStore();
 const apiStore = useApiStore();
 definePageMeta({ middleware: ['auth'] });
 const title = computed(() => `HS | ${t('nav--layout.friends')}`);
@@ -55,6 +60,11 @@ const updateEmail = () => {
 const deleteAccount = () => {
   modalService.open(ModalName.DeleteAccount);
 };
+
+const openModalProfile = async (username: string): void => {
+  const payload = await friendStore.fetchFriendInfo(username);
+  modalService.open(ModalName.Profile, payload);
+};
 </script>
 
 <template>
@@ -92,14 +102,18 @@ const deleteAccount = () => {
           @delete:account="deleteAccount"
           @check:username="checkUsername"
           @link:social="linkSocialNetwork"
+          @open:profile="openModalProfile"
         />
 
         <GitHubActivity v-if="activeLink === 'Stats'" />
+
+        <!--        <ProfilePublicInfo v-if="activeLink === 'Public info'" :user-info="userStore.getUserInfo" />-->
       </div>
     </div>
 
     <DeleteAccount :username="userStore.getUserInfo.username" />
     <LinkEmail />
+    <ProfileModal />
   </div>
 </template>
 

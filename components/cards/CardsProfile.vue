@@ -1,54 +1,7 @@
-<template>
-  <UCard>
-    <div class="people-card">
-      <UAvatar
-        :alt="peopleInfo.username || 'User'"
-        :src="peopleInfo.avatar || ''"
-        size="lg"
-      />
-
-      <div class="people-card__info">
-        <div class="people-card__details">
-          <div class="people-card__header">
-            <UBadge class="people-card__username" color="white" variant="solid">
-              @ {{ isValidPeopleLength }}
-            </UBadge>
-            <UBadge color="primary" variant="soft">{{ peopleInfo.rating }}</UBadge>
-
-
-          </div>
-
-          <UButton
-            v-if="showAddFriendButton"
-            :disabled="addedPeople"
-            :icon="addedPeople ? 'i-heroicons-check' : 'i-heroicons-user-plus'"
-            :label="addedPeople ? 'Application sent' : 'Add Friend'"
-            class="people-card__button"
-            color="green"
-            size="2xs"
-            variant="ghost"
-            @click="addFriend"
-          />
-
-          <UButton
-            v-else
-            class="people-card__button--disabled"
-            color="green"
-            disabled
-            icon="i-heroicons-users"
-            label="Already friends"
-            size="2xs"
-            variant="link"
-          />
-        </div>
-        <USkeleton class="people-card__skeleton" />
-      </div>
-    </div>
-  </UCard>
-</template>
-
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
+
+import { daysSince } from '@/helpers/dateFormat.helper';
 
 interface PeopleInfo {
   username: string;
@@ -56,57 +9,77 @@ interface PeopleInfo {
   rating: number;
 }
 
+const { t } = useI18n();
 const props = defineProps({
   peopleInfo: { type: Object as () => PeopleInfo, required: true },
 });
 
-const emit = defineEmits(['add:people']);
-
-const addedPeople = ref(false);
+const emit = defineEmits(['add:people', 'open:profile']);
 
 const isValidPeopleLength = computed(() => {
   const username = props.peopleInfo.username;
   return username.length > 22 ? username.slice(0, 21) + '...' : username;
 });
 
-const showAddFriendButton = computed(() => !props.peopleInfo.inFriends);
-
 const addFriend = () => {
   emit('add:people', props.peopleInfo.username);
-  addedPeople.value = true;
 };
+
+const openModalProfile = () => {
+  emit('open:profile', props.peopleInfo.username);
+};
+
+const inFriends = ref(false);
+const daysSinceValue = computed(() => daysSince('2024-11-05T00:00:00'));
 </script>
 
-<style lang="scss" scoped>
-.people-card {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: 250px;
+<template>
+  <UCard>
+    <div class="flex w-64 items-center gap-4">
+      <div class="cursor-pointer" @click="openModalProfile">
+        <UTooltip :text="t('page--friends.card.tooltip-avatar')">
+          <UAvatar :alt="peopleInfo.username" :src="peopleInfo.avatar || ''" size="lg" />
+        </UTooltip>
+      </div>
 
-  &__header {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    margin-bottom: 0.5rem;
-  }
+      <div class="flex flex-col items-start gap-2">
+        <div class="flex flex-col items-start">
+          <div class="mb-2 flex items-center gap-1">
+            <UBadge color="white" variant="solid"> @ {{ isValidPeopleLength }}</UBadge>
+          </div>
+          <UBadge color="blue" variant="soft">
+            {{
+              t('page--friends.card.days-with-us', {
+                count: daysSinceValue,
+                days: t('page--friends.card.days', { count: daysSinceValue }),
+              })
+            }}
+          </UBadge>
 
-  &__info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
+          <UButton
+            v-if="!inFriends"
+            :label="t('page--friends.card.subscribe')"
+            class="mt-1"
+            color="green"
+            icon="i-heroicons-user-plus"
+            in-friends
+            size="2xs"
+            variant="ghost"
+            @click="addFriend"
+          />
 
-  &__details {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  &__skeleton {
-    height: 1rem;
-    width: 200px;
-  }
-}
-</style>
+          <UButton
+            v-else
+            :label="t('page--friends.card.inFriends')"
+            class="mt-1"
+            color="green"
+            disabled
+            icon="i-heroicons-users"
+            size="2xs"
+            variant="link"
+          />
+        </div>
+      </div>
+    </div>
+  </UCard>
+</template>
