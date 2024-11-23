@@ -31,7 +31,6 @@ export const useTokenStore = defineStore('tokenStore', {
         const { data } = await authService.get('/auth/updateToken', {
           withCredentials: true,
         });
-        console.log(data);
         sessionStorage.setItem('AccessToken', data.AccessToken);
         this.setToken(data.AccessToken);
       } catch (error) {

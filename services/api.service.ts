@@ -39,18 +39,17 @@ class ApiService {
         const toast = useToast();
         const tokenStore = useTokenStore();
 
-        if (error.response && error.response.status === 401) {
+        if (error.response?.status === 401 && !error.config._retry) {
+          error.config._retry = true;
+
           await tokenStore.updateToken();
-          const newToken = tokenStore.getToken();
-          if (newToken) {
-            error.config.headers['Authorization'] = `Bearer ${newToken}`;
-          }
-          console.log(newToken);
-          return this.client.request(error.config);
-        } else {
-          toast.add({ color: 'red', title: error.response.data.message });
-          return Promise.reject(error.response.data);
+          error.config.headers.Authorization = `Bearer ${tokenStore.getToken}`;
+
+          return this.client(error.config);
         }
+
+        toast.add({ color: 'red', title: error.response?.data?.message || 'Unknown error' });
+        return Promise.reject(error.response?.data || error);
       },
     );
   }

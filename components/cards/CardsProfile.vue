@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 
+import { getDayDeclension } from '@/constants/i18n';
 import { daysSince } from '@/helpers/dateFormat.helper';
 
 interface PeopleInfo {
   username: string;
   avatar?: string;
   rating: number;
+  createdAt: string;
 }
 
 const { t } = useI18n();
@@ -30,7 +32,12 @@ const openModalProfile = () => {
 };
 
 const inFriends = ref(false);
-const daysSinceValue = computed(() => daysSince('2024-11-05T00:00:00'));
+const dayWithUs = daysSince(props.peopleInfo.createdAt);
+
+const withUsText = computed(() => {
+  const dayText = getDayDeclension(dayWithUs, t);
+  return t('page--friends.card.days-with-us', { count: dayWithUs, day: dayText });
+});
 </script>
 
 <template>
@@ -64,11 +71,7 @@ const daysSinceValue = computed(() => daysSince('2024-11-05T00:00:00'));
             <UBadge color="white" variant="solid"> @ {{ isValidPeopleLength }}</UBadge>
           </div>
           <UBadge color="blue" variant="soft">
-            {{
-              t('page--friends.card.days-with-us', {
-                count: daysSinceValue,
-              })
-            }}
+            {{ withUsText }}
           </UBadge>
 
           <UButton
