@@ -24,9 +24,7 @@ export const useFriendStore = defineStore('friendStore', {
       console.log(username);
     },
     async fetchSuggestedFriends(payload) {
-      const { data } = await friendService.get(endPoints.friend.searchUsers, {
-        username: payload,
-      });
+      const { data } = await friendService.get(endPoints.friend.searchUsers, payload);
       this.suggestedFriends = data;
     },
   },

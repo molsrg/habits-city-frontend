@@ -4,6 +4,15 @@
       "one": "день",
       "few": "дня",
       "many": "дней"
+    },
+    "filters": {
+      "friends": {
+        "all": "Все",
+        "random": "Случайные",
+        "followed": "Подписан",
+        "following": "Подписчики",
+        "friends": "Друзья"
+      }
     }
   },
   "page--index": {
@@ -125,6 +134,7 @@
     "card": {
       "subscribe": "Подписаться",
       "inFriends": "В друзьях",
+      "followed": "Подписан",
       "tooltip-avatar": "Нажмите чтобы увидеть подробную информацию",
       "days-with-us": "C нами уже {count} {day}"
     }

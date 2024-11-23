@@ -1,41 +1,107 @@
 {
+  "global": {
+    "day": {
+      "one": "jour",
+      "few": "jours",
+      "many": "jours"
+    },
+    "filters": {
+      "friends": {
+        "all": "Tous",
+        "random": "Aléatoires",
+        "followed": "Suivi",
+        "following": "Abonnés",
+        "friends": "Amis"
+      }
+    }
+  },
   "page--index": {
-    "badge": "Le compilateur est le meilleur ami du programmeur : il ne dira jamais que vous êtes un génie, mais il vous montrera toujours où vous vous êtes trompé"
+    "badge": "Le compilateur est le meilleur ami du programmeur : il ne dira jamais que vous êtes un génie, mais il montrera toujours où vous avez fait une erreur",
+    "welcome": "Bienvenue dans Habits City",
+    "trackYourProgress": "Progrès qui inspire",
+    "trackDescription": "Suivez votre développement chaque jour pour non seulement voir les résultats, mais aussi ressentir de l'inspiration sur le chemin du succès.",
+    "createTasks": "Des tâches qui vont changer votre vie",
+    "createTasksDescription": "Planifiez vos objectifs avec des tâches claires et ouvrez la voie à des victoires personnelles chaque jour.",
+    "followFriends": "Soutenez vos amis dans leurs réussites",
+    "followFriendsDescription": "Avancer ensemble vers les objectifs est plus facile. Suivez les progrès de vos amis et créez une motivation mutuelle pour des réalisations plus grandes.",
+    "viewReports": "Obtenez une image complète de vos réalisations",
+    "viewReportsDescription": "Analysez chaque étape pour savoir exactement où vous en êtes et quelles étapes faire pour d'autres victoires.",
+    "setGoals": "Fixez des objectifs qui inspirent",
+    "setGoalsDescription": "Définissez des objectifs clairs et fixez des tâches ambitieuses pour ne pas vous arrêter en chemin.",
+    "stayMotivated": "Motivation qui fonctionne",
+    "stayMotivatedDescription": "Ne vous laissez pas aller! Maintenez votre niveau d'énergie et de motivation tout au long du parcours vers le succès.",
+    "celebrateSuccess": "Célébrez vos réussites",
+    "celebrateSuccessDescription": "Chaque étape vers un objectif est une raison de célébrer. Partagez vos réalisations et savourez chaque succès.",
+    "howItWorks": "Comment ça fonctionne?",
+    "footer": "2024 Habits City. Tous droits réservés.",
+    "faq": {
+      "title": "Questions fréquemment posées",
+      "options": {
+        "register": "Comment s'inscrire sur la plateforme ?",
+        "add_friend": "Comment ajouter un nouvel ami ou abonné ?",
+        "modify_account": "Comment modifier ou supprimer mon compte ?",
+        "create_group": "Comment créer un groupe ou une communauté ?",
+        "change_avatar": "Comment changer ma photo de profil ?",
+        "change_password": "Comment changer le mot de passe de mon compte ?",
+        "recover_account": "Comment récupérer l'accès à mon compte ?",
+        "register_content": "Pour vous inscrire, cliquez sur le bouton 'S'inscrire' sur la page d'accueil, puis remplissez le formulaire avec vos informations pour créer un compte.",
+        "add_friend_content": "Allez dans le profil de l'utilisateur et cliquez sur 'Ajouter en amis' ou 'S'abonner' pour suivre ses mises à jour.",
+        "modify_account_content": "Pour modifier les paramètres de votre compte ou le supprimer, allez dans la section 'Paramètres' du menu de profil et choisissez l'option correspondante.",
+        "create_group_content": "Pour créer un groupe, allez dans la section 'Communautés' et cliquez sur le bouton 'Créer une communauté', puis remplissez le formulaire avec les informations nécessaires.",
+        "change_avatar_content": "Pour changer votre photo de profil, allez dans les paramètres de profil et cliquez sur la photo actuelle. Ensuite, choisissez une nouvelle image dans votre galerie.",
+        "change_password_content": "Pour changer votre mot de passe, allez dans les paramètres de votre compte, sélectionnez 'Sécurité' et suivez les instructions pour changer votre mot de passe.",
+        "recover_account_content": "Si vous avez oublié votre mot de passe, cliquez sur 'Mot de passe oublié?' sur la page de connexion, indiquez votre e-mail et nous vous enverrons des instructions pour récupérer l'accès."
+      }
+    }
   },
   "page--profile": {
-    "title": "Bienvenue sur le profil !",
+    "title": "Bienvenue dans votre profil!",
     "subtitle": "Votre compte est déjà prêt, mais vous pouvez le personnaliser",
     "nav": {
       "settings": "Paramètres",
-      "public-info": "Informations publiques",
+      "public info": "Informations publiques",
       "stats": "Statistiques"
     },
-    "language": "Choisissez la langue",
+    "social-networks": {
+      "yandex": {
+        "tooltip": "Connecter Yandex",
+        "tooltipHasSocial": "Yandex est déjà connecté",
+        "label": "Yandex"
+      },
+      "google": {
+        "tooltip": "Connecter Google",
+        "tooltipHasSocial": "Google est déjà connecté",
+        "label": "Google"
+      }
+    },
+    "language": "Choisir la langue",
     "settings-option": {
       "nav": {
         "account": {
           "label": "Compte",
-          "description": "Apportez des modifications à votre compte ici. Cliquez sur 'Enregistrer' lorsque vous avez terminé."
+          "description": "Apportez des modifications ici. Cliquez sur 'Enregistrer' lorsque vous avez terminé.",
+          "tooltip": "Voir à quoi ressemble le profil pour les autres utilisateurs",
+          "modal-profile": "Profil public"
         },
         "password": {
           "label": "Mot de passe",
-          "description": "Changez votre mot de passe ici. Après avoir enregistré, vous serez déconnecté."
+          "description": "Changez votre mot de passe ici. Après l'enregistrement, vous serez déconnecté."
         }
       },
-      "name": {
-        "label": "Nom",
-        "description": "Votre nom ne sera visible que par les administrateurs",
-        "placeholder": "Entrez votre nom"
+      "bio": {
+        "label": "BIO",
+        "description": "Des informations courtes sur vous",
+        "placeholder": "Entrez votre bio"
       },
       "username": {
         "label": "Nom d'utilisateur",
-        "description": "Votre nom d'utilisateur est visible lors de la création ou de l'exécution de tâches",
+        "description": "Visible lors de la création ou de l'exécution des tâches",
         "placeholder": "Entrez votre nom d'utilisateur"
       },
       "email": {
         "label": "Email",
         "placeholder": "L'email sera affiché ici",
-        "description": "Liez votre email pour restaurer votre compte"
+        "description": "Pour récupérer votre compte"
       },
       "password": {
         "label": "Mot de passe",
@@ -43,29 +109,40 @@
       },
       "new-password": {
         "label": "Nouveau mot de passe",
-        "description": "Entrez un mot de passe fort",
+        "description": "Entrez un mot de passe sécurisé",
         "placeholder": "Entrez un nouveau mot de passe"
       },
       "upload-avatar": "Télécharger un avatar"
     },
     "nav-item": {},
-    "link-email": "Lier l'email",
-    "change-email": "Changer l'email",
-    "save-account": "Enregistrer le compte",
+    "link-email": "Lier un Email",
+    "change-email": "Changer l'Email",
+    "save-account": "Enregistrer les modifications",
     "save-password": "Enregistrer le mot de passe",
     "delete-account": "Supprimer le compte"
   },
   "page--login": {
-    "title": "Connexion",
+    "title": "Connecter",
     "subtitle": "Entrez vos identifiants pour accéder à votre compte",
-    "no-account": "Vous n'avez pas encore de compte ?",
+    "no-account": "Pas encore de compte?",
     "enter-password": "Entrez votre mot de passe",
     "enter-username": "Entrez votre nom d'utilisateur"
   },
+  "page--friends": {
+    "not-found": "Désolé, aucun utilisateur trouvé avec ce nom...",
+    "placeholder": "Entrez le nom de votre ami...",
+    "card": {
+      "subscribe": "S'abonner",
+      "inFriends": "Dans les amis",
+      "followed": "Suivi",
+      "tooltip-avatar": "Cliquez pour voir les informations détaillées",
+      "days-with-us": "Avec nous depuis {count} {day}"
+    }
+  },
   "page--registration": {
     "title": "Inscription",
-    "subtitle": "Entrez vos identifiants pour accéder à votre compte",
-    "have-account": "Vous avez déjà un compte ?",
+    "subtitle": "Entrez vos informations pour accéder à votre compte",
+    "have-account": "Vous avez déjà un compte?",
     "enter-password": "Entrez votre mot de passe",
     "enter-username": "Entrez votre nom d'utilisateur",
     "button": "S'inscrire"
@@ -74,31 +151,35 @@
     "label": {
       "registration": "Inscription",
       "login": "Connexion",
-      "faq": "F.A.Q.",
+      "faq": "Questions fréquemment posées",
       "home": "Page d'accueil"
     }
   },
   "notifications": {
-    "save-access": "Enregistrer l'accès aux données",
-    "save-error": "Erreur d'enregistrement des données"
+    "save-access": "Données enregistrées avec succès",
+    "save-error": "Erreur lors de l'enregistrement des données",
+    "errors": {
+      "400": "Mauvaise demande"
+    }
   },
   "alerts": {
     "errors": {
-      "name": {
-        "empty": "Le nom ne peut pas être vide !"
+      "bio": {
+        "empty": "BIO ne peut pas être vide!"
       },
       "username": {
-        "empty": "Le nom d'utilisateur ne peut pas être vide !",
-        "taken": "Le nom d'utilisateur est déjà pris !"
+        "empty": "Le nom d'utilisateur ne peut pas être vide!",
+        "taken": "Le nom d'utilisateur est déjà pris!"
       },
       "email": {
-        "empty": "L'email ne peut pas être vide !"
+        "empty": "L'email ne peut pas être vide!",
+        "invalid": "Format d'email invalide!"
       },
       "password": {
-        "empty": "Le mot de passe ne peut pas être vide !",
-        "length": "Le mot de passe doit contenir au moins 8 caractères !",
-        "uppercase": "Le mot de passe doit contenir au moins une lettre majuscule !",
-        "digit": "Le mot de passe doit contenir au moins un chiffre !"
+        "empty": "Le mot de passe ne peut pas être vide!",
+        "length": "Le mot de passe doit contenir au moins 8 caractères!",
+        "uppercase": "Le mot de passe doit contenir au moins une majuscule!",
+        "digit": "Le mot de passe doit contenir au moins un chiffre!"
       }
     }
   },
@@ -106,26 +187,8 @@
     "friends": "Amis",
     "logout": "Se déconnecter",
     "tasks": "Tâches",
-    "home-page": "Page d'accueil",
-    "login": "Connexion",
-    "registration": "Inscription"
-  },
-  "modal": {
-    "link-email": {
-      "title": "Lier l'email",
-      "description": "Liez votre email pour restaurer votre mot de passe",
-      "steppers": {
-        "enter-email": "Entrez l'email",
-        "confirm-email": "Confirmez l'email"
-      }
-    }
-  },
-  "stepper": {
-    "prev": "Précédent",
-    "next": "Suivant"
-  },
-  "page--pending": {
-    "go-back-login": "Retour à la connexion",
-    "wait-for-authorization": "Attendez l'autorisation !"
+    "statistics": "Statistiques",
+    "profile": "Profile",
+    "home-page": "Page d'accueil"
   }
 }

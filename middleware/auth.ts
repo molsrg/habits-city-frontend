@@ -15,6 +15,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   }
 
   if (to.path === '/friends') {
-    await friendStore.fetchSuggestedFriends('');
+    await friendStore.fetchSuggestedFriends({ username: '' });
   }
 });

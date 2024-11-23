@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
-
+import { friendStatus } from '@/constants/friendStatus';
 import { getDayDeclension } from '@/constants/i18n';
 import { daysSince } from '@/helpers/dateFormat.helper';
 
@@ -9,6 +8,7 @@ interface PeopleInfo {
   avatar?: string;
   rating: number;
   createdAt: string;
+  isFriend: string;
 }
 
 const { t } = useI18n();
@@ -31,7 +31,6 @@ const openModalProfile = () => {
   emit('open:profile', props.peopleInfo.username);
 };
 
-const inFriends = ref(false);
 const dayWithUs = daysSince(props.peopleInfo.createdAt);
 
 const withUsText = computed(() => {
@@ -45,25 +44,23 @@ const withUsText = computed(() => {
     <div class="flex w-64 items-center gap-4">
       <div class="cursor-pointer" @click="openModalProfile">
         <UTooltip :text="t('page--friends.card.tooltip-avatar')">
-          <UAvatar :alt="peopleInfo.username" :src="peopleInfo.avatar || ''" size="lg" />
-        </UTooltip>
-        <!--        <UTooltip :text="t('page&#45;&#45;friends.card.tooltip-avatar')">-->
-        <!--          <UChip :ui="{ base: '-mx-1 rounded-none ring-0', background: '' }" inset position="bottom-right" size="md">-->
-        <!--            <UAvatar :alt="peopleInfo.username" :src="peopleInfo.avatar || ''" size="lg" />-->
+          <UChip :ui="{ base: '-mx-1 rounded-none ring-0', background: '' }" inset position="bottom-right" size="md">
+            <UAvatar :alt="peopleInfo.username" :src="peopleInfo.avatar || ''" size="lg" />
 
-        <!--            <template #content>-->
-        <!--              <UAvatar-->
-        <!--                :ui="{ rounded: 'rounded-md' }"-->
-        <!--                alt="Avatar"-->
-        <!--                class="shadow-md"-->
-        <!--                size="2xs"-->
-        <!--                src="https://avatars.githubusercontent.com/in/80442?v=4"-->
-        <!--              />-->
-        <!--              <UIcon class="text-yellow-500" name="star" size="lg" />-->
-        <!--              <UIcon class="h-4 w-4 text-yellow-700" name="i-heroicons-light-bulb" />-->
-        <!--            </template>-->
-        <!--          </UChip>-->
-        <!--        </UTooltip>-->
+            <template #content>
+              <UIcon
+                v-if="friendStatus.FOLLOWING === props.peopleInfo?.isFriend"
+                class="h-5 w-5 text-green-500"
+                name="i-heroicons-chevron-double-down-solid"
+              />
+              <UIcon
+                v-if="friendStatus.FOLLOWED === props.peopleInfo?.isFriend"
+                class="h-5 w-5 text-blue-500"
+                name="i-heroicons-chevron-double-up-solid"
+              />
+            </template>
+          </UChip>
+        </UTooltip>
       </div>
       <div class="flex flex-col items-start gap-2">
         <div class="flex flex-col items-start">
@@ -74,8 +71,9 @@ const withUsText = computed(() => {
             {{ withUsText }}
           </UBadge>
 
+          <!--          <UBadge class="mt-1" color="blue" variant="soft"> Ваш подписчик</UBadge>-->
           <UButton
-            v-if="!inFriends"
+            v-if="props.peopleInfo?.isFriend === friendStatus.NOT_FOLLOWING || props.peopleInfo?.isFriend === friendStatus.FOLLOWING"
             :label="t('page--friends.card.subscribe')"
             class="mt-1"
             color="green"
@@ -87,8 +85,19 @@ const withUsText = computed(() => {
           />
 
           <UButton
-            v-else
+            v-if="props.peopleInfo?.isFriend === friendStatus.FRIENDS"
             :label="t('page--friends.card.inFriends')"
+            class="mt-1"
+            color="green"
+            disabled
+            icon="i-heroicons-users"
+            size="2xs"
+            variant="link"
+          />
+
+          <UButton
+            v-if="props.peopleInfo?.isFriend === friendStatus.FOLLOWED"
+            :label="t('page--friends.card.followed')"
             class="mt-1"
             color="green"
             disabled

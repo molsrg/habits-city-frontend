@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import ProfileModal from '@/components/modal/ProfileModal.vue';
+import SearchFilters from '@/components/search/SearchFilters.vue';
+import { useFilterConfig } from '@/configs/filterFriends';
 import { ModalName } from '@/constants/modalName';
 import { modalService } from '@/services/modal.service';
 import { useFriendStore } from '@/store/friend.store';
+import { debounce } from '@/utils/debounce';
 
 definePageMeta({
   middleware: ['auth'],
@@ -10,7 +13,7 @@ definePageMeta({
 useHead({
   title: 'HS | Friends',
 });
-
+const filterConfig = useFilterConfig();
 const friendStore = useFriendStore();
 const searchFriend = ref('');
 const { t } = useI18n();
@@ -23,24 +26,28 @@ const openModalProfile = async (username: string): void => {
   const payload = await friendStore.fetchFriendInfo(username);
   modalService.open(ModalName.Profile, payload);
 };
-
-let debounceTimeout: ReturnType<typeof setTimeout>;
-watch(searchFriend, (newValue) => {
-  clearTimeout(debounceTimeout);
-  debounceTimeout = setTimeout(() => {
-    friendStore.fetchSuggestedFriends(newValue.trim());
-  }, 300);
+const selectedFilter = ref('');
+const setFilter = (filter: string) => {
+  selectedFilter.value = filter;
+};
+watch([searchFriend, selectedFilter], ([newSearchValue, newSelectedButton]) => {
+  debounce(() => {
+    friendStore.fetchSuggestedFriends({
+      username: newSearchValue,
+      ...(newSelectedButton.trim() && { status: newSelectedButton }),
+    });
+  }, 300)();
 });
 </script>
 
 <template>
-  <div class="friends">
+  <div class="mt-[3vh] flex flex-col items-center space-y-2.5">
     <UInput
       v-model="searchFriend"
       :placeholder="t('page--friends.placeholder')"
       :ui="{ icon: { trailing: { pointer: '' } } }"
       autocomplete="off"
-      class="friends__search"
+      class="w-[60vw]"
       icon="i-heroicons-magnifying-glass-20-solid"
       name="search-friend"
       size="xl"
@@ -57,7 +64,11 @@ watch(searchFriend, (newValue) => {
       </template>
     </UInput>
 
-    <div class="friends__container">
+    <div class="flex w-[60vw] flex-wrap items-center justify-center gap-2">
+      <SearchFilters :filters="filterConfig" @update:filter="setFilter" />
+    </div>
+
+    <div class="mt-2 flex flex-wrap items-center justify-center gap-3">
       <CardsProfile
         v-for="user in friendStore.getSuggestedFriends"
         :key="user.username"
@@ -73,26 +84,3 @@ watch(searchFriend, (newValue) => {
 
   <ProfileModal />
 </template>
-
-<style lang="scss" scoped>
-.friends {
-  margin-top: 5vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 10px;
-
-  &__search {
-    width: 60vw;
-  }
-
-  &__container {
-    margin-top: 2vh;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-}
-</style>
