@@ -169,7 +169,8 @@
       },
       "username": {
         "empty": "Username cannot be empty!",
-        "taken": "Username is already taken!"
+        "taken": "Username is already taken!",
+        "tooShort": "Username must be at least 4 characters long!"
       },
       "email": {
         "empty": "Email cannot be empty!",
@@ -189,7 +190,8 @@
     "tasks": "Tasks",
     "home-page": "Homepage",
     "login": "Login",
-    "registration": "Registration"
+    "registration": "Registration",
+    "balance": "Balance"
   },
   "modal": {
     "link-email": {
@@ -217,5 +219,25 @@
   "stepper": {
     "prev": "Back",
     "next": "Next"
+  },
+  "support": {
+    "title": "Support Service",
+    "description": "You can help us improve the app",
+    "topic": {
+      "label": "Choose a suggestion topic",
+      "placeholder": "Select a topic",
+      "options": {
+        "bug": "Bug",
+        "feature": "Feature",
+        "documentation": "Documentation",
+        "other": "Other"
+      }
+    },
+    "textarea": {
+      "placeholder": "Enter your message..."
+    },
+    "button": {
+      "submit": "Submit"
+    }
   }
 }

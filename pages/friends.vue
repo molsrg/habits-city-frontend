@@ -41,46 +41,48 @@ watch([searchFriend, selectedFilter], ([newSearchValue, newSelectedButton]) => {
 </script>
 
 <template>
-  <div class="mt-[3vh] flex flex-col items-center space-y-2.5">
-    <UInput
-      v-model="searchFriend"
-      :placeholder="t('page--friends.placeholder')"
-      :ui="{ icon: { trailing: { pointer: '' } } }"
-      autocomplete="off"
-      class="w-[60vw]"
-      icon="i-heroicons-magnifying-glass-20-solid"
-      name="search-friend"
-      size="xl"
-    >
-      <template #trailing>
-        <UButton
-          v-show="searchFriend !== ''"
-          :padded="false"
-          color="gray"
-          icon="i-heroicons-x-mark-20-solid"
-          variant="link"
-          @click="searchFriend = ''"
+  <div>
+    <div class="mt-[3vh] flex flex-col items-center space-y-2.5">
+      <UInput
+        v-model="searchFriend"
+        :placeholder="t('page--friends.placeholder')"
+        :ui="{ icon: { trailing: { pointer: '' } } }"
+        autocomplete="off"
+        class="w-[80vw]"
+        icon="i-heroicons-magnifying-glass-20-solid"
+        name="search-friend"
+        size="xl"
+      >
+        <template #trailing>
+          <UButton
+            v-show="searchFriend !== ''"
+            :padded="false"
+            color="gray"
+            icon="i-heroicons-x-mark-20-solid"
+            variant="link"
+            @click="searchFriend = ''"
+          />
+        </template>
+      </UInput>
+
+      <div class="flex w-[80vw] flex-wrap items-center justify-center gap-2">
+        <SearchFilters :filters="filterConfig" @update:filter="setFilter" />
+      </div>
+
+      <div class="mt-2 flex flex-wrap items-center justify-center gap-3">
+        <CardsProfile
+          v-for="user in friendStore.getSuggestedFriends"
+          :key="user.username"
+          :people-info="user"
+          @open:profile="openModalProfile"
+          @add:people="addNewPeople"
         />
-      </template>
-    </UInput>
-
-    <div class="flex w-[60vw] flex-wrap items-center justify-center gap-2">
-      <SearchFilters :filters="filterConfig" @update:filter="setFilter" />
-    </div>
-
-    <div class="mt-2 flex flex-wrap items-center justify-center gap-3">
-      <CardsProfile
-        v-for="user in friendStore.getSuggestedFriends"
-        :key="user.username"
-        :people-info="user"
-        @open:profile="openModalProfile"
-        @add:people="addNewPeople"
-      />
-      <div v-if="friendStore.getSuggestedFriends.length === 0">
-        <h3>{{ t('page--friends.not-found') }}</h3>
+        <div v-if="friendStore.getSuggestedFriends.length === 0">
+          <h3>{{ t('page--friends.not-found') }}</h3>
+        </div>
       </div>
     </div>
-  </div>
 
-  <ProfileModal />
+    <ProfileModal />
+  </div>
 </template>

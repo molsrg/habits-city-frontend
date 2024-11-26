@@ -48,7 +48,6 @@ const tasks = reactive({
   },
 });
 
-
 const completeTask = (id, list) => {
   const task = tasks[list].tasks.find((task) => task.id === id);
   if (task) {
@@ -66,8 +65,7 @@ const completeTask = (id, list) => {
         :animation="300"
         group="tasks"
         item-key="id"
-        tag="ul"
-      >
+        tag="ul">
         <template #item="{ element: meal }">
           <div class="task-card-container">
             <TaskCard :content="meal" @update:status="completeTask(meal.id, key)" />
@@ -86,6 +84,7 @@ const completeTask = (id, list) => {
 .food-container {
   display: flex;
   align-items: start;
+  justify-content: space-evenly;
   gap: 20px;
 }
 
@@ -101,5 +100,4 @@ h1 {
   font-size: 24px;
   margin-bottom: 15px;
 }
-
 </style>

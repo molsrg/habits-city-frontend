@@ -14,7 +14,7 @@ export const useApiStore = defineStore('apiStore', {
   actions: {
     async existUsername(username: string): Promise<boolean> {
       try {
-        const { data } = await userService.get('/user/isTaken', {
+        const { data } = await userService.get('/user/isValidUsername', {
           username,
         });
         this.isValidUserName = data.isTaken;

@@ -13,5 +13,6 @@ export const endPoints = {
   },
   friend: {
     searchUsers: 'user/searchUsers',
+    fetchInfo: 'user/getUserInfo',
   },
 };

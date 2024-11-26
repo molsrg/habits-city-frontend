@@ -31,7 +31,7 @@ export const useUserStore = defineStore('userStore', {
       if (data) this.userInfo = data;
     },
     async changeUserInfo(userInfo: object): Promise<void> {
-      await userService.post(endPoints.user.changeInfo, userInfo);
+      await userService.patch(endPoints.user.changeInfo, userInfo);
       await this.fetchUserInfo();
     },
 

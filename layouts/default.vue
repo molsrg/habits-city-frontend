@@ -143,6 +143,12 @@ const authLinks = computed(() =>
         label: t('nav--layout.tasks'),
         to: '/tasks',
       },
+      {
+        icon: 'i-heroicons-currency-dollar',
+        label: t('nav--layout.balance'),
+        badge: user.value.rating || undefined,
+        to: '/balance',
+      },
     ]
     : [...logInOrRegistration.value],
 );

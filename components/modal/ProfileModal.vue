@@ -17,6 +17,7 @@ const { t } = useI18n();
             <div class="flex flex-col items-start justify-between gap-1">
               <UBadge color="primary" variant="soft"> @ {{ modalPayload.username }}</UBadge>
               <UBadge v-if="modalPayload.bio" color="white" variant="solid"> {{ modalPayload.bio }}</UBadge>
+              <USkeleton v-else class="h-4 w-[200px]" />
             </div>
           </div>
 

@@ -9,53 +9,53 @@
       "friends": {
         "all": "Tous",
         "random": "Aléatoires",
-        "followed": "Suivi",
+        "followed": "Abonné",
         "following": "Abonnés",
         "friends": "Amis"
       }
     }
   },
   "page--index": {
-    "badge": "Le compilateur est le meilleur ami du programmeur : il ne dira jamais que vous êtes un génie, mais il montrera toujours où vous avez fait une erreur",
-    "welcome": "Bienvenue dans Habits City",
+    "badge": "Le compilateur est le meilleur ami du programmeur : il ne vous dira jamais que vous êtes un génie, mais il vous montrera toujours où vous avez fait une erreur",
+    "welcome": "Bienvenue à Habits City",
     "trackYourProgress": "Progrès qui inspire",
-    "trackDescription": "Suivez votre développement chaque jour pour non seulement voir les résultats, mais aussi ressentir de l'inspiration sur le chemin du succès.",
-    "createTasks": "Des tâches qui vont changer votre vie",
-    "createTasksDescription": "Planifiez vos objectifs avec des tâches claires et ouvrez la voie à des victoires personnelles chaque jour.",
-    "followFriends": "Soutenez vos amis dans leurs réussites",
-    "followFriendsDescription": "Avancer ensemble vers les objectifs est plus facile. Suivez les progrès de vos amis et créez une motivation mutuelle pour des réalisations plus grandes.",
-    "viewReports": "Obtenez une image complète de vos réalisations",
-    "viewReportsDescription": "Analysez chaque étape pour savoir exactement où vous en êtes et quelles étapes faire pour d'autres victoires.",
-    "setGoals": "Fixez des objectifs qui inspirent",
-    "setGoalsDescription": "Définissez des objectifs clairs et fixez des tâches ambitieuses pour ne pas vous arrêter en chemin.",
+    "trackDescription": "Suivez votre développement chaque jour pour non seulement voir les résultats, mais aussi ressentir l'inspiration sur le chemin du succès.",
+    "createTasks": "Tâches qui changeront votre vie",
+    "createTasksDescription": "Planifiez vos objectifs avec des tâches claires et tracez votre chemin vers des victoires personnelles chaque jour.",
+    "followFriends": "Soutenez vos amis dans leurs succès",
+    "followFriendsDescription": "Aller ensemble vers les objectifs est plus facile. Suivez les progrès de vos amis et créez une motivation mutuelle pour de grandes réalisations.",
+    "viewReports": "Obtenez une vue complète de vos réalisations",
+    "viewReportsDescription": "Analysez chaque étape pour savoir exactement où vous en êtes et quelles étapes vous devez franchir pour de nouvelles victoires.",
+    "setGoals": "Définir des objectifs qui inspirent",
+    "setGoalsDescription": "Définissez des objectifs clairs et fixez des tâches ambitieuses pour ne pas vous arrêter en si bon chemin.",
     "stayMotivated": "Motivation qui fonctionne",
-    "stayMotivatedDescription": "Ne vous laissez pas aller! Maintenez votre niveau d'énergie et de motivation tout au long du parcours vers le succès.",
-    "celebrateSuccess": "Célébrez vos réussites",
-    "celebrateSuccessDescription": "Chaque étape vers un objectif est une raison de célébrer. Partagez vos réalisations et savourez chaque succès.",
-    "howItWorks": "Comment ça fonctionne?",
+    "stayMotivatedDescription": "Ne vous relâchez pas ! Maintenez votre niveau d'énergie et de motivation sur le chemin du succès.",
+    "celebrateSuccess": "Célébrez vos succès",
+    "celebrateSuccessDescription": "Chaque étape vers l'objectif est une raison de faire la fête. Partagez vos réalisations et réjouissez-vous de chaque succès.",
+    "howItWorks": "Comment ça marche ?",
     "footer": "2024 Habits City. Tous droits réservés.",
     "faq": {
       "title": "Questions fréquemment posées",
       "options": {
         "register": "Comment s'inscrire sur la plateforme ?",
         "add_friend": "Comment ajouter un nouvel ami ou abonné ?",
-        "modify_account": "Comment modifier ou supprimer mon compte ?",
+        "modify_account": "Comment modifier ou supprimer votre compte ?",
         "create_group": "Comment créer un groupe ou une communauté ?",
-        "change_avatar": "Comment changer ma photo de profil ?",
-        "change_password": "Comment changer le mot de passe de mon compte ?",
-        "recover_account": "Comment récupérer l'accès à mon compte ?",
-        "register_content": "Pour vous inscrire, cliquez sur le bouton 'S'inscrire' sur la page d'accueil, puis remplissez le formulaire avec vos informations pour créer un compte.",
-        "add_friend_content": "Allez dans le profil de l'utilisateur et cliquez sur 'Ajouter en amis' ou 'S'abonner' pour suivre ses mises à jour.",
-        "modify_account_content": "Pour modifier les paramètres de votre compte ou le supprimer, allez dans la section 'Paramètres' du menu de profil et choisissez l'option correspondante.",
-        "create_group_content": "Pour créer un groupe, allez dans la section 'Communautés' et cliquez sur le bouton 'Créer une communauté', puis remplissez le formulaire avec les informations nécessaires.",
-        "change_avatar_content": "Pour changer votre photo de profil, allez dans les paramètres de profil et cliquez sur la photo actuelle. Ensuite, choisissez une nouvelle image dans votre galerie.",
-        "change_password_content": "Pour changer votre mot de passe, allez dans les paramètres de votre compte, sélectionnez 'Sécurité' et suivez les instructions pour changer votre mot de passe.",
-        "recover_account_content": "Si vous avez oublié votre mot de passe, cliquez sur 'Mot de passe oublié?' sur la page de connexion, indiquez votre e-mail et nous vous enverrons des instructions pour récupérer l'accès."
+        "change_avatar": "Comment changer la photo de profil ?",
+        "change_password": "Comment changer le mot de passe du compte ?",
+        "recover_account": "Comment récupérer l'accès à votre compte ?",
+        "register_content": "Pour vous inscrire, cliquez sur le bouton \"S'inscrire\" sur la page d'accueil, puis remplissez le formulaire avec vos informations pour créer un compte.",
+        "add_friend_content": "Allez sur le profil de l'utilisateur et cliquez sur le bouton \"Ajouter en ami\" ou \"S'abonner\" pour suivre ses mises à jour.",
+        "modify_account_content": "Pour modifier les paramètres de votre compte ou le supprimer, allez dans la section \"Paramètres\" du menu de profil et sélectionnez l'option correspondante.",
+        "create_group_content": "Pour créer un groupe, allez dans la section \"Communautés\" et cliquez sur le bouton \"Créer une communauté\", puis remplissez le formulaire avec les informations nécessaires.",
+        "change_avatar_content": "Pour changer la photo de profil, ouvrez les paramètres de profil et cliquez sur la photo actuelle. Ensuite, sélectionnez une nouvelle image dans votre galerie.",
+        "change_password_content": "Pour changer le mot de passe, ouvrez les paramètres du compte, sélectionnez la section \"Sécurité\" et suivez les instructions pour changer le mot de passe.",
+        "recover_account_content": "Si vous avez oublié votre mot de passe, cliquez sur \"Mot de passe oublié ?\" sur la page de connexion, entrez votre email, et nous vous enverrons les instructions pour récupérer l'accès."
       }
     }
   },
   "page--profile": {
-    "title": "Bienvenue dans votre profil!",
+    "title": "Bienvenue dans votre profil !",
     "subtitle": "Votre compte est déjà prêt, mais vous pouvez le personnaliser",
     "nav": {
       "settings": "Paramètres",
@@ -65,16 +65,16 @@
     "social-networks": {
       "yandex": {
         "tooltip": "Connecter Yandex",
-        "tooltipHasSocial": "Yandex est déjà connecté",
+        "tooltipHasSocial": "Yandex est déjà lié",
         "label": "Yandex"
       },
       "google": {
         "tooltip": "Connecter Google",
-        "tooltipHasSocial": "Google est déjà connecté",
+        "tooltipHasSocial": "Google est déjà lié",
         "label": "Google"
       }
     },
-    "language": "Choisir la langue",
+    "language": "Choisissez la langue",
     "settings-option": {
       "nav": {
         "account": {
@@ -85,66 +85,66 @@
         },
         "password": {
           "label": "Mot de passe",
-          "description": "Changez votre mot de passe ici. Après l'enregistrement, vous serez déconnecté."
+          "description": "Changez votre mot de passe ici. Vous serez déconnecté après l'enregistrement."
         }
       },
       "bio": {
         "label": "BIO",
-        "description": "Des informations courtes sur vous",
-        "placeholder": "Entrez votre bio"
+        "description": "Informations courtes sur vous",
+        "placeholder": "Entrez la bio"
       },
       "username": {
         "label": "Nom d'utilisateur",
         "description": "Visible lors de la création ou de l'exécution des tâches",
-        "placeholder": "Entrez votre nom d'utilisateur"
+        "placeholder": "Entrez le nom d'utilisateur"
       },
       "email": {
         "label": "Email",
         "placeholder": "L'email sera affiché ici",
-        "description": "Pour récupérer votre compte"
+        "description": "Pour la récupération du compte"
       },
       "password": {
         "label": "Mot de passe",
-        "placeholder": "Entrez votre mot de passe"
+        "placeholder": "Entrez le mot de passe"
       },
       "new-password": {
         "label": "Nouveau mot de passe",
         "description": "Entrez un mot de passe sécurisé",
-        "placeholder": "Entrez un nouveau mot de passe"
+        "placeholder": "Entrez le nouveau mot de passe"
       },
-      "upload-avatar": "Télécharger un avatar"
+      "upload-avatar": "Télécharger l'avatar"
     },
     "nav-item": {},
-    "link-email": "Lier un Email",
-    "change-email": "Changer l'Email",
+    "link-email": "Lier l'email",
+    "change-email": "Changer l'email",
     "save-account": "Enregistrer les modifications",
     "save-password": "Enregistrer le mot de passe",
     "delete-account": "Supprimer le compte"
   },
   "page--login": {
-    "title": "Connecter",
-    "subtitle": "Entrez vos identifiants pour accéder à votre compte",
-    "no-account": "Pas encore de compte?",
-    "enter-password": "Entrez votre mot de passe",
-    "enter-username": "Entrez votre nom d'utilisateur"
+    "title": "Connexion",
+    "subtitle": "Entrez vos informations d'identification pour accéder à votre compte",
+    "no-account": "Vous n'avez pas encore de compte ?",
+    "enter-password": "Entrez le mot de passe",
+    "enter-username": "Entrez le nom d'utilisateur"
   },
   "page--friends": {
-    "not-found": "Désolé, aucun utilisateur trouvé avec ce nom...",
-    "placeholder": "Entrez le nom de votre ami...",
+    "not-found": "Malheureusement, il n'y a pas d'utilisateurs avec ce nom...",
+    "placeholder": "Entrez le nom de l'ami...",
     "card": {
       "subscribe": "S'abonner",
-      "inFriends": "Dans les amis",
-      "followed": "Suivi",
+      "inFriends": "En amis",
+      "followed": "Abonné",
       "tooltip-avatar": "Cliquez pour voir les informations détaillées",
       "days-with-us": "Avec nous depuis {count} {day}"
     }
   },
   "page--registration": {
     "title": "Inscription",
-    "subtitle": "Entrez vos informations pour accéder à votre compte",
-    "have-account": "Vous avez déjà un compte?",
-    "enter-password": "Entrez votre mot de passe",
-    "enter-username": "Entrez votre nom d'utilisateur",
+    "subtitle": "Entrez vos informations d'identification pour accéder à votre compte",
+    "have-account": "Vous avez déjà un compte ?",
+    "enter-password": "Entrez le mot de passe",
+    "enter-username": "Entrez le nom d'utilisateur",
     "button": "S'inscrire"
   },
   "layout--default": {
@@ -157,38 +157,87 @@
   },
   "notifications": {
     "save-access": "Données enregistrées avec succès",
-    "save-error": "Erreur lors de l'enregistrement des données",
+    "save-error": "Erreur d'enregistrement des données",
     "errors": {
-      "400": "Mauvaise demande"
+      "400": "Requête incorrecte"
     }
   },
   "alerts": {
     "errors": {
       "bio": {
-        "empty": "BIO ne peut pas être vide!"
+        "empty": "La BIO ne peut pas être vide !"
       },
       "username": {
-        "empty": "Le nom d'utilisateur ne peut pas être vide!",
-        "taken": "Le nom d'utilisateur est déjà pris!"
+        "empty": "Le nom d'utilisateur ne peut pas être vide !",
+        "taken": "Le nom d'utilisateur est déjà pris !",
+        "tooShort": "Le nom d'utilisateur doit contenir au moins 4 caractères !"
       },
       "email": {
-        "empty": "L'email ne peut pas être vide!",
-        "invalid": "Format d'email invalide!"
+        "empty": "L'email ne peut pas être vide !",
+        "invalid": "Format d'email incorrect !"
       },
       "password": {
-        "empty": "Le mot de passe ne peut pas être vide!",
-        "length": "Le mot de passe doit contenir au moins 8 caractères!",
-        "uppercase": "Le mot de passe doit contenir au moins une majuscule!",
-        "digit": "Le mot de passe doit contenir au moins un chiffre!"
+        "empty": "Le mot de passe ne peut pas être vide !",
+        "length": "Le mot de passe doit contenir au moins 8 caractères !",
+        "uppercase": "Le mot de passe doit contenir au moins une lettre majuscule !",
+        "digit": "Le mot de passe doit contenir au moins un chiffre !"
       }
     }
   },
   "nav--layout": {
     "friends": "Amis",
-    "logout": "Se déconnecter",
+    "logout": "Déconnexion",
     "tasks": "Tâches",
-    "statistics": "Statistiques",
-    "profile": "Profile",
-    "home-page": "Page d'accueil"
+    "home-page": "Page d'accueil",
+    "login": "Connexion",
+    "registration": "Inscription",
+    "balance": "Solde"
+  },
+  "modal": {
+    "link-email": {
+      "title": "Lier l'email",
+      "description": "Liez votre email pour récupérer le mot de passe",
+      "steppers": {
+        "enter-email": "Entrez l'email",
+        "confirm-email": "Confirmez l'email"
+      }
+    },
+    "delete-account": {
+      "title": "Voulez-vous vraiment supprimer le compte ?",
+      "description": "Pour supprimer, entrez le nom d'utilisateur",
+      "placeholder": "Entrez le nom",
+      "delete-button": "Supprimer le compte"
+    },
+    "delete-friend": {
+      "delete": "Se désabonner"
+    }
+  },
+  "page--pending": {
+    "go-back-login": "Retour à la connexion",
+    "wait-for-authorization": "Attendez l'autorisation !"
+  },
+  "stepper": {
+    "prev": "Précédent",
+    "next": "Suivant"
+  },
+  "support": {
+    "title": "Service d'assistance",
+    "description": "Vous pouvez nous aider à améliorer l'application",
+    "topic": {
+      "label": "Choisissez un sujet pour la suggestion",
+      "placeholder": "Choisissez un sujet",
+      "options": {
+        "bug": "Bug",
+        "feature": "Fonctionnalité",
+        "documentation": "Documentation",
+        "other": "Autre"
+      }
+    },
+    "textarea": {
+      "placeholder": "Entrez votre message..."
+    },
+    "button": {
+      "submit": "Envoyer"
+    }
   }
 }

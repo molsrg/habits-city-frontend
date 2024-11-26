@@ -13,6 +13,7 @@ class ApiService {
       headers: {
         'Content-Type': 'application/json',
       },
+      timeout: 5000,
     });
 
     this.client.interceptors.request.use((config: AxiosRequestConfig) => {
@@ -39,6 +40,13 @@ class ApiService {
         const toast = useToast();
         const tokenStore = useTokenStore();
 
+        // Check timeout server
+        if (error.code === 'ECONNABORTED') {
+          toast.add({ color: 'red', title: 'Request timed out. Please try again.' });
+          return Promise.reject(error);
+        }
+
+        // Handling 401 errors
         if (error.response?.status === 401 && !error.config._retry) {
           error.config._retry = true;
 
@@ -48,6 +56,7 @@ class ApiService {
           return this.client(error.config);
         }
 
+        // Handling other errors
         toast.add({ color: 'red', title: error.response?.data?.message || 'Unknown error' });
         return Promise.reject(error.response?.data || error);
       },
@@ -68,6 +77,13 @@ class ApiService {
       withCredentials: true,
     };
     return this.client.post<T>(url, data, config);
+  }
+
+  async patch<T>(url: string, data: Record<string, any> = {}, headers: Record<string, string> = {}): Promise<AxiosResponse<T>> {
+    const config: AxiosRequestConfig = {
+      headers,
+    };
+    return this.client.patch<T>(url, data, config);
   }
 
   async postFormData<T>(url: string, data: Record<string, any> = {}, headers: Record<string, string> = {}): Promise<AxiosResponse<T>> {

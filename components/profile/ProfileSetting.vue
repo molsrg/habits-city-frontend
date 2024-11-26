@@ -55,7 +55,9 @@ const accountErrors = computed(() => ({
     ? t('alerts.errors.username.taken')
     : accountFormField.username !== null && accountFormField.username.length === 0
       ? t('alerts.errors.username.empty')
-      : '',
+      : accountFormField.username !== null && accountFormField.username.length < 4
+        ? t('alerts.errors.username.tooShort')
+        : '',
 
   password: accountFormField.password !== undefined && accountFormField.password.length === 0 ? t('alerts.errors.password.empty') : null,
 
@@ -226,7 +228,7 @@ const getClickHandler = (button) => {
           />
         </div>
         <template #footer>
-          <div class="flex items-center gap-4">
+          <div class="flex flex-wrap items-center gap-2">
             <UButton
               v-for="button in tabs[selectedTabs].actions"
               :key="button.label"

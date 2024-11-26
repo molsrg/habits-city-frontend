@@ -105,6 +105,8 @@ const pushToLogInPage = () => {
 <style lang="scss" scoped>
 .auth {
   margin-top: 17vh;
+  display: flex;
+  justify-content: center;
 }
 
 .auth-form {

@@ -16,7 +16,7 @@ export const useFriendStore = defineStore('friendStore', {
   },
   actions: {
     async fetchFriendInfo(username): Promise<void> {
-      const { data } = await userService.get(endPoints.user.fetchInfo);
+      const { data } = await userService.get(endPoints.friend.fetchInfo, { username: username });
       return data;
     },
 
