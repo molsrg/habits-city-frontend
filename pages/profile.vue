@@ -107,7 +107,6 @@ const openModalProfile = async (username: string): void => {
             @link:social="linkSocialNetwork"
             @open:profile="openModalProfile"
           />
-
           <GitHubActivity v-if="activeLink === 'Stats'" />
         </div>
       </div>
@@ -154,7 +153,7 @@ const openModalProfile = async (username: string): void => {
     display: flex;
     width: 100%;
     flex-direction: column;
-    gap: 5px;
+    gap: 15px;
 
     &-header {
       display: flex;

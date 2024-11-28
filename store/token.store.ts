@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia';
-
 import { authService } from '@/services/api.service';
 import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';

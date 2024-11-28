@@ -52,14 +52,16 @@ const completeTask = (id, list) => {
   const task = tasks[list].tasks.find((task) => task.id === id);
   if (task) {
     task.completed = !task.completed;
+
+    tasks[list].tasks.sort((a, b) => a.completed - b.completed);
   }
 };
 </script>
 
 <template>
-  <div class="food-container">
-    <div v-for="(column, key) in tasks" :key="key" class="column">
-      <h1>{{ column.title }}</h1>
+  <div class="flex items-start justify-evenly gap-5">
+    <div v-for="(column, key) in tasks" :key="key" class="flex-1 rounded-lg border border-gray-800 p-3">
+      <h1 class="mb-2 text-center text-2xl">{{ column.title }}</h1>
       <draggable
         v-model="column.tasks"
         :animation="300"
@@ -67,7 +69,7 @@ const completeTask = (id, list) => {
         item-key="id"
         tag="ul">
         <template #item="{ element: meal }">
-          <div class="task-card-container">
+          <div class="mb-3">
             <TaskCard :content="meal" @update:status="completeTask(meal.id, key)" />
           </div>
         </template>
@@ -75,29 +77,3 @@ const completeTask = (id, list) => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.task-card-container {
-  margin-bottom: 12px;
-}
-
-.food-container {
-  display: flex;
-  align-items: start;
-  justify-content: space-evenly;
-  gap: 20px;
-}
-
-.column {
-  width: 30%;
-  padding: 10px;
-  border-radius: 8px;
-  border: #1f2937 1px solid;
-}
-
-h1 {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 15px;
-}
-</style>

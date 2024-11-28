@@ -1,4 +1,4 @@
-import { friendStatus } from '@/constants/friendStatus';
+import { FRIENDS_STATUS } from '@/constants/friends';
 
 export const useFilterConfig = () => {
   const { t } = useI18n();
@@ -11,22 +11,22 @@ export const useFilterConfig = () => {
     },
     {
       label: t('global.filters.friends.random'),
-      value: friendStatus.NOT_FOLLOWING,
+      value: FRIENDS_STATUS.NOT_FOLLOWING,
       color: 'indigo',
     },
     {
       label: t('global.filters.friends.followed'),
-      value: friendStatus.FOLLOWED,
+      value: FRIENDS_STATUS.FOLLOWED,
       color: 'emerald',
     },
     {
       label: t('global.filters.friends.following'),
-      value: friendStatus.FOLLOWING,
+      value: FRIENDS_STATUS.FOLLOWING,
       color: 'blue',
     },
     {
       label: t('global.filters.friends.friends'),
-      value: friendStatus.FRIENDS,
+      value: FRIENDS_STATUS.FRIENDS,
       color: 'green',
     },
   ]);

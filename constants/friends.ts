@@ -1,10 +1,8 @@
-const friendStatus = {
+export const FRIENDS_STATUS = Object.freeze({
   FOLLOWING: 'FOLLOWING',
   FOLLOWED: 'FOLLOWED',
   FRIENDS: 'FRIENDS',
   NOT_FOLLOWING: 'NOT_FOLLOWING',
-};
+});
 
-Object.freeze(friendStatus);
-
-export { friendStatus };
+export const FRIENDS_CHUNK = 20;

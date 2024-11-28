@@ -1,5 +1,4 @@
-import { defineStore } from 'pinia';
-
+import { endPoints } from '@/constants/endPoints';
 import { userService } from '@/services/api.service';
 
 export const useApiStore = defineStore('apiStore', {
@@ -13,12 +12,8 @@ export const useApiStore = defineStore('apiStore', {
   },
   actions: {
     async existUsername(username: string): Promise<boolean> {
-      try {
-        const { data } = await userService.get('/user/isValidUsername', {
-          username,
-        });
-        this.isValidUserName = data.isTaken;
-      } catch (e) {}
+      const { data } = await userService.get(endPoints.user.validUsername, { username });
+      this.isValidUserName = data.isTaken;
     },
   },
 });

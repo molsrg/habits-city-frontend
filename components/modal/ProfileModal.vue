@@ -1,10 +1,14 @@
 <script lang="ts" setup>
+import ChartProfile from '@/components/charts/ChartProfile.vue';
+import { FRIENDS_STATUS } from '@/constants/friends';
 import { ModalName } from '@/constants/modalName';
 import { modalService } from '@/services/modal.service';
 
 const isOpenModal = computed(() => modalService.isOpen(ModalName.Profile));
 const modalPayload = computed(() => modalService.getPayload(ModalName.Profile));
 const { t } = useI18n();
+
+defineEmits('delete:friend');
 </script>
 
 <template>
@@ -24,19 +28,23 @@ const { t } = useI18n();
           <UButton color="gray" icon="i-heroicons-x-mark-20-solid" variant="ghost" @click="modalService.close(ModalName.Profile)" />
         </div>
       </template>
-
-      {{ modalPayload }}
+      <div class="flex flex-col gap-2">
+        <h3 class="text-base font-semibold">{{ t('modal.delete-friend.profile-stat') }}</h3>
+        <ChartProfile />
+      </div>
 
       <template #footer>
         <div class="flex items-start justify-end">
           <UButton
+            v-if="modalPayload.isFriend === FRIENDS_STATUS.FOLLOWED || modalPayload.isFriend === FRIENDS_STATUS.FRIENDS"
             :label="t('modal.delete-friend.delete')"
             class="mt-1"
             color="red"
-            disabled
             icon="i-heroicons-trash"
             size="xs"
-            variant="outline" />
+            variant="outline"
+            @click="$emit('delete:friend', modalPayload.username)"
+          />
         </div>
       </template>
     </UCard>

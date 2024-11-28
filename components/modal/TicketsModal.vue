@@ -25,6 +25,25 @@ const submit = () => {
 const disabledButton = computed(() => {
   return !selectedTopic.value || !topicContent.value.trim();
 });
+
+let systemInfo = {};
+
+if (import.meta.client) {
+  systemInfo = {
+    userAgent: navigator.userAgent,
+    language: navigator.language || navigator.userLanguage,
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    localeTime: new Date().toLocaleString(),
+    screenWidth: window.screen.width,
+    screenHeight: window.screen.height,
+    windowWidth: window.innerWidth,
+    windowHeight: window.innerHeight,
+    isOnline: navigator.onLine,
+    connectionType: navigator.connection ? navigator.connection.effectiveType : 'unknown',
+    cpuCores: navigator.hardwareConcurrency,
+    cookiesEnabled: navigator.cookieEnabled,
+  };
+}
 </script>
 
 <template>

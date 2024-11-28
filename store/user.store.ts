@@ -1,8 +1,6 @@
-import { defineStore } from 'pinia';
-
 import { endPoints } from '@/constants/endPoints';
 import { ModalName } from '@/constants/modalName';
-import { authService, userService } from '@/services/api.service';
+import { userService } from '@/services/api.service';
 import { modalService } from '@/services/modal.service';
 import { useTokenStore } from '@/store/token.store';
 

@@ -1,14 +1,9 @@
-import { defineStore } from 'pinia';
-
 import { endPoints } from '@/constants/endPoints';
 import { authService } from '@/services/api.service';
 import { useAppStore } from '@/store/app.store';
 import { useTokenStore } from '@/store/token.store';
 
 export const useAuthStore = defineStore('authStore', {
-  persist: true,
-  state: () => ({}),
-  getters: {},
   actions: {
     async createUser(userData: object): Promise<void> {
       const tokenStore = useTokenStore();

@@ -206,12 +206,32 @@ const getClickHandler = (button) => {
                 <Icon :name="button.icon" />
               </UButton>
             </UTooltip>
-            <UButton
-              color="blue"
-              label="Button"
-              size="sm"
-              style="display: none"
-              variant="soft" />
+            <div style="display: none">
+              <UButton
+                color="blue"
+                label="Button"
+                size="sm"
+                style="display: none"
+                variant="soft" />
+              <UButton
+                color="indigo"
+                label="Button"
+                size="sm"
+                style="display: none"
+                variant="soft" />
+              <UButton
+                color="emerald"
+                label="Button"
+                size="sm"
+                style="display: none"
+                variant="soft" />
+              <UButton
+                color="cyan"
+                label="Button"
+                size="sm"
+                style="display: none"
+                variant="soft" />
+            </div>
           </div>
         </div>
         <div v-else-if="item.key === 'password'" class="space-y-3">

@@ -1,8 +1,6 @@
 <template>
   <GitHubActivity />
-  <Chart
-    :data="chartData"
-    type="line" />
+  <Chart :data="chartData" type="line" />
 </template>
 
 <script lang="ts" setup>
@@ -54,18 +52,12 @@ const setChartData = () => {
     datasets: [
       {
         label: 'Visitors',
-        data: [
-          63, 29, 82, 18, 73, 9, 64, 87, 28, 58, 12, 100, 5, 39, 79, 84, 41, 53,
-          24, 97, 8, 4, 68, 91, 27, 50, 34, 15, 36, 45,
-        ],
+        data: [63, 29, 82, 18, 73, 9, 64, 87, 28, 58, 12, 100, 5, 39, 79, 84, 41, 53, 24, 97, 8, 4, 68, 91, 27, 50, 34, 15, 36, 45],
         borderWidth: 1,
       },
       {
         label: 'Subscribers',
-        data: [
-          22, 87, 56, 11, 93, 48, 75, 63, 32, 89, 17, 4, 69, 25, 96, 52, 37, 81,
-          7, 59, 91, 28, 66, 41, 84, 16, 71, 54, 39, 98, 20,
-        ],
+        data: [22, 87, 56, 11, 93, 48, 75, 63, 32, 89, 17, 4, 69, 25, 96, 52, 37, 81, 7, 59, 91, 28, 66, 41, 84, 16, 71, 54, 39, 98, 20],
         borderWidth: 1,
       },
     ],
@@ -73,9 +65,4 @@ const setChartData = () => {
 };
 </script>
 
-<style>
-.p-chart {
-  width: 80vw;
-  height: 40vw;
-}
-</style>
+<style></style>

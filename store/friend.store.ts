@@ -1,17 +1,18 @@
-import { defineStore } from 'pinia';
-
 import { endPoints } from '@/constants/endPoints';
 import { friendService, userService } from '@/services/api.service';
 
 export const useFriendStore = defineStore('friendStore', {
-  // persist: true,
   state: () => ({
     suggestedFriends: [],
+    batch: 0,
   }),
 
   getters: {
     getSuggestedFriends(state) {
       return state.suggestedFriends;
+    },
+    batchCount(state) {
+      return state.batch;
     },
   },
   actions: {
@@ -23,8 +24,20 @@ export const useFriendStore = defineStore('friendStore', {
     async addNewFriend(username) {
       console.log(username);
     },
-    async fetchSuggestedFriends(payload) {
-      const { data } = await friendService.get(endPoints.friend.searchUsers, payload);
+    
+    async deleteFriend(username) {
+      console.log(username);
+    },
+
+    async fetchFriendsChunk(payload) {
+      this.batch++;
+      const { data } = await friendService.get(endPoints.friend.searchUsers, { ...payload, batch: this.batch });
+      this.suggestedFriends.push(...data);
+    },
+
+    async fetchFriends(payload) {
+      this.batch = 0;
+      const { data } = await friendService.get(endPoints.friend.searchUsers, { ...payload, batch: this.batch });
       this.suggestedFriends = data;
     },
   },

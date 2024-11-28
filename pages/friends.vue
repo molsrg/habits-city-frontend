@@ -2,6 +2,7 @@
 import ProfileModal from '@/components/modal/ProfileModal.vue';
 import SearchFilters from '@/components/search/SearchFilters.vue';
 import { useFilterConfig } from '@/configs/filterFriends';
+import { FRIENDS_CHUNK } from '@/constants/friends';
 import { ModalName } from '@/constants/modalName';
 import { modalService } from '@/services/modal.service';
 import { useFriendStore } from '@/store/friend.store';
@@ -26,17 +27,49 @@ const openModalProfile = async (username: string): void => {
   const payload = await friendStore.fetchFriendInfo(username);
   modalService.open(ModalName.Profile, payload);
 };
+
 const selectedFilter = ref('');
 const setFilter = (filter: string) => {
   selectedFilter.value = filter;
 };
+
 watch([searchFriend, selectedFilter], ([newSearchValue, newSelectedButton]) => {
   debounce(() => {
-    friendStore.fetchSuggestedFriends({
-      username: newSearchValue,
-      ...(newSelectedButton.trim() && { status: newSelectedButton }),
+    friendStore.fetchFriends({
+      ...(searchFriend.value ? { username: newSearchValue } : {}),
+      ...(selectedFilter.value ? { status: newSelectedButton } : {}),
     });
   }, 300)();
+});
+
+const deleteFriend = async (username: string) => {
+  await friendStore.deleteFriend(username);
+  modalService.close(ModalName.Profile);
+};
+
+const footerRef = ref<HTMLElement | null>(null);
+
+const observer = new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting) {
+    if ((friendStore.batchCount + 1) * FRIENDS_CHUNK === friendStore.getSuggestedFriends.length) {
+      friendStore
+        .appendSuggestedFriends({
+          ...(searchFriend.value ? { username: searchFriend.value } : {}),
+          ...(selectedFilter.value ? { status: selectedFilter.value } : {}),
+        })
+        .finally(() => {
+          setIsFetching(false);
+        });
+    }
+  }
+});
+
+onMounted(() => {
+  if (footerRef.value) observer.observe(footerRef.value);
+});
+
+onBeforeUnmount(() => {
+  if (footerRef.value) observer.unobserve(footerRef.value);
 });
 </script>
 
@@ -83,6 +116,8 @@ watch([searchFriend, selectedFilter], ([newSearchValue, newSelectedButton]) => {
       </div>
     </div>
 
-    <ProfileModal />
+    <div ref="footerRef" class="mt-4">
+      <ProfileModal @delete:friend="deleteFriend" />
+    </div>
   </div>
 </template>

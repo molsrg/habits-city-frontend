@@ -209,6 +209,7 @@
       "delete-button": "Удалить аккаунт"
     },
     "delete-friend": {
+      "profile-stat": "Статистика профиля",
       "delete": "Отписаться"
     }
   },

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { friendStatus } from '@/constants/friendStatus';
+import { FRIENDS_STATUS } from '@/constants/friends';
 import { getDayDeclension } from '@/constants/i18n';
 import { daysSince } from '@/helpers/dateFormat.helper';
 
@@ -49,12 +49,12 @@ const withUsText = computed(() => {
 
             <template #content>
               <UIcon
-                v-if="friendStatus.FOLLOWING === props.peopleInfo?.isFriend"
+                v-if="FRIENDS_STATUS.FOLLOWING === props.peopleInfo?.isFriend"
                 class="h-5 w-5 text-green-500"
                 name="i-heroicons-chevron-double-down-solid"
               />
               <UIcon
-                v-if="friendStatus.FOLLOWED === props.peopleInfo?.isFriend"
+                v-if="FRIENDS_STATUS.FOLLOWED === props.peopleInfo?.isFriend"
                 class="h-5 w-5 text-blue-500"
                 name="i-heroicons-chevron-double-up-solid"
               />
@@ -73,7 +73,7 @@ const withUsText = computed(() => {
 
           <!--          <UBadge class="mt-1" color="blue" variant="soft"> Ваш подписчик</UBadge>-->
           <UButton
-            v-if="props.peopleInfo?.isFriend === friendStatus.NOT_FOLLOWING || props.peopleInfo?.isFriend === friendStatus.FOLLOWING"
+            v-if="props.peopleInfo?.isFriend === FRIENDS_STATUS.NOT_FOLLOWING || props.peopleInfo?.isFriend === FRIENDS_STATUS.FOLLOWING"
             :label="t('page--friends.card.subscribe')"
             class="mt-1"
             color="green"
@@ -85,7 +85,7 @@ const withUsText = computed(() => {
           />
 
           <UButton
-            v-if="props.peopleInfo?.isFriend === friendStatus.FRIENDS"
+            v-if="props.peopleInfo?.isFriend === FRIENDS_STATUS.FRIENDS"
             :label="t('page--friends.card.inFriends')"
             class="mt-1"
             color="green"
@@ -96,7 +96,7 @@ const withUsText = computed(() => {
           />
 
           <UButton
-            v-if="props.peopleInfo?.isFriend === friendStatus.FOLLOWED"
+            v-if="props.peopleInfo?.isFriend === FRIENDS_STATUS.FOLLOWED"
             :label="t('page--friends.card.followed')"
             class="mt-1"
             color="green"
