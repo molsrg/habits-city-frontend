@@ -44,6 +44,24 @@ export const useAccountForm = () => {
         // },
       },
     },
+    refLink: {
+      disabled: true,
+      required: false,
+      placeholder: t('page--profile.settings-option.referral-link.placeholder'),
+      label: t('page--profile.settings-option.referral-link.label'),
+      inputType: 'text',
+      description: t('page--profile.settings-option.referral-link.description'),
+      actions: {
+        link: {
+          label: t('page--profile.copy-referral'),
+          color: 'primary',
+          size: '2xs',
+          variant: 'soft',
+          action: 'copyReferral',
+          condition: true,
+        },
+      },
+    },
     password: {
       disabled: false,
       required: true,
@@ -70,7 +88,7 @@ export const useAccountTabsForm = () => {
       key: 'account',
       label: t('page--profile.settings-option.nav.account.label'),
       description: t('page--profile.settings-option.nav.account.description'),
-      fields: ['username', 'bio', 'email'],
+      fields: ['username', 'bio', 'email', 'refLink'],
       actions: {
         save: {
           label: t('page--profile.save-account'),

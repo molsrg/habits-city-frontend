@@ -18,4 +18,7 @@ export const endPoints = {
     addFriend: 'user/addFriend',
     friendStat: 'user/getFriendStat',
   },
+  app: {
+    support: 'user/sendFeedback',
+  },
 };

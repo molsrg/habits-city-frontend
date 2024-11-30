@@ -18,7 +18,7 @@ defineEmits('delete:friend');
       <template #header>
         <div class="flex items-start justify-between">
           <div class="flex items-start justify-between gap-3">
-            <UAvatar :alt="modalPayload.avatar || ''" :src="modalPayload.avatar || ''" size="xl" />
+            <UAvatar :alt="modalPayload.username || ''" :src="modalPayload.avatar || ''" size="xl" />
             <div class="flex flex-col items-start justify-between gap-1">
               <UBadge color="primary" variant="soft"> @ {{ modalPayload.username }}</UBadge>
               <UBadge v-if="modalPayload.bio" color="white" variant="solid"> {{ modalPayload.bio }}</UBadge>

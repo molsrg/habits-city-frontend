@@ -108,9 +108,10 @@ onBeforeUnmount(() => {
           <h3>{{ t('page--friends.not-found') }}</h3>
         </div>
       </div>
+      <div ref="footerRef"/>
     </div>
 
-    <div ref="footerRef" class="mt-4">
+    <div class="mt-4">
       <ProfileModal @delete:friend="deleteFriend" />
     </div>
   </div>

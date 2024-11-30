@@ -5,28 +5,19 @@ import { modalService } from '@/services/modal.service';
 import { useAppStore } from '@/store/app.store';
 
 const options = optionsSupport();
+const appStore = useAppStore();
 const isOpenModal = computed(() => modalService.isOpen(ModalName.Tickets));
 const { t } = useI18n();
+
 const selectedTopic = ref(null);
 const topicContent = ref('');
-const appStore = useAppStore();
-const submit = () => {
-  appStore.sendSupportTicket({
-    topic: selectedTopic.value.value,
-    content: topicContent.value,
-    systemInfo,
-  });
-
-  modalService.close(ModalName.Tickets);
-  selectedTopic.value = null;
-  topicContent.value = '';
-};
+const isAddUsername = ref(false);
+const selectedUsername = ref('');
+let systemInfo = {};
 
 const disabledButton = computed(() => {
-  return !selectedTopic.value || !topicContent.value.trim();
+  return !selectedTopic.value || !topicContent.value.trim() || (isAddUsername.value && !selectedUsername.value.trim());
 });
-
-let systemInfo = {};
 
 if (import.meta.client) {
   systemInfo = {
@@ -42,10 +33,27 @@ if (import.meta.client) {
     connectionType: navigator.connection ? navigator.connection.effectiveType : 'unknown',
     cpuCores: navigator.hardwareConcurrency,
     cookiesEnabled: navigator.cookieEnabled,
+    currentPage: window.location.pathname,
   };
 }
-</script>
 
+const submit = () => {
+  const supportTicketData = {
+    topic: selectedTopic.value.value,
+    content: topicContent.value,
+    ...(isAddUsername.value && { username: selectedUsername.value }),
+    systemInfo,
+  };
+
+  appStore.sendSupportTicket(supportTicketData);
+
+  modalService.close(ModalName.Tickets);
+  selectedTopic.value = null;
+  topicContent.value = '';
+  selectedUsername.value = '';
+  isAddUsername.value = false;
+};
+</script>
 <template>
   <UModal v-model="isOpenModal">
     <UCard>
@@ -81,7 +89,18 @@ if (import.meta.client) {
         </USelectMenu>
       </div>
 
-      <UTextarea v-model="topicContent" :placeholder="t('support.textarea.placeholder')" autoresize />
+      <UTextarea v-model="topicContent" :placeholder="t('support.textarea.placeholder')" autoresize class="mb-3" />
+
+      <div class="flex flex-col items-start gap-2">
+        <p class="text-justify text-sm text-gray-500">
+          {{ t('support.balance.title') }}
+        </p>
+        <div class="flex items-center gap-2">
+          <UToggle v-model="isAddUsername" />
+          <span class="text-sm text-gray-600"> {{ t('support.balance.toggle') }}</span>
+        </div>
+        <ProfileInputItem v-show="isAddUsername" v-model="selectedUsername" :placeholder="t('support.balance.placeholder')" />
+      </div>
 
       <template #footer>
         <div class="flex items-start justify-end">

@@ -1,3 +1,6 @@
+import { endPoints } from '@/constants/endPoints';
+import { friendService } from '@/services/api.service';
+
 export const useAppStore = defineStore('appStore', {
   state: () => ({
     errorOAuthMessage: '',
@@ -13,8 +16,8 @@ export const useAppStore = defineStore('appStore', {
       this.errorOAuthMessage = error;
     },
 
-    sendSupportTicket(payload: object) {
-      console.log(payload);
+    async sendSupportTicket(payload: object) {
+      await friendService.post(endPoints.app.support, { ...payload });
     },
   },
 });

@@ -19,6 +19,7 @@ const chartData = computed(() => ({
       borderWidth: 2,
       borderColor: 'rgb(96, 152, 207)',
       backgroundColor: 'rgba(96, 152, 207, 0.4)',
+      tension: 0.4,
     },
     {
       label: t('chart.friends-stat.followers'),
@@ -26,6 +27,7 @@ const chartData = computed(() => ({
       borderWidth: 2,
       borderColor: 'rgb(249, 115, 22)',
       backgroundColor: 'rgba(249, 115, 22, 0.2)',
+      tension: 0.4,
     },
     {
       label: t('chart.friends-stat.friends'),
@@ -33,6 +35,7 @@ const chartData = computed(() => ({
       borderWidth: 2,
       borderColor: 'rgb(74, 221, 128)',
       backgroundColor: 'rgba(74, 221, 128, 0.4)',
+      tension: 0.4,
     },
   ],
 }));

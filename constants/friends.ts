@@ -5,4 +5,4 @@ export const FRIENDS_STATUS = Object.freeze({
   NOT_FOLLOWING: 'NOT_FOLLOWING',
 });
 
-export const FRIENDS_CHUNK = 20;
+export const FRIENDS_CHUNK = 50;

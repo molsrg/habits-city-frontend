@@ -8,9 +8,9 @@
     "filters": {
       "friends": {
         "all": "Tous",
-        "random": "Aléatoires",
-        "followed": "Abonné",
-        "following": "Abonnés",
+        "random": "Aléatoire",
+        "followed": "Abonnés",
+        "following": "Abonné",
         "friends": "Amis"
       }
     }
@@ -22,20 +22,20 @@
     "trackDescription": "Suivez votre développement chaque jour pour non seulement voir les résultats, mais aussi ressentir l'inspiration sur le chemin du succès.",
     "createTasks": "Tâches qui changeront votre vie",
     "createTasksDescription": "Planifiez vos objectifs avec des tâches claires et tracez votre chemin vers des victoires personnelles chaque jour.",
-    "followFriends": "Soutenez vos amis dans leurs succès",
-    "followFriendsDescription": "Aller ensemble vers les objectifs est plus facile. Suivez les progrès de vos amis et créez une motivation mutuelle pour de grandes réalisations.",
+    "followFriends": "Soutenez vos amis dans leurs réussites",
+    "followFriendsDescription": "Il est plus facile d'aller vers les objectifs ensemble. Suivez les progrès de vos amis et créez une motivation mutuelle pour de grandes réalisations.",
     "viewReports": "Obtenez une vue complète de vos réalisations",
     "viewReportsDescription": "Analysez chaque étape pour savoir exactement où vous en êtes et quelles étapes vous devez franchir pour de nouvelles victoires.",
     "setGoals": "Définir des objectifs qui inspirent",
-    "setGoalsDescription": "Définissez des objectifs clairs et fixez des tâches ambitieuses pour ne pas vous arrêter en si bon chemin.",
+    "setGoalsDescription": "Définissez des objectifs clairs et fixez-vous des tâches ambitieuses pour ne pas vous arrêter en si bon chemin.",
     "stayMotivated": "Motivation qui fonctionne",
-    "stayMotivatedDescription": "Ne vous relâchez pas ! Maintenez votre niveau d'énergie et de motivation sur le chemin du succès.",
+    "stayMotivatedDescription": "Ne vous laissez pas vous détendre ! Maintenez votre niveau d'énergie et de motivation sur le chemin du succès.",
     "celebrateSuccess": "Célébrez vos succès",
     "celebrateSuccessDescription": "Chaque étape vers l'objectif est une raison de faire la fête. Partagez vos réalisations et réjouissez-vous de chaque succès.",
     "howItWorks": "Comment ça marche ?",
     "footer": "2024 Habits City. Tous droits réservés.",
     "faq": {
-      "title": "Questions fréquemment posées",
+      "title": "Questions Fréquemment Posées",
       "options": {
         "register": "Comment s'inscrire sur la plateforme ?",
         "add_friend": "Comment ajouter un nouvel ami ou abonné ?",
@@ -43,45 +43,45 @@
         "create_group": "Comment créer un groupe ou une communauté ?",
         "change_avatar": "Comment changer la photo de profil ?",
         "change_password": "Comment changer le mot de passe du compte ?",
-        "recover_account": "Comment récupérer l'accès à votre compte ?",
+        "recover_account": "Comment récupérer l'accès au compte ?",
         "register_content": "Pour vous inscrire, cliquez sur le bouton \"S'inscrire\" sur la page d'accueil, puis remplissez le formulaire avec vos informations pour créer un compte.",
         "add_friend_content": "Allez sur le profil de l'utilisateur et cliquez sur le bouton \"Ajouter en ami\" ou \"S'abonner\" pour suivre ses mises à jour.",
-        "modify_account_content": "Pour modifier les paramètres de votre compte ou le supprimer, allez dans la section \"Paramètres\" du menu de profil et sélectionnez l'option correspondante.",
+        "modify_account_content": "Pour modifier les paramètres du compte ou le supprimer, allez dans la section \"Paramètres\" du menu de profil et sélectionnez l'option correspondante.",
         "create_group_content": "Pour créer un groupe, allez dans la section \"Communautés\" et cliquez sur le bouton \"Créer une communauté\", puis remplissez le formulaire avec les informations nécessaires.",
-        "change_avatar_content": "Pour changer la photo de profil, ouvrez les paramètres de profil et cliquez sur la photo actuelle. Ensuite, sélectionnez une nouvelle image dans votre galerie.",
+        "change_avatar_content": "Pour changer la photo de profil, ouvrez les paramètres du profil et cliquez sur la photo actuelle. Ensuite, sélectionnez une nouvelle image dans votre galerie.",
         "change_password_content": "Pour changer le mot de passe, ouvrez les paramètres du compte, sélectionnez la section \"Sécurité\" et suivez les instructions pour changer le mot de passe.",
         "recover_account_content": "Si vous avez oublié votre mot de passe, cliquez sur \"Mot de passe oublié ?\" sur la page de connexion, entrez votre email, et nous vous enverrons les instructions pour récupérer l'accès."
       }
     }
   },
   "page--profile": {
-    "title": "Bienvenue dans votre profil !",
-    "subtitle": "Votre compte est déjà prêt, mais vous pouvez le personnaliser",
+    "title": "Bienvenue sur votre profil !",
+    "subtitle": "Votre compte est déjà configuré, mais vous pouvez le personnaliser",
     "nav": {
       "settings": "Paramètres",
-      "public info": "Informations publiques",
+      "public info": "Informations Publiques",
       "stats": "Statistiques"
     },
     "social-networks": {
       "yandex": {
         "tooltip": "Connecter Yandex",
-        "tooltipHasSocial": "Yandex est déjà lié",
+        "tooltipHasSocial": "Yandex est déjà connecté",
         "label": "Yandex"
       },
       "google": {
         "tooltip": "Connecter Google",
-        "tooltipHasSocial": "Google est déjà lié",
+        "tooltipHasSocial": "Google est déjà connecté",
         "label": "Google"
       }
     },
-    "language": "Choisissez la langue",
+    "language": "Sélectionner la langue",
     "settings-option": {
       "nav": {
         "account": {
           "label": "Compte",
-          "description": "Apportez des modifications ici. Cliquez sur 'Enregistrer' lorsque vous avez terminé.",
+          "description": "Faites des modifications ici. Cliquez sur 'Enregistrer' lorsque vous avez terminé.",
           "tooltip": "Voir à quoi ressemble le profil pour les autres utilisateurs",
-          "modal-profile": "Profil public"
+          "modal-profile": "Profil Public"
         },
         "password": {
           "label": "Mot de passe",
@@ -90,12 +90,12 @@
       },
       "bio": {
         "label": "BIO",
-        "description": "Informations courtes sur vous",
+        "description": "Brève information sur vous",
         "placeholder": "Entrez la bio"
       },
       "username": {
         "label": "Nom d'utilisateur",
-        "description": "Visible lors de la création ou de l'exécution des tâches",
+        "description": "Visible lors de la création ou de l'exécution de tâches",
         "placeholder": "Entrez le nom d'utilisateur"
       },
       "email": {
@@ -103,33 +103,40 @@
         "placeholder": "L'email sera affiché ici",
         "description": "Pour la récupération du compte"
       },
+      "referral-link": {
+        "label": "Lien de parrainage",
+        "placeholder": "Votre lien de parrainage",
+        "description": "Si quelqu'un s'inscrit via votre lien, vous recevrez un bonus",
+        "copySuccess": "Vous avez copié avec succès le lien de parrainage !"
+      },
       "password": {
         "label": "Mot de passe",
         "placeholder": "Entrez le mot de passe"
       },
       "new-password": {
         "label": "Nouveau mot de passe",
-        "description": "Entrez un mot de passe sécurisé",
+        "description": "Entrez un mot de passe fort",
         "placeholder": "Entrez le nouveau mot de passe"
       },
       "upload-avatar": "Télécharger l'avatar"
     },
     "nav-item": {},
-    "link-email": "Lier l'email",
-    "change-email": "Changer l'email",
+    "link-email": "Lier l'Email",
+    "change-email": "Changer l'Email",
+    "copy-referral": "Copier le lien",
     "save-account": "Enregistrer les modifications",
     "save-password": "Enregistrer le mot de passe",
     "delete-account": "Supprimer le compte"
   },
   "page--login": {
     "title": "Connexion",
-    "subtitle": "Entrez vos informations d'identification pour accéder à votre compte",
+    "subtitle": "Entrez vos identifiants pour accéder à votre compte",
     "no-account": "Vous n'avez pas encore de compte ?",
     "enter-password": "Entrez le mot de passe",
     "enter-username": "Entrez le nom d'utilisateur"
   },
   "page--friends": {
-    "not-found": "Malheureusement, il n'y a pas d'utilisateurs avec ce nom...",
+    "not-found": "Malheureusement, nous n'avons trouvé personne correspondant à votre demande...",
     "placeholder": "Entrez le nom de l'ami...",
     "card": {
       "subscribe": "S'abonner",
@@ -141,7 +148,7 @@
   },
   "page--registration": {
     "title": "Inscription",
-    "subtitle": "Entrez vos informations d'identification pour accéder à votre compte",
+    "subtitle": "Entrez vos identifiants pour accéder à votre compte",
     "have-account": "Vous avez déjà un compte ?",
     "enter-password": "Entrez le mot de passe",
     "enter-username": "Entrez le nom d'utilisateur",
@@ -151,7 +158,7 @@
     "label": {
       "registration": "Inscription",
       "login": "Connexion",
-      "faq": "Questions fréquemment posées",
+      "faq": "Questions Fréquemment Posées",
       "home": "Page d'accueil"
     }
   },
@@ -159,7 +166,7 @@
     "save-access": "Données enregistrées avec succès",
     "save-error": "Erreur d'enregistrement des données",
     "errors": {
-      "400": "Requête incorrecte"
+      "400": "Requête invalide"
     }
   },
   "alerts": {
@@ -195,17 +202,17 @@
   },
   "modal": {
     "link-email": {
-      "title": "Lier l'email",
-      "description": "Liez votre email pour récupérer le mot de passe",
+      "title": "Lier l'Email",
+      "description": "Liez votre email pour la récupération du mot de passe",
       "steppers": {
         "enter-email": "Entrez l'email",
         "confirm-email": "Confirmez l'email"
       }
     },
     "delete-account": {
-      "title": "Voulez-vous vraiment supprimer le compte ?",
-      "description": "Pour supprimer, entrez le nom d'utilisateur",
-      "placeholder": "Entrez le nom",
+      "title": "Voulez-vous vraiment supprimer votre compte ?",
+      "description": "Pour supprimer, entrez votre nom d'utilisateur",
+      "placeholder": "Entrez le nom d'utilisateur",
       "delete-button": "Supprimer le compte"
     },
     "delete-friend": {
@@ -221,11 +228,11 @@
     "next": "Suivant"
   },
   "support": {
-    "title": "Service d'assistance",
+    "title": "Service de Support",
     "description": "Vous pouvez nous aider à améliorer l'application",
     "topic": {
-      "label": "Choisissez un sujet pour la suggestion",
-      "placeholder": "Choisissez un sujet",
+      "label": "Sélectionnez un sujet pour votre suggestion",
+      "placeholder": "Sélectionnez un sujet",
       "options": {
         "bug": "Bug",
         "feature": "Fonctionnalité",
@@ -236,8 +243,25 @@
     "textarea": {
       "placeholder": "Entrez votre message..."
     },
+    "balance": {
+      "title": "  *Pour recevoir des pièces pour votre contribution au support de l'application, activez ce bouton. Les pièces seront créditées après modération.",
+      "toggle": "Je veux recevoir des pièces",
+      "placeholder": "Entrez votre nom d'utilisateur"
+    },
     "button": {
-      "submit": "Envoyer"
+      "submit": "Soumettre"
+    }
+  },
+  "chart": {
+    "friends-stat": {
+      "title": "Statistiques des amis",
+      "friends": "Amis",
+      "followers": "Abonnés",
+      "following": "Abonné"
+    },
+    "balance-stat": {
+      "history": "Historique du solde",
+      "summary": "Résumé du solde"
     }
   }
 }

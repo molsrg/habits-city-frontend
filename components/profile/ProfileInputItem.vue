@@ -50,7 +50,6 @@ defineEmits(['update:modelValue', 'handle:action']);
       <p v-if="description" class="input-container__description">{{ description }}</p>
       <ul v-for="(button, key) in actions" :key="key">
         <UButton
-          v-if="(modelValue && !button.condition) || (!modelValue && button.condition)"
           :color="button.color"
           :disabled="button.disabled && hasErrors(button.disabled)"
           :icon="button.icon"

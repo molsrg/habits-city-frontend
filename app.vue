@@ -14,6 +14,13 @@
       @click="openTicketsModal"
     />
 
+    <div style="display: none">
+      <UButton color="blue" label="Button" size="sm" style="display: none" variant="soft" />
+      <UButton color="indigo" label="Button" size="sm" style="display: none" variant="soft" />
+      <UButton color="emerald" label="Button" size="sm" style="display: none" variant="soft" />
+      <UButton color="cyan" label="Button" size="sm" style="display: none" variant="soft" />
+    </div>
+
     <TicketsModal />
   </div>
 </template>

@@ -4,7 +4,7 @@ import { useApiStore } from '@/store/api.store';
 
 const { t } = useI18n();
 const apiStore = useApiStore();
-
+const toast = useToast();
 const tabs = useAccountTabsForm();
 const accountForm = useAccountForm();
 const socialNetworks = useAccountSocialNetworks();
@@ -46,6 +46,7 @@ const accountFormField = reactive({
   email: props.userInfo.email || null,
   password: undefined,
   new_password: undefined,
+  refLink: props.userInfo.refLink || null,
 });
 
 const accountErrors = computed(() => ({
@@ -145,6 +146,9 @@ const getClickHandler = (button) => {
     case 'linkGoogle':
       emit('link:social', button);
       return;
+    case 'copyReferral':
+      toast.add({ color: 'green', title: t('page--profile.settings-option.referral-link.copySuccess') });
+      return navigator.clipboard.writeText(accountFormField.refLink);
     default:
       return null;
   }
@@ -206,32 +210,6 @@ const getClickHandler = (button) => {
                 <Icon :name="button.icon" />
               </UButton>
             </UTooltip>
-            <div style="display: none">
-              <UButton
-                color="blue"
-                label="Button"
-                size="sm"
-                style="display: none"
-                variant="soft" />
-              <UButton
-                color="indigo"
-                label="Button"
-                size="sm"
-                style="display: none"
-                variant="soft" />
-              <UButton
-                color="emerald"
-                label="Button"
-                size="sm"
-                style="display: none"
-                variant="soft" />
-              <UButton
-                color="cyan"
-                label="Button"
-                size="sm"
-                style="display: none"
-                variant="soft" />
-            </div>
           </div>
         </div>
         <div v-else-if="item.key === 'password'" class="space-y-3">

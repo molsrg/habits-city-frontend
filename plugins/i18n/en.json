@@ -10,56 +10,56 @@
         "all": "All",
         "random": "Random",
         "followed": "Followed",
-        "following": "Subscribers",
+        "following": "Following",
         "friends": "Friends"
       }
     }
   },
   "page--index": {
-    "badge": "The compiler is the programmer's best friend: it never tells you you're a genius, but always shows you where you went wrong.",
+    "badge": "The compiler is the programmer's best friend: it will never tell you that you are a genius, but it will always show you where you made a mistake",
     "welcome": "Welcome to Habits City",
     "trackYourProgress": "Progress that inspires",
-    "trackDescription": "Track your growth every day, not only to see results but also to feel the inspiration on your way to success.",
+    "trackDescription": "Track your development every day to not only see the results but also feel inspired on your way to success.",
     "createTasks": "Tasks that will change your life",
     "createTasksDescription": "Plan your goals with clear tasks and pave the way to personal victories every day.",
-    "followFriends": "Support your friends in their success",
-    "followFriendsDescription": "It's easier to reach goals together. Follow your friends' progress and create mutual motivation for greater achievements.",
-    "viewReports": "Get the full picture of your achievements",
-    "viewReportsDescription": "Analyze every step to know exactly where you stand and what steps to take for further victories.",
-    "setGoals": "Goal setting that inspires",
-    "setGoalsDescription": "Set clear goals and ambitious tasks so you don't stop at what you've achieved.",
+    "followFriends": "Support your friends in their achievements",
+    "followFriendsDescription": "It's easier to go towards goals together. Follow your friends' progress and create mutual motivation for great achievements.",
+    "viewReports": "Get a complete picture of your achievements",
+    "viewReportsDescription": "Analyze every step to know exactly where you stand and what steps you need to take for further victories.",
+    "setGoals": "Setting goals that inspire",
+    "setGoalsDescription": "Set clear goals and set ambitious tasks to not stop at what has been achieved.",
     "stayMotivated": "Motivation that works",
-    "stayMotivatedDescription": "Don't let yourself relax! Keep your energy and motivation levels high on your path to success.",
+    "stayMotivatedDescription": "Don't let yourself relax! Maintain your energy and motivation levels on the way to success.",
     "celebrateSuccess": "Celebrate your successes",
-    "celebrateSuccessDescription": "Every step towards your goal is a reason to celebrate. Share your achievements and enjoy every success.",
+    "celebrateSuccessDescription": "Every step towards the goal is a reason to celebrate. Share your achievements and rejoice in every success.",
     "howItWorks": "How does it work?",
     "footer": "2024 Habits City. All rights reserved.",
     "faq": {
       "title": "Frequently Asked Questions",
       "options": {
         "register": "How to register on the platform?",
-        "add_friend": "How to add a new friend or subscriber?",
-        "modify_account": "How to modify or delete your account?",
+        "add_friend": "How to add a new friend or follower?",
+        "modify_account": "How to change or delete your account?",
         "create_group": "How to create a group or community?",
-        "change_avatar": "How to change your profile picture?",
-        "change_password": "How to change your account password?",
-        "recover_account": "How to recover access to your account?",
-        "register_content": "To register, click the 'Register' button on the homepage and fill out the form with your details to create an account.",
-        "add_friend_content": "Go to the user's profile and click the 'Add Friend' or 'Follow' button to keep track of their updates.",
-        "modify_account_content": "To modify your account settings or delete it, go to the 'Settings' section in the profile menu and select the relevant option.",
-        "create_group_content": "To create a group, go to the 'Communities' section and click 'Create Community,' then fill out the form with the necessary details.",
-        "change_avatar_content": "To change your profile picture, open the profile settings and click on your current photo. Then select a new image from your gallery.",
-        "change_password_content": "To change your password, go to the account settings, select 'Security,' and follow the instructions to change your password.",
-        "recover_account_content": "If you forgot your password, click 'Forgot Password?' on the login page, enter your email, and we'll send you instructions to recover access."
+        "change_avatar": "How to change the profile photo?",
+        "change_password": "How to change the account password?",
+        "recover_account": "How to recover access to the account?",
+        "register_content": "To register, click the \"Register\" button on the home page, then fill out the form with your details to create an account.",
+        "add_friend_content": "Go to the user's profile and click the \"Add Friend\" or \"Follow\" button to follow their updates.",
+        "modify_account_content": "To change account settings or delete it, go to the \"Settings\" section in the profile menu and select the corresponding option.",
+        "create_group_content": "To create a group, go to the \"Communities\" section and click the \"Create Community\" button, then fill out the form with the necessary details.",
+        "change_avatar_content": "To change the profile photo, open the profile settings and click on the current photo. Then select a new image from your gallery.",
+        "change_password_content": "To change the password, open the account settings, select the \"Security\" section, and follow the instructions to change the password.",
+        "recover_account_content": "If you forgot your password, click \"Forgot Password?\" on the login page, enter your email, and we will send you instructions to recover access."
       }
     }
   },
   "page--profile": {
     "title": "Welcome to your profile!",
-    "subtitle": "Your account is ready, but you can customize it to your liking",
+    "subtitle": "Your account is already set up, but you can customize it",
     "nav": {
       "settings": "Settings",
-      "public info": "Public Info",
+      "public info": "Public Information",
       "stats": "Statistics"
     },
     "social-networks": {
@@ -74,18 +74,18 @@
         "label": "Google"
       }
     },
-    "language": "Choose language",
+    "language": "Select language",
     "settings-option": {
       "nav": {
         "account": {
           "label": "Account",
-          "description": "Make changes here. Click 'Save' when finished.",
-          "tooltip": "View how the profile looks to others",
+          "description": "Make changes here. Click 'Save' when you're done.",
+          "tooltip": "See how the profile looks to other users",
           "modal-profile": "Public Profile"
         },
         "password": {
           "label": "Password",
-          "description": "Change your password here. After saving, you will be logged out."
+          "description": "Change your password here. You will be logged out after saving."
         }
       },
       "bio": {
@@ -100,36 +100,43 @@
       },
       "email": {
         "label": "Email",
-        "placeholder": "Email will appear here",
+        "placeholder": "Email will be displayed here",
         "description": "For account recovery"
+      },
+      "referral-link": {
+        "label": "Referral Link",
+        "placeholder": "Your referral link",
+        "description": "If someone registers using your link, you will receive a bonus",
+        "copySuccess": "You have successfully copied the referral link!"
       },
       "password": {
         "label": "Password",
         "placeholder": "Enter password"
       },
       "new-password": {
-        "label": "New password",
+        "label": "New Password",
         "description": "Enter a strong password",
         "placeholder": "Enter new password"
       },
-      "upload-avatar": "Upload avatar"
+      "upload-avatar": "Upload Avatar"
     },
     "nav-item": {},
     "link-email": "Link Email",
     "change-email": "Change Email",
-    "save-account": "Save changes",
-    "save-password": "Save password",
-    "delete-account": "Delete account"
+    "copy-referral": "Copy Link",
+    "save-account": "Save Changes",
+    "save-password": "Save Password",
+    "delete-account": "Delete Account"
   },
   "page--login": {
     "title": "Login",
     "subtitle": "Enter your credentials to access your account",
-    "no-account": "Don't have an account?",
+    "no-account": "Don't have an account yet?",
     "enter-password": "Enter password",
     "enter-username": "Enter username"
   },
   "page--friends": {
-    "not-found": "Sorry, no users with that name...",
+    "not-found": "Unfortunately, we couldn't find anyone matching your request...",
     "placeholder": "Enter friend's name...",
     "card": {
       "subscribe": "Subscribe",
@@ -152,14 +159,14 @@
       "registration": "Registration",
       "login": "Login",
       "faq": "Frequently Asked Questions",
-      "home": "Homepage"
+      "home": "Home Page"
     }
   },
   "notifications": {
     "save-access": "Data successfully saved",
     "save-error": "Data saving error",
     "errors": {
-      "400": "Bad request"
+      "400": "Invalid request"
     }
   },
   "alerts": {
@@ -170,7 +177,7 @@
       "username": {
         "empty": "Username cannot be empty!",
         "taken": "Username is already taken!",
-        "tooShort": "Username must be at least 4 characters long!"
+        "tooShort": "Username must contain at least 4 characters!"
       },
       "email": {
         "empty": "Email cannot be empty!",
@@ -178,7 +185,7 @@
       },
       "password": {
         "empty": "Password cannot be empty!",
-        "length": "Password must be at least 8 characters long!",
+        "length": "Password must contain at least 8 characters!",
         "uppercase": "Password must contain at least one uppercase letter!",
         "digit": "Password must contain at least one digit!"
       }
@@ -186,9 +193,9 @@
   },
   "nav--layout": {
     "friends": "Friends",
-    "logout": "Log out",
+    "logout": "Logout",
     "tasks": "Tasks",
-    "home-page": "Homepage",
+    "home-page": "Home Page",
     "login": "Login",
     "registration": "Registration",
     "balance": "Balance"
@@ -203,13 +210,13 @@
       }
     },
     "delete-account": {
-      "title": "Do you really want to delete your account?",
+      "title": "Are you sure you want to delete your account?",
       "description": "To delete, enter your username",
-      "placeholder": "Enter name",
-      "delete-button": "Delete account"
+      "placeholder": "Enter username",
+      "delete-button": "Delete Account"
     },
     "delete-friend": {
-      "delete": "Unsubscribe"
+      "delete": "Unfollow"
     }
   },
   "page--pending": {
@@ -222,9 +229,9 @@
   },
   "support": {
     "title": "Support Service",
-    "description": "You can help us improve the app",
+    "description": "You can help us improve the application",
     "topic": {
-      "label": "Choose a suggestion topic",
+      "label": "Select a topic for your suggestion",
       "placeholder": "Select a topic",
       "options": {
         "bug": "Bug",
@@ -236,6 +243,11 @@
     "textarea": {
       "placeholder": "Enter your message..."
     },
+    "balance": {
+      "title": "  *To receive coins for contributing to the support of the application, enable this toggle. Coins will be credited after moderation.",
+      "toggle": "I want to receive coins",
+      "placeholder": "Enter your username"
+    },
     "button": {
       "submit": "Submit"
     }
@@ -246,6 +258,10 @@
       "friends": "Friends",
       "followers": "Followers",
       "following": "Following"
+    },
+    "balance-stat": {
+      "history": "Balance History",
+      "summary": "Balance Summary"
     }
   }
 }

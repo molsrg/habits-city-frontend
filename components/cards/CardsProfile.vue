@@ -51,12 +51,12 @@ const withUsText = computed(() => {
 
             <template #content>
               <UIcon
-                v-if="FRIENDS_STATUS.FOLLOWING === props.peopleInfo?.isFriend"
+                v-if="FRIENDS_STATUS.FOLLOWED === props.peopleInfo?.isFriend"
                 class="h-5 w-5 text-green-500"
                 name="i-heroicons-chevron-double-down-solid"
               />
               <UIcon
-                v-if="FRIENDS_STATUS.FOLLOWED === props.peopleInfo?.isFriend"
+                v-if="FRIENDS_STATUS.FOLLOWING === props.peopleInfo?.isFriend"
                 class="h-5 w-5 text-blue-500"
                 name="i-heroicons-chevron-double-up-solid"
               />
@@ -74,9 +74,7 @@ const withUsText = computed(() => {
           </UBadge>
 
           <UButton
-            v-if="
-              (props.peopleInfo?.isFriend === FRIENDS_STATUS.NOT_FOLLOWING || props.peopleInfo?.isFriend === FRIENDS_STATUS.FOLLOWING) && !isAdded
-            "
+            v-if="(props.peopleInfo?.isFriend === FRIENDS_STATUS.NOT_FOLLOWING || props.peopleInfo?.isFriend === FRIENDS_STATUS.FOLLOWED) && !isAdded"
             :label="t('page--friends.card.subscribe')"
             class="mt-1"
             color="green"
@@ -99,7 +97,7 @@ const withUsText = computed(() => {
           />
 
           <UButton
-            v-if="props.peopleInfo?.isFriend === FRIENDS_STATUS.FOLLOWED || isAdded"
+            v-if="props.peopleInfo?.isFriend === FRIENDS_STATUS.FOLLOWING || isAdded"
             :label="t('page--friends.card.followed')"
             class="mt-1"
             color="green"
