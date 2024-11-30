@@ -2,19 +2,19 @@
 import { ModalName } from '@/constants/modalName';
 import { optionsSupport } from '@/constants/support';
 import { modalService } from '@/services/modal.service';
+import { useAppStore } from '@/store/app.store';
 
 const options = optionsSupport();
 const isOpenModal = computed(() => modalService.isOpen(ModalName.Tickets));
 const { t } = useI18n();
-const toast = useToast();
 const selectedTopic = ref(null);
 const topicContent = ref('');
-
+const appStore = useAppStore();
 const submit = () => {
-  toast.add({
-    color: 'green',
-    title: selectedTopic.value.value,
-    description: topicContent.value,
+  appStore.sendSupportTicket({
+    topic: selectedTopic.value.value,
+    content: topicContent.value,
+    systemInfo,
   });
 
   modalService.close(ModalName.Tickets);

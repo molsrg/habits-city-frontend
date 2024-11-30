@@ -101,7 +101,7 @@ onMounted(() => {
 
 <style>
 :root {
-  --square-size: 1vw;
+  --square-size: 1.2vw;
   --square-gap: 0.4vw;
   --week-width: calc(var(--square-size) + var(--square-gap));
 }

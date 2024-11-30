@@ -239,5 +239,13 @@
     "button": {
       "submit": "Submit"
     }
+  },
+  "chart": {
+    "friends-stat": {
+      "title": "Friends Statistics",
+      "friends": "Friends",
+      "followers": "Followers",
+      "following": "Following"
+    }
   }
 }

@@ -12,5 +12,9 @@ export const useAppStore = defineStore('appStore', {
     sendErrorOAuthText(error: string) {
       this.errorOAuthMessage = error;
     },
+
+    sendSupportTicket(payload: object) {
+      console.log(payload);
+    },
   },
 });

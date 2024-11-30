@@ -1,5 +1,5 @@
 import { endPoints } from '@/constants/endPoints';
-import { friendService, userService } from '@/services/api.service';
+import { friendService } from '@/services/api.service';
 
 export const useFriendStore = defineStore('friendStore', {
   state: () => ({
@@ -17,14 +17,21 @@ export const useFriendStore = defineStore('friendStore', {
   },
   actions: {
     async fetchFriendInfo(username): Promise<void> {
-      const { data } = await userService.get(endPoints.friend.fetchInfo, { username: username });
-      return data;
+      const [fetchInfoResponse, friendStatResponse] = await Promise.all([
+        friendService.get(endPoints.friend.fetchInfo, { username }),
+        friendService.get(endPoints.friend.friendStat, { username }),
+      ]);
+
+      const fetchInfoData = fetchInfoResponse.data;
+      const friendStatData = friendStatResponse.data;
+
+      return { ...fetchInfoData, ...friendStatData };
     },
 
     async addNewFriend(username) {
-      console.log(username);
+      await friendService.post(endPoints.friend.addFriend, { username: username });
     },
-    
+
     async deleteFriend(username) {
       console.log(username);
     },

@@ -240,5 +240,13 @@
     "button": {
       "submit": "Отправить"
     }
+  },
+  "chart": {
+    "friends-stat": {
+      "title": "Статистика друзей",
+      "friends": "Друзья",
+      "followers": "Подписчики",
+      "following": "Подписан"
+    }
   }
 }

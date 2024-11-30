@@ -15,5 +15,7 @@ export const endPoints = {
   friend: {
     searchUsers: 'user/searchUsers',
     fetchInfo: 'user/getUserInfo',
+    addFriend: 'user/addFriend',
+    friendStat: 'user/getFriendStat',
   },
 };

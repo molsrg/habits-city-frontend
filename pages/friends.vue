@@ -49,18 +49,12 @@ const deleteFriend = async (username: string) => {
 
 const footerRef = ref<HTMLElement | null>(null);
 
-const observer = new IntersectionObserver((entries) => {
-  if (entries[0].isIntersecting) {
-    if ((friendStore.batchCount + 1) * FRIENDS_CHUNK === friendStore.getSuggestedFriends.length) {
-      friendStore
-        .appendSuggestedFriends({
-          ...(searchFriend.value ? { username: searchFriend.value } : {}),
-          ...(selectedFilter.value ? { status: selectedFilter.value } : {}),
-        })
-        .finally(() => {
-          setIsFetching(false);
-        });
-    }
+const observer = new IntersectionObserver(([entry]) => {
+  if (entry.isIntersecting && (friendStore.batchCount + 1) * FRIENDS_CHUNK === friendStore.getSuggestedFriends.length) {
+    friendStore.fetchFriendsChunk({
+      ...(searchFriend.value && { username: searchFriend.value }),
+      ...(selectedFilter.value && { status: selectedFilter.value }),
+    });
   }
 });
 

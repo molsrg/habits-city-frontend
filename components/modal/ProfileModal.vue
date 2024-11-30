@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import ChartApp from '@/components/charts/ChartApp.vue';
 import ChartProfile from '@/components/charts/ChartProfile.vue';
 import { FRIENDS_STATUS } from '@/constants/friends';
 import { ModalName } from '@/constants/modalName';
@@ -28,10 +29,10 @@ defineEmits('delete:friend');
           <UButton color="gray" icon="i-heroicons-x-mark-20-solid" variant="ghost" @click="modalService.close(ModalName.Profile)" />
         </div>
       </template>
-      <div class="flex flex-col gap-2">
-        <h3 class="text-base font-semibold">{{ t('modal.delete-friend.profile-stat') }}</h3>
-        <ChartProfile />
-      </div>
+
+      <ChartApp :title="t('chart.friends-stat.title')">
+        <ChartProfile :datasets="modalPayload.datasets" :labels="modalPayload.labels" />
+      </ChartApp>
 
       <template #footer>
         <div class="flex items-start justify-end">

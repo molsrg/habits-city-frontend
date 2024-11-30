@@ -23,7 +23,9 @@ const isValidPeopleLength = computed(() => {
   return username.length > 22 ? username.slice(0, 21) + '...' : username;
 });
 
+const isAdded = ref(false);
 const addFriend = () => {
+  isAdded.value = true;
   emit('add:people', props.peopleInfo.username);
 };
 
@@ -71,9 +73,10 @@ const withUsText = computed(() => {
             {{ withUsText }}
           </UBadge>
 
-          <!--          <UBadge class="mt-1" color="blue" variant="soft"> Ваш подписчик</UBadge>-->
           <UButton
-            v-if="props.peopleInfo?.isFriend === FRIENDS_STATUS.NOT_FOLLOWING || props.peopleInfo?.isFriend === FRIENDS_STATUS.FOLLOWING"
+            v-if="
+              (props.peopleInfo?.isFriend === FRIENDS_STATUS.NOT_FOLLOWING || props.peopleInfo?.isFriend === FRIENDS_STATUS.FOLLOWING) && !isAdded
+            "
             :label="t('page--friends.card.subscribe')"
             class="mt-1"
             color="green"
@@ -96,7 +99,7 @@ const withUsText = computed(() => {
           />
 
           <UButton
-            v-if="props.peopleInfo?.isFriend === FRIENDS_STATUS.FOLLOWED"
+            v-if="props.peopleInfo?.isFriend === FRIENDS_STATUS.FOLLOWED || isAdded"
             :label="t('page--friends.card.followed')"
             class="mt-1"
             color="green"

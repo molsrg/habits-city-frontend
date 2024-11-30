@@ -48,7 +48,6 @@ const localeStore = useLocaleStore();
 const router = useRouter();
 
 const user = computed(() => userStore.getUserInfo);
-
 const currentLanguage = ref('');
 onMounted(() => {
   if (import.meta.client) {
@@ -135,7 +134,7 @@ const authLinks = computed(() =>
       {
         icon: 'i-heroicons-user-group',
         label: t('nav--layout.friends'),
-        badge: '0',
+        badge: user.value.friendsAmount || undefined,
         to: '/friends',
       },
       {
@@ -146,7 +145,7 @@ const authLinks = computed(() =>
       {
         icon: 'i-heroicons-currency-dollar',
         label: t('nav--layout.balance'),
-        badge: user.value.rating || undefined,
+        badge: user.value.balance || undefined,
         to: '/balance',
       },
     ]

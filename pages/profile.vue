@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import ChartApp from '@/components/charts/ChartApp.vue';
+import ChartProfile from '@/components/charts/ChartProfile.vue';
 import GitHubActivity from '@/components/charts/GitHubActivity.vue';
 import DeleteAccount from '@/components/modal/DeleteAccount.vue';
 import LinkEmail from '@/components/modal/LinkEmail.vue';
@@ -69,20 +71,20 @@ const openModalProfile = async (username: string): void => {
 
 <template>
   <div>
-    <div class="profile">
-      <div class="profile__title">
+    <div class="flex flex-col items-center justify-center gap-2 p-1">
+      <div class="w-full self-start text-2xl">
         <h1>{{ $t('page--profile.title') }}</h1>
-        <h2 class="profile__subtitle">{{ $t('page--profile.subtitle') }}</h2>
+        <h2 class="text-lg text-gray-500">{{ $t('page--profile.subtitle') }}</h2>
       </div>
       <UDivider />
-      <div class="profile__nav">
+      <div class="flex w-full flex-wrap justify-between gap-5 lg:flex-nowrap">
         <UVerticalNavigation
           v-if="isDesktop"
           :links="formattedLinks"
           :ui="{
-            wrapper: 'border-s border-gray-200 dark:border-gray-800 space-y-2',
-            base: 'group block border-s -ms-px leading-6 before:hidden',
-            padding: 'p-1 ps-4',
+            wrapper: 'border-l border-gray-200 dark:border-gray-800 space-y-2',
+            base: 'group block border-l -ml-px leading-6 before:hidden',
+            padding: 'p-1 pl-4',
             rounded: '',
             font: 'text-lg',
             ring: '',
@@ -90,10 +92,10 @@ const openModalProfile = async (username: string): void => {
             inactive:
               'border-transparent hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300',
           }"
-          style="height: fit-content"
+          class="h-fit"
         />
-        <UHorizontalNavigation v-else :links="formattedLinks" style="height: fit-content" />
-        <div class="profile__options">
+        <UHorizontalNavigation v-else :links="formattedLinks" class="h-fit" />
+        <div class="flex flex-1 flex-col gap-2 overflow-hidden">
           <ProfileSetting
             v-if="activeLink === 'Settings'"
             :user-info="userStore.getUserInfo"
@@ -108,6 +110,17 @@ const openModalProfile = async (username: string): void => {
             @open:profile="openModalProfile"
           />
           <GitHubActivity v-if="activeLink === 'Stats'" />
+          <!--          <div v-if="activeLink === 'Stats'" class="flex flex-wrap gap-4 overflow-auto">-->
+          <!--            <ChartApp :title="t('modal.delete-friend.profile-stat')" class="flex-1">-->
+          <!--              <ChartProfile />-->
+          <!--            </ChartApp>-->
+          <!--            <ChartApp :title="t('modal.delete-friend.profile-stat')" class="flex-1">-->
+          <!--              <ChartProfile />-->
+          <!--            </ChartApp>-->
+          <!--            <ChartApp :title="t('modal.delete-friend.profile-stat')" class="flex-1">-->
+          <!--              <ChartProfile />-->
+          <!--            </ChartApp>-->
+          <!--          </div>-->
         </div>
       </div>
 
@@ -117,53 +130,3 @@ const openModalProfile = async (username: string): void => {
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  row-gap: 10px;
-  padding: 5px;
-
-  &__title {
-    align-self: flex-start;
-    width: 100%;
-    font-size: 22px;
-  }
-
-  &__subtitle {
-    font-size: 16px;
-    color: #b0b1b1;
-  }
-
-  &__nav {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-
-    @media (max-width: 600px) {
-      flex-direction: column;
-    }
-  }
-
-  &__options {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    gap: 15px;
-
-    &-header {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-  }
-
-  &__delete-button {
-    margin: auto;
-  }
-}
-</style>
