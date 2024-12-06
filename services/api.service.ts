@@ -103,8 +103,8 @@ class ApiService {
   }
 }
 
-const authService = new ApiService('http://localhost:5000');
-const userService = new ApiService('http://localhost:5001');
-const friendService = new ApiService('http://localhost:5001');
+const authService = new ApiService('http://192.168.1.42/auth-service');
+const userService = new ApiService('http://192.168.1.42/user-service');
+const friendService = new ApiService('http://192.168.1.42/user-service');
 
 export { authService, friendService, userService };
