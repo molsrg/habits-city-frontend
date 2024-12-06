@@ -105,6 +105,6 @@ class ApiService {
 
 const authService = new ApiService('https://habsitscityapi.myftp.biz/auth-service');
 const userService = new ApiService('https://habsitscityapi.myftp.biz/user-service');
-const friendService = new ApiService('https://91.108.246.191/user-service');
+const friendService = new ApiService('https://habsitscityapi.myftp.biz/user-service');
 
 export { authService, friendService, userService };
