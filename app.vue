@@ -16,6 +16,7 @@
 
     <div style="display: none">
       <UButton color="blue" label="Button" size="sm" style="display: none" variant="soft" />
+
       <UButton color="indigo" label="Button" size="sm" style="display: none" variant="soft" />
       <UButton color="emerald" label="Button" size="sm" style="display: none" variant="soft" />
       <UButton color="cyan" label="Button" size="sm" style="display: none" variant="soft" />
@@ -28,6 +29,7 @@
 <script lang="ts" setup>
 import TicketsModal from '@/components/modal/TicketsModal.vue';
 import { ModalName } from '@/constants/modalName';
+
 import { modalService } from '@/services/modal.service';
 
 useSeoMeta({
