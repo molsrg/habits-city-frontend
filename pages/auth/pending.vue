@@ -2,7 +2,10 @@
 import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';
 import type { NuxtError } from '#app';
-
+definePageMeta({
+  middleware: ['guest'],
+  colorMode: 'dark'
+});
 const authStore = useAuthStore();
 
 const appStore = useAppStore();

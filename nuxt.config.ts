@@ -29,6 +29,7 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt',
     '@nuxtjs/i18n',
     '@nuxt/eslint',
+    '@nuxtjs/color-mode',
   ],
   i18n: {
     vueI18n: './plugins/i18n.config.ts',
@@ -54,6 +55,10 @@ export default defineNuxtConfig({
       exclude: ['useToast'],
     },
   },
+  colorMode: {
+    preference: 'dark',
+    fallback: 'dark',
+  }
 });
 
 // useruntimeConfig

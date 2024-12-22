@@ -10,6 +10,7 @@ import { debounce } from '@/utils/debounce';
 
 definePageMeta({
   middleware: ['auth'],
+  colorMode: 'dark'
 });
 useHead({
   title: 'HS | Friends',

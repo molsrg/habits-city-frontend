@@ -6,6 +6,7 @@ import getGoogleURL from '@/utils/getGoogleURL';
 const { t } = useI18n();
 definePageMeta({
   middleware: ['guest'],
+  colorMode: 'dark'
 });
 
 const title = computed(() => `HS | ${t('nav--layout.login')}`);

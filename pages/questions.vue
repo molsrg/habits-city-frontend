@@ -6,6 +6,7 @@
 definePageMeta({
   title: 'Store',
   middleware: ['auth'],
+  colorMode: 'dark'
 });
 
 useHead({

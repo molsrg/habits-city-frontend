@@ -5,6 +5,7 @@ const { t } = useI18n();
 const faqOptions = useFaqOptions();
 definePageMeta({
   layout: 'default',
+  colorMode: 'dark'
 });
 </script>
 

@@ -3,9 +3,9 @@ export default defineAppConfig({
     primary: 'green',
     gray: 'cool',
   },
-  colorMode: {
-    preference: 'dark',
-    fallback: 'dark',
-  },
+  // colorMode: {
+  //   preference: 'dark',
+  //   fallback: 'dark',
+  // },
 
 });

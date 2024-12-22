@@ -38,10 +38,18 @@ useSeoMeta({
   description: 'Website for building habits',
   ogDescription: 'Website for building habits',
 });
-
 const openTicketsModal = () => {
   modalService.open(ModalName.Tickets);
 };
+
+
+// onMounted(() => {
+//   if (process.client) {
+//     const htmlElement = document.documentElement;
+//     htmlElement.classList.add('dark');
+//     htmlElement.classList.remove('light');
+//   }
+// });
 </script>
 
 <style>

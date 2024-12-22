@@ -1,6 +1,10 @@
 <script setup>
 import draggable from 'vuedraggable';
-
+definePageMeta({
+  title: 'Tasks',
+  middleware: ['auth'],
+  colorMode: 'dark'
+});
 const tasks = reactive({
   dailyTask: {
     title: 'Daily task',

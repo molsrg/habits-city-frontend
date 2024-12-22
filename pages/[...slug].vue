@@ -3,6 +3,7 @@ definePageMeta({
   middleware() {
     useRouter().replace('/');
   },
+  colorMode: 'dark'
 });
 </script>
 
