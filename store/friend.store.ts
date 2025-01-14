@@ -49,9 +49,12 @@ export const useFriendStore = defineStore('friendStore', {
     },
 
     async fetchFriends(payload) {
+      this.loadingChunk = true;
+      this.suggestedFriends = [];
       this.batch = 0;
       const { data } = await friendService.get(endPoints.friend.searchUsers, { ...payload, batch: this.batch });
       this.suggestedFriends = data;
+      this.loadingChunk = false;
     },
   },
 });

@@ -109,7 +109,7 @@ onBeforeUnmount(() => {
         </div>
 
         <LoaderApp v-if="friendStore.isLoadingChunk" />
-        <div v-if="friendStore.getSuggestedFriends.length === 0">
+        <div v-if="friendStore.getSuggestedFriends.length === 0 && !friendStore.isLoadingChunk">
           <h3>{{ t('page--friends.not-found') }}</h3>
         </div>
       </div>

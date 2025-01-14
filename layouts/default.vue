@@ -31,8 +31,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from 'vue-router';
-
 import { useScreenSize } from '@/composables/useScreenSize';
 import { optionsLang } from '@/constants/languageOptions';
 import { useLocaleStore } from '@/store/locale.store';
@@ -142,12 +140,12 @@ const authLinks = computed(() =>
         label: t('nav--layout.tasks'),
         to: '/tasks',
       },
-      {
-        icon: 'i-heroicons-currency-dollar',
-        label: t('nav--layout.balance'),
-        badge: user.value.balance || undefined,
-        to: '/balance',
-      },
+      // {
+      //   icon: 'i-heroicons-currency-dollar',
+      //   label: t('nav--layout.balance'),
+      //   badge: user.value.balance || undefined,
+      //   to: '/balance',
+      // },
     ]
     : [...logInOrRegistration.value],
 );

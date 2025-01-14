@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import AlertApp from '@/components/alerts/AlertApp.vue';
+import AlertApp from '@/components/BaseUI/alerts/AlertApp.vue';
 
 defineProps({
   label: {
@@ -74,7 +74,8 @@ defineEmits(['update:modelValue', 'handle:action']);
       :is-visible="!!errors"
       :label="errors"
       class="input-container__alert"
-      type="error" />
+      type="error"
+      variant="outline" />
   </div>
 </template>
 

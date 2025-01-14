@@ -1,11 +1,11 @@
 <template>
   <div>
     <NuxtLayout>
-      <div v-if="isLoadingPage" class="pending">
+      <div v-if="isLoadingPage" class="flex flex-col items-center gap-10 p-5">
         <h3 class="text-xl">{{ $t('page--pending.wait-loading') }}</h3>
         <LoaderApp />
       </div>
-      <NuxtPage v-else class="container" />
+      <NuxtPage v-else class="mx-auto max-w-[95%]" />
     </NuxtLayout>
 
     <UNotifications />
@@ -18,33 +18,6 @@
       variant="solid"
       @click="openTicketsModal"
     />
-
-    <div style="display: none">
-      <UButton
-        color="blue"
-        label="Button"
-        size="sm"
-        style="display: none"
-        variant="soft" />
-      <UButton
-        color="indigo"
-        label="Button"
-        size="sm"
-        style="display: none"
-        variant="soft" />
-      <UButton
-        color="emerald"
-        label="Button"
-        size="sm"
-        style="display: none"
-        variant="soft" />
-      <UButton
-        color="cyan"
-        label="Button"
-        size="sm"
-        style="display: none"
-        variant="soft" />
-    </div>
 
     <TicketsModal />
   </div>
@@ -68,27 +41,4 @@ const openTicketsModal = () => {
 };
 
 const isLoadingPage = useState('isLoadingPage');
-
-// onMounted(() => {
-//   if (process.client) {
-//     const htmlElement = document.documentElement;
-//     htmlElement.classList.add('dark');
-//     htmlElement.classList.remove('light');
-//   }
-// });
 </script>
-
-<style scoped>
-.container {
-  margin: 2vh auto 0 auto;
-  max-width: 95%;
-}
-
-.pending {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 40px;
-  padding: 20px;
-}
-</style>

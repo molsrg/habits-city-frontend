@@ -2,19 +2,9 @@
   <div class="profile-settings-detail">
     <div class="profile-settings-detail--change">
       <span>{{ props.label }}</span>
-      <UButton
-        :icon="isDisabled ? 'i-heroicons-lock-closed' : 'i-heroicons-lock-open'"
-        size="2xs"
-        variant="ghost"
-        @click="toggleDisabled"
-      />
+      <UButton :icon="isDisabled ? 'i-heroicons-lock-closed' : 'i-heroicons-lock-open'" size="2xs" variant="ghost" @click="toggleDisabled" />
     </div>
-    <InputText
-      v-model="localValue"
-      :disabled="isDisabled"
-      :type="inputType"
-      class="phone-number"
-    />
+    <InputText v-model="localValue" :disabled="isDisabled" :type="inputType" class="phone-number" />
 
     <AlertApp
       v-for="(error, index) in errors"
@@ -22,14 +12,14 @@
       :is-visible="!!error"
       :label="error"
       type="error"
-    />
+      variant="outline" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
 
-import AlertApp from '@/components/alerts/AlertApp';
+import AlertApp from '@/components/BaseUI/alerts/AlertApp';
 
 const props = defineProps({
   label: {

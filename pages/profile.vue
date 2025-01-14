@@ -17,7 +17,7 @@ const { t } = useI18n();
 const userStore = useUserStore();
 const friendStore = useFriendStore();
 const apiStore = useApiStore();
-definePageMeta({ middleware: ['auth'], colorMode: 'dark' });
+definePageMeta({ middleware: ['auth'] });
 const title = computed(() => `HS | ${t('nav--layout.friends')}`);
 useHead({
   title,
@@ -107,17 +107,6 @@ const openModalProfile = async (username: string): void => {
             @open:profile="openModalProfile"
           />
           <GitHubActivity v-if="activeLink === 'Stats'" />
-          <!--          <div v-if="activeLink === 'Stats'" class="flex flex-wrap gap-4 overflow-auto">-->
-          <!--            <ChartApp :title="t('modal.delete-friend.profile-stat')" class="flex-1">-->
-          <!--              <ChartProfile />-->
-          <!--            </ChartApp>-->
-          <!--            <ChartApp :title="t('modal.delete-friend.profile-stat')" class="flex-1">-->
-          <!--              <ChartProfile />-->
-          <!--            </ChartApp>-->
-          <!--            <ChartApp :title="t('modal.delete-friend.profile-stat')" class="flex-1">-->
-          <!--              <ChartProfile />-->
-          <!--            </ChartApp>-->
-          <!--          </div>-->
         </div>
       </div>
 
