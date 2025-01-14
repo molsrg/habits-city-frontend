@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import ChartApp from '@/components/charts/ChartApp.vue';
-import ChartProfile from '@/components/charts/ChartProfile.vue';
 import GitHubActivity from '@/components/charts/GitHubActivity.vue';
 import DeleteAccount from '@/components/modal/DeleteAccount.vue';
 import LinkEmail from '@/components/modal/LinkEmail.vue';
@@ -19,7 +17,7 @@ const { t } = useI18n();
 const userStore = useUserStore();
 const friendStore = useFriendStore();
 const apiStore = useApiStore();
-definePageMeta({ middleware: ['auth'], colorMode: 'dark' });
+definePageMeta({ colorMode: 'dark' });
 const title = computed(() => `HS | ${t('nav--layout.friends')}`);
 useHead({
   title,
