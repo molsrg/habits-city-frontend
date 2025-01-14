@@ -2,9 +2,9 @@
 import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';
 import type { NuxtError } from '#app';
+
 definePageMeta({
-  middleware: ['guest'],
-  colorMode: 'dark'
+  colorMode: 'dark',
 });
 const authStore = useAuthStore();
 
@@ -60,7 +60,7 @@ console.warn = (message, ...args) => {
     </div>
     <div v-else class="pending-error">
       <h3 class="text-xl">{{ appStore.errorOAuthText }}</h3>
-      <UButton color="white" variant="solid" @click="handleError">{{ $t('page--pending.go-back-login') }} </UButton>
+      <UButton color="white" variant="solid" @click="handleError">{{ $t('page--pending.go-back-login') }}</UButton>
     </div>
   </div>
 </template>

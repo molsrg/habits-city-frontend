@@ -1,8 +1,6 @@
-import { useTokenStore } from '@/store/token.store';
-
-export default defineNuxtRouteMiddleware(async (to, from) => {
-  const tokenStore = useTokenStore();
-  if (!tokenStore.getStatus) {
+export default defineNuxtRouteMiddleware((to, from) => {
+  const token = useCookie('access_token');
+  if (!token.value) {
     return navigateTo('/auth/login');
   }
 });

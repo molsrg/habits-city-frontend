@@ -5,7 +5,6 @@ import getGoogleURL from '@/utils/getGoogleURL';
 
 const { t } = useI18n();
 definePageMeta({
-  middleware: ['guest'],
   colorMode: 'dark',
 });
 

@@ -23,22 +23,28 @@ export const useAuthStore = defineStore('authStore', {
       }
     },
 
-    async logInWithPassword(payload: object): Promise<void> {
+    async logInWithPassword(payload: object): Promise<boolean> {
       const tokenStore = useTokenStore();
       const router = useRouter();
+      const tokenCookie = useCookie('access_token');
 
       try {
         const { data } = await authService.post(endPoints.auth.login, payload);
         if (data?.AccessToken) {
           sessionStorage.setItem('AccessToken', data.AccessToken);
           tokenStore.setToken(data.AccessToken);
+
+          // Устанавливаем токен в куки
+          tokenCookie.value = data.AccessToken;
+
           await router.push('/profile');
+          return true;
         }
-        return true;
       } catch (e) {
         return false;
       }
     },
+
     async oAuthUser(userToken: { provider: string; code: string }): Promise<void> {
       const tokenStore = useTokenStore();
       const appStore = useAppStore();
