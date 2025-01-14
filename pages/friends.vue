@@ -9,6 +9,7 @@ import { useFriendStore } from '@/store/friend.store';
 import { debounce } from '@/utils/debounce';
 
 definePageMeta({
+  middleware: ['auth'],
   colorMode: 'dark',
 });
 useHead({

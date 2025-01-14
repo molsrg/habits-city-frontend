@@ -59,11 +59,7 @@ export default defineNuxtConfig({
     preference: 'dark',
     fallback: 'dark',
   },
-  nitro: {
-    prerender: {
-      routes: ['/friends', '/profile'],
-    },
-  },
+ 
 });
 
 // useruntimeConfig
