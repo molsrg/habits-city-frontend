@@ -5,7 +5,6 @@ export const useFriendStore = defineStore('friendStore', {
   state: () => ({
     suggestedFriends: [],
     batch: 0,
-
     loadingChunk: false,
   }),
 

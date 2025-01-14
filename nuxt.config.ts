@@ -58,7 +58,12 @@ export default defineNuxtConfig({
   colorMode: {
     preference: 'dark',
     fallback: 'dark',
-  }
+  },
+  nitro: {
+    prerender: {
+      routes: ['/friends', '/profile'],
+    },
+  },
 });
 
 // useruntimeConfig
