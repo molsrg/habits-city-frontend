@@ -19,7 +19,7 @@ const { t } = useI18n();
 const userStore = useUserStore();
 const friendStore = useFriendStore();
 const apiStore = useApiStore();
-definePageMeta({ middleware: ['auth'],   colorMode: 'dark', });
+definePageMeta({ middleware: ['auth'], colorMode: 'dark' });
 const title = computed(() => `HS | ${t('nav--layout.friends')}`);
 useHead({
   title,

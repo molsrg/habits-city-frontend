@@ -4,6 +4,7 @@ import { useAppStore } from '@/store/app.store';
 import { useTokenStore } from '@/store/token.store';
 
 export const useAuthStore = defineStore('authStore', {
+  persist: true,
   actions: {
     async createUser(userData: object): Promise<void> {
       const tokenStore = useTokenStore();

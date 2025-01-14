@@ -6,7 +6,7 @@ import getGoogleURL from '@/utils/getGoogleURL';
 const { t } = useI18n();
 definePageMeta({
   middleware: ['guest'],
-  colorMode: 'dark'
+  colorMode: 'dark',
 });
 
 const title = computed(() => `HS | ${t('nav--layout.registration')}`);
@@ -26,11 +26,14 @@ const userData = reactive({
 });
 
 const hasError = ref(false);
+const loadingRes = ref(false);
 
 // Actions
 const registerUser = async () => {
+  loadingRes.value = true;
   const res = await authStore.createUser(userData);
   hasError.value = !res;
+  loadingRes.value = false;
 };
 const RegUserWithYandex = () => {
   window.location.href = config.public.clientIdYandex;
@@ -41,6 +44,7 @@ const RegUserWithGoogle = () => {
 };
 const pushToLogInPage = () => {
   const router = useRouter();
+  loadingRes.value = false;
   router.push('/auth/login');
 };
 </script>
@@ -77,6 +81,7 @@ const pushToLogInPage = () => {
         <UButton
           :disabled="!userData.password.length || !userData.username.length"
           :label="$t('page--registration.button')"
+          :loading="loadingRes"
           class="auth-btn--reg"
           color="black"
           icon="i-heroicons-user-plus-20-solid"

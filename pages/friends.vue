@@ -10,7 +10,7 @@ import { debounce } from '@/utils/debounce';
 
 definePageMeta({
   middleware: ['auth'],
-  colorMode: 'dark'
+  colorMode: 'dark',
 });
 useHead({
   title: 'HS | Friends',
@@ -97,19 +97,23 @@ onBeforeUnmount(() => {
         <SearchFilters :filters="filterConfig" @update:filter="setFilter" />
       </div>
 
-      <div class="mt-2 flex flex-wrap items-center justify-center gap-3">
-        <CardsProfile
-          v-for="user in friendStore.getSuggestedFriends"
-          :key="user.username"
-          :people-info="user"
-          @open:profile="openModalProfile"
-          @add:people="addNewPeople"
-        />
+      <div class="mt-2 flex flex-col flex-wrap items-center justify-center gap-3">
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <CardsProfile
+            v-for="user in friendStore.getSuggestedFriends"
+            :key="user.username"
+            :people-info="user"
+            @open:profile="openModalProfile"
+            @add:people="addNewPeople"
+          />
+        </div>
+
+        <LoaderApp v-if="friendStore.isLoadingChunk" />
         <div v-if="friendStore.getSuggestedFriends.length === 0">
           <h3>{{ t('page--friends.not-found') }}</h3>
         </div>
       </div>
-      <div ref="footerRef"/>
+      <div ref="footerRef" />
     </div>
 
     <div class="mt-4">

@@ -221,7 +221,8 @@
   },
   "page--pending": {
     "go-back-login": "Go back to login",
-    "wait-for-authorization": "Wait for authorization!"
+    "wait-for-authorization": "Wait for authorization!",
+    "wait-loading": "Wait loading data!"
   },
   "stepper": {
     "prev": "Back",

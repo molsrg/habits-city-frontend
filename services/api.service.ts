@@ -13,7 +13,7 @@ class ApiService {
       headers: {
         'Content-Type': 'application/json',
       },
-      timeout: 5000,
+      timeout: 8000,
     });
 
     this.client.interceptors.request.use((config: AxiosRequestConfig) => {
@@ -103,8 +103,8 @@ class ApiService {
   }
 }
 
-const authService = new ApiService('https://habsitscityapi.myftp.biz/auth-service');
-const userService = new ApiService('https://habsitscityapi.myftp.biz/user-service');
-const friendService = new ApiService('https://habsitscityapi.myftp.biz/user-service');
+const authService = new ApiService('http://localhost:5000');
+const userService = new ApiService('http://localhost:5001');
+const friendService = new ApiService('http://localhost:5001');
 
 export { authService, friendService, userService };

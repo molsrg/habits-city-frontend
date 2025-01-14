@@ -5,6 +5,8 @@ export const useFriendStore = defineStore('friendStore', {
   state: () => ({
     suggestedFriends: [],
     batch: 0,
+
+    loadingChunk: false,
   }),
 
   getters: {
@@ -13,6 +15,9 @@ export const useFriendStore = defineStore('friendStore', {
     },
     batchCount(state) {
       return state.batch;
+    },
+    isLoadingChunk(state) {
+      return state.loadingChunk;
     },
   },
   actions: {
@@ -37,9 +42,11 @@ export const useFriendStore = defineStore('friendStore', {
     },
 
     async fetchFriendsChunk(payload) {
+      this.loadingChunk = true;
       this.batch++;
       const { data } = await friendService.get(endPoints.friend.searchUsers, { ...payload, batch: this.batch });
       this.suggestedFriends.push(...data);
+      this.loadingChunk = false;
     },
 
     async fetchFriends(payload) {

@@ -1,8 +1,13 @@
 <template>
   <div>
     <NuxtLayout>
-      <NuxtPage class="container" />
+      <div v-if="isLoadingPage" class="pending">
+        <h3 class="text-xl">{{ $t('page--pending.wait-loading') }}</h3>
+        <LoaderApp />
+      </div>
+      <NuxtPage v-else class="container" />
     </NuxtLayout>
+
     <UNotifications />
 
     <UButton
@@ -15,11 +20,30 @@
     />
 
     <div style="display: none">
-      <UButton color="blue" label="Button" size="sm" style="display: none" variant="soft" />
-
-      <UButton color="indigo" label="Button" size="sm" style="display: none" variant="soft" />
-      <UButton color="emerald" label="Button" size="sm" style="display: none" variant="soft" />
-      <UButton color="cyan" label="Button" size="sm" style="display: none" variant="soft" />
+      <UButton
+        color="blue"
+        label="Button"
+        size="sm"
+        style="display: none"
+        variant="soft" />
+      <UButton
+        color="indigo"
+        label="Button"
+        size="sm"
+        style="display: none"
+        variant="soft" />
+      <UButton
+        color="emerald"
+        label="Button"
+        size="sm"
+        style="display: none"
+        variant="soft" />
+      <UButton
+        color="cyan"
+        label="Button"
+        size="sm"
+        style="display: none"
+        variant="soft" />
     </div>
 
     <TicketsModal />
@@ -27,9 +51,9 @@
 </template>
 
 <script lang="ts" setup>
+import LoaderApp from '@/components/loader/LoaderApp.vue';
 import TicketsModal from '@/components/modal/TicketsModal.vue';
 import { ModalName } from '@/constants/modalName';
-
 import { modalService } from '@/services/modal.service';
 
 useSeoMeta({
@@ -38,10 +62,12 @@ useSeoMeta({
   description: 'Website for building habits',
   ogDescription: 'Website for building habits',
 });
+
 const openTicketsModal = () => {
   modalService.open(ModalName.Tickets);
 };
 
+const isLoadingPage = useState('isLoadingPage');
 
 // onMounted(() => {
 //   if (process.client) {
@@ -52,9 +78,17 @@ const openTicketsModal = () => {
 // });
 </script>
 
-<style>
+<style scoped>
 .container {
   margin: 2vh auto 0 auto;
   max-width: 95%;
+}
+
+.pending {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 40px;
+  padding: 20px;
 }
 </style>
