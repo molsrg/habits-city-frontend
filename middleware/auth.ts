@@ -1,5 +1,5 @@
-import { useTokenStore } from '@store/token.store';
-import { useUserStore } from '@store/user.store';
+import { useTokenStore } from '@/store/token.store';
+import { useUserStore } from '@/store/user.store';
 
 export default defineNuxtRouteMiddleware(async (to) => {
   const tokenStore = useTokenStore();
